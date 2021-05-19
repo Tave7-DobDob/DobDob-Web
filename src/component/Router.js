@@ -4,18 +4,24 @@ import Login from '../routes/Login';
 import Main from '../routes/Main';
 import Mypage from '../routes/Mypage';
 import Posting from '../routes/Posting';
+import Setting from '../routes/Setting.js';
 
-const AppRouter=({isLoggedin})=>{
+const AppRouter=({isLoggedin, isSetting})=>{
     return(<Router>
         <Switch>
-            {isLoggedin?<>
-                <Route exact path="/" component={Main}/>
+            
+            
+                <Route exact path="/main" >
+                    <Main />
+                    </Route>
                 <Route exact path="/mypage" component={Mypage}/> 
                 <Route exact path="/posting" component={Posting}/>
                 
-            </>:<>
+                
+            
                 <Route exact path="/" component={Login}/>
-            </>}
+                <Route exact path="/setting" component={Setting}/>
+            
         </Switch>
     </Router>)
 }
