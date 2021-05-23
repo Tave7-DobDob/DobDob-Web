@@ -10,7 +10,7 @@ function App() {
   })
   return (<>
     <AppRouter isLoggedin={isLoggedin} isSetting={isSetting}/>
-    <footer><hr/><span>dobdob 2021 footer</span></footer></>
+    <footer><span>dobdob 2021 footer</span></footer></>
   );
 }
 

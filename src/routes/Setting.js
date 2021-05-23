@@ -1,105 +1,119 @@
 import REACT, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Select from 'react-select';
-const Setting=()=>{
-    const [selectLoca, setSelectLoca]=useState({
-        Si:"",
-        Gu:"",
-        Dong:""
-    });
-    const [nickname, setNickname]=useState("");
-    const [errorMess, setErrorMess]=useState("");
-    const [checkError, setCheckError]=useState("");
-    const [checkNick, setCheckNick]=useState(false);
-    //지역 목록
-    const optionSi=[{value:"서울시", label:"서울시"},{value:"부산광역시", label:"부산광역시"}]
-    const optionGu={서울시:[{value:"강남구", label:"강남구"},{value:"강남구", label:"강남구"}],
-    부산광역시:[{value:"부산광역시", label:"부산광역시"}]}
-    const optionDong={강남구:[{value:"서울시", label:"서울시"}],동작구:[{value:"부산광역시", label:"부산광역시"}]}
-    const history=useHistory();
-    const styles = {
-        option: (provided, state) => ({
-          ...provided,
-          width:100,
-          fontSize: "small",
-        }),
-        dropdownIndicator:(provided)=>({
-            ...provided,
-            width:30,
-        }),
-        control: (provided) => ({
-            ...provided,
-            width: 80,
-            height:0,
-            borderRadius:0
-        }),
-          menu: (provided) => ({
-          ...provided,
-          width:100,
-        })
-      };
-    const onSelected=(value, name)=>{
-        console.log(name)
-        setSelectLoca(selectSi=>({...selectSi, [name]:value}));
-    }
-    const onSubmit=(event)=>{
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import DaumPostCode from 'react-daum-postcode';
+import PopupDom from '../component/PopupDom';
+import Modal from '../component/Modal';
+import axios from 'axios';
+const Setting = () => {
+    const [nickname, setNickname] = useState("");
+    const [errorMess, setErrorMess] = useState("");
+    const [checkError, setCheckError] = useState("");
+    const [checkNick, setCheckNick] = useState(false);
+    const history = useHistory();
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [address, setAddress] = useState("");
+    const [addressObj, setAddressObj] = useState(null);
+
+    const onSubmit = (event) => {
         event.preventDefault();
         //설정값 post
-        try{
-            if(!checkNick)throw new Error('중복확인을 해주세요.');
-            if(selectLoca.Si==""||selectLoca.gu==""||selectLoca.Dong=="")   throw new Error('동네를 설정해주세요.');
-            
+        try {
+            if (!checkNick) throw new Error('중복확인을 해주세요.');
+            if (!addressObj) throw new Error('동네를 설정해주세요.');
+
             history.push("/main");
-        }catch(error){
-            if(!checkNick)setCheckError(error.message);
+        } catch (error) {
+            if (!checkNick) setCheckError(error.message);
             else setErrorMess(error.message);
             console.log(error.message)
         }
     }
-    const onChange=(event)=>{
-        const {target:{value}}=event;
+    const onChange = (event) => {
+        const { target: { value } } = event;
         setNickname(value);
     }
-    const onCheck=()=>{
+    const onCheck = () => {
         //중복확인
         setCheckNick(true);
         setCheckError("");
     }
-    return (<><div className="Container setting">
-    
-    <header><img src="logo2.png" width="80px"/></header>
-    <div className="setting-wrapper">
-        <div className="text-wrapper">
-            <h1>돕돕 에서 사용할 <br/> 닉네임과 나의 동네를 설정하여 <br/>지금 이웃들을 만나보세요 !</h1>
-            <p>닉네임과 나의 동네는 추후에도 변경이 가능합니다.</p>
-            <img src="setting.png" width="100%"/>
-        </div>
-        <div className="centerContainer form-wrapper-wrapper">
-        <div className="centerContainer form-wrapper">
-            <form onSubmit={onSubmit}>
-            <span>닉네임</span>
-            <div className="nickname-wrapper">
-            <input type="text" required value={nickname} onChange={onChange} placeholder="중복 불가"/>
-            <button onClick={onCheck}>중복확인</button>
-            
-            <span id="error">{checkError}</span>
+    const onPostClick = () => {
+        setIsOpenModal(prev => !prev);
+    }
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = '';
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+            }
+            fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+        setAddress(fullAddress);
+        setIsOpenModal(false);
+        axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${fullAddress}`, {
+            headers: { Authorization: 'KakaoAK 14524cc95ffb83fa772e7ebe7d3d7059' },
+        })
+            .then(res => {
+                setAddressObj(res.data.documents[0]);
+            })
+    }
+    return (<>
+        <div className="Container setting">
+            <header><img src="logo2.png" width="80px" /></header>
+
+            <div className="setting-wrapper">
+                <div className="text-wrapper">
+                    <h1>돕돕에서 사용할 <br /> 닉네임과 나의 동네를 설정하여 <br />지금 이웃들을 만나보세요 !</h1>
+                    <p>닉네임과 나의 동네는 추후에도 변경이 가능합니다.</p>
+                    <img src="setting.png" width="100%" />
+                </div>
+                <div className="centerContainer form-wrapper-wrapper">
+                    <div className="centerContainer form-wrapper">
+                        <form onSubmit={onSubmit} className="centerContainer">
+                            <div className="sub-wrapper">
+                                <span style={{fontWeight:600}}>닉네임</span>
+                                <div className="nickname-wrapper">
+                                    <input type="text" required value={nickname} onChange={onChange} placeholder="중복 불가" />
+                                    <span onClick={onCheck} id="check-btn">중복확인</span>
+                                </div>
+                                <span id="error">{checkError}</span>
+                            </div>
+
+                            <div className="sub-wrapper">
+                                <span style={{fontWeight:600}}>내 동네 설정 <FontAwesomeIcon icon={faMapMarkerAlt} /></span>
+                                {isOpenModal && <div className="address-modal-bg">
+                                    <div className="address-modal">
+                                        
+                                    <span onClick={onPostClick}><FontAwesomeIcon icon={faTimes}  /> 창닫기</span>
+                                    <div><DaumPostCode onComplete={handleComplete} className="post-code" /></div>
+                                </div>
+                                    </div>}
+                                <span onClick={onPostClick} id="address-search-btn">주소 검색</span>
+                                <div className="address-detail">
+                                    <span>{addressObj ? addressObj.address.region_1depth_name : "시/도"}</span>
+                                    <span>{addressObj ? addressObj.address.region_2depth_name : "구/군"}</span>
+                                    <span>{addressObj ? addressObj.address.region_3depth_name : "동/읍"}</span>
+                                </div>
+                                <span id="address">{address}</span>
+
+                                <span id="error">{errorMess}</span>
+                            </div>
+
+                            <input type="submit" value="완료" />
+                        </form>
+
+                    </div>
+                </div>
+
             </div>
-            <span>내 동네 설정</span>
-            <div className="select-wrapper">
-            <Select id="select" styles={styles} placeholder="시/도" options={optionSi} name="Si"  onChange={(value, name)=>onSelected(value.value, name.name)}></Select>
-            <Select id="select" styles={styles} placeholder="구/군" options={optionGu[selectLoca.Si]} name="Gu" onChange={(value, name)=>onSelected(value.value, name.name)}></Select>
-            <Select id="select" styles={styles} placeholder="동/읍" options={optionDong[selectLoca.Gu]}name="Dong" onChange={(value, name)=>onSelected(value.value, name.name)} ></Select>
-            
-            </div>
-            <span id="error">{errorMess}</span>
-               <input type="submit" value="완료"/>
-            </form>
-           
-        </div>
-        </div>
-        
-    </div>
-</div></>)
+        </div></>)
 }
 
-export default Setting ;
+export default Setting;

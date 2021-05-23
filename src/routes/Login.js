@@ -11,6 +11,7 @@ const Login = () => {
             container: '#kakao-login-btn',
             success: function (authObj) {
                 history.push("/setting")
+                console.log(JSON.stringify(authObj));
                 alert(JSON.stringify(authObj));
             },
             fail: function (err) {
