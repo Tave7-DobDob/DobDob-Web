@@ -7,6 +7,7 @@ import DaumPostCode from 'react-daum-postcode';
 import PopupDom from '../component/PopupDom';
 import Modal from '../component/Modal';
 import axios from 'axios';
+import DaumPost from '../component/DaumPost';
 const Setting = () => {
     const [nickname, setNickname] = useState("");
     const [errorMess, setErrorMess] = useState("");
@@ -88,13 +89,7 @@ const Setting = () => {
 
                             <div className="sub-wrapper">
                                 <span style={{fontWeight:600}}>내 동네 설정 <FontAwesomeIcon icon={faMapMarkerAlt} /></span>
-                                {isOpenModal && <div className="address-modal-bg">
-                                    <div className="address-modal">
-                                        
-                                    <span onClick={onPostClick}><FontAwesomeIcon icon={faTimes}  /> 창닫기</span>
-                                    <div><DaumPostCode onComplete={handleComplete} className="post-code" /></div>
-                                </div>
-                                    </div>}
+                                {isOpenModal && <DaumPost setAddress={setAddress} setAddressObj={setAddressObj}/>}
                                 <span onClick={onPostClick} id="address-search-btn">주소 검색</span>
                                 <div className="address-detail">
                                     <span>{addressObj ? addressObj.address.region_1depth_name : "시/도"}</span>

@@ -198,6 +198,7 @@ header img{
     font-size: x-small;
     background-color: rgba(255, 255, 255, 0.671);
     padding: 5px;
+    margin-bottom: 10px;
     border-radius: 10px;
     text-align: center;
     font-weight: 500;
@@ -220,6 +221,7 @@ header img{
     font-size: x-small;
     border-radius: 20px;
     text-align: center;
+    cursor: pointer;
 }
 #address{
     font-size: x-small;
@@ -252,7 +254,7 @@ footer{
 }
 /*메인*/
 
-.main header{
+.main header, .post header{
     display: flex;
     padding: 10px 0;
     align-items: center;
@@ -351,7 +353,7 @@ footer{
 .post-profile-wrapper{
     display: flex;
 }
-.post-profile-wrapper .sub-profile-wrapper{
+.sub-profile-wrapper{
     display: flex;
     flex-direction: column;
     width: 70%;
@@ -373,7 +375,6 @@ footer{
     padding-right: 0;
     padding-left: 60px;
     background: linear-gradient(90deg,rgba(255, 255, 255, 0), #fdfdfa);
-    color: rgba(255, 255, 255, 0);
     }
 .tag-wrapper{
     color: rgb(27, 115, 216);
@@ -388,17 +389,23 @@ footer{
     width: 70px;
     margin: 10px 0;
     cursor: pointer;
+    margin-left: 10px;
 }
 .heart-comment-wrapper{
     font-size: xx-small;
     margin-top: 20px;
+}
+.heart-comment-wrapper #icon{
+    font-size: large;
+    color: rgb(197, 197, 197);
+    margin-left: 10px;
 }
 .post-container #icon{
     font-size: large;
     color: rgb(197, 197, 197);
     margin-left: 10px;
 }
-.post-container hr{
+hr{
     border: none;
     border-top: thin solid rgba(0, 0, 0, 0.089);
     width: 100%;
@@ -478,4 +485,270 @@ footer{
     width: 300px;
     margin-top: 20px;
     border: thin solid #FFE799;
+}
+/*포스트*/
+.post header{
+    display: flex;
+}
+.post header .profile-wrapper{
+    margin-left: 80%;
+}
+.post .main-content{
+    margin-top: 100px;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+}
+.post .main-content .post-container{
+    width: 50%;
+}
+.slider-wrapper{
+    width: 100%;
+}
+.img-wrapper{
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+.slider-container{
+    display: flex;
+    flex-direction: row;
+    width: 100vh;
+    margin: 20px 0;
+    padding: 0;
+    justify-content: center;
+}
+.slider-container img{
+    width: 100vh;
+}
+.slider-container #count{
+    background-color: rgba(255, 255, 255, 0);
+    color: rgba(0, 0, 0, 0);
+    padding: 5px 10px;
+    border-radius: 20px;
+    transform: translate(0, -50px);
+}
+.slider-container button{
+    all: unset;
+    color: rgba(128, 128, 128, 0);
+    padding : 0 10px;
+    z-index: 999;
+    cursor: pointer;
+}
+.slider-container #left{
+    transform: translate(30px);
+}
+.slider-container #right{
+    transform: translate(-30px);
+}
+.slider-container:hover #left{
+    color: gray;
+}
+.slider-container:hover #right{
+    color: gray;
+}
+.slider-container:hover #count{
+    background-color: rgba(255, 255, 255, 0.453);
+    color: black;
+}
+.comment-container{
+    position: fixed;
+    width: 30%;
+    right: 5%;
+    padding: 30px;
+    border: thin solid rgba(0, 0, 0, 0.089);
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
+    display: flex;
+    flex-direction: column;
+}
+.comment-container input[type=text]{
+    all: unset;
+    border: thin solid rgba(0, 0, 0, 0.089) ;
+    padding: 5px 20px;
+    width: 80%;
+    border-radius: 20px;
+    margin: 20px 0;
+}
+.comment-container input[type=submit]{
+    all: unset;
+    font-family: "FontAwesome";
+    margin-left: 10px;
+    color: #ffc600;
+    cursor: pointer;
+}
+.comment-container .nothing-wrapper{
+    color: #c4c4c4;
+}
+/*comment*/
+.comment{
+    border-top: thin solid rgba(0, 0, 0, 0.089);
+    padding: 10px;
+    padding-top: 20px;
+}
+.comment #date{
+    font-size: x-small;
+    margin-left: 10px;
+}
+.comment p{
+    font-size: small;
+}
+.comment #mention{
+    
+    color: rgb(27, 115, 216);
+}
+/*posting*/
+.posting .main-content{
+    margin-top: 100px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.posting .posting-container{
+    width: 60%;
+}
+.posting form input[type=text]{
+    all: unset;
+    font-size: x-large;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.posting #text-box{
+    all: unset;
+    width: 100%;
+    overflow:hidden;
+    resize: none;
+    padding: 10px 0;
+    padding-left: 20px;  
+    line-height: 2;
+    height: 500px;
+}
+.posting .menu-wrapper{
+    display: flex;
+    width: 100%;
+    border-bottom: thin solid rgba(0, 0, 0, 0.089);
+    padding: 20px;
+    padding-top: 0;
+    color: #686868;
+    font-size: large;
+    margin-bottom: 20px;
+}
+
+.menu-wrapper label{
+    cursor: pointer;
+    margin-left: 30px;
+    align-items: center;
+    display: flex;
+}
+.menu-wrapper label span{
+    font-size: small;
+    margin-left: 5px;
+}
+.menu-wrapper .location {
+    font-size: medium;
+    cursor: pointer;
+}
+.location:hover{
+    color: #ffc600;
+}
+.posting .posting-wrapper{
+    width: 100%;
+}
+.posting .attachment-wrapper{
+    display: flex;
+}
+.posting form img{
+    margin: 10px;
+    border: thin solid #d3d3d3;
+    height: 100%;
+}
+.posting form{
+    height: 60vh;
+}
+.posting #img-count{
+    background-color: #eeeeee;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: x-small;
+    margin: 10px;
+    color: #444;
+}
+.posting #submit-btn{
+    all: unset;
+    position: fixed;
+    background-color: #ffc600;
+    padding: 10px 30px;
+    border-radius: 20px;
+    color: white;
+    font-size: large;
+    right: 0;
+    bottom: 0;
+    margin: 40px;
+    cursor: pointer;
+}
+.posting .tag-wrapper{
+    margin-left: 20px;
+    margin-top: 50px;
+}
+.posting .tag-wrapper input[type=text]{
+    all: unset;
+    margin-left: 5px;
+}
+.posting .tag-wrapper .tag-box{
+    display: inline-flex;
+    align-items: center;
+    border:thin solid #d8d8d8;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: small;
+    margin-right: 10px;
+}
+.tag-box span{
+    display: inline-flex;
+    align-items: center;
+}
+.tag-box #del-btn{
+    padding-left: 5px;
+    cursor: pointer;
+    font-size: x-small;
+}
+/*myPage*/
+.myPage .wrapper{
+    width: 100%;
+}
+.myPage .main-content{
+    margin-top: 100px;
+    width: 50%;
+    background-color: #ffffff;
+}
+.myPage .my-profile-wrapper{
+    display:flex;
+    width: 80%;
+    padding: 30px;
+}
+.my-profile-wrapper .profile-img{
+    width: 150px;
+    height: 150px;
+    margin-left: 50px;
+    border: thin solid rgb(170, 170, 170);
+}
+.my-profile-wrapper .profile-img:hover{
+
+    border: thin solid rgb(170, 170, 170);
+}
+.my-profile-wrapper .sub-profile-wrapper{
+    font-size: large;
+    width: 40%;
+}
+.my-profile-wrapper .sub-profile-wrapper span{
+    font-size: x-large;
+    margin: 20px 50px;
+}
+.my-profile-wrapper .sub-profile-wrapper #profile-location{
+    font-size: large;
+}
+.myPage .my-post-container{
+    width: 80%;
 }

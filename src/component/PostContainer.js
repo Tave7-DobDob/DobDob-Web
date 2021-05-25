@@ -1,8 +1,15 @@
 import REACT from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faHeart, faComment} from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from 'react-router';
 const PostContainer=({postObj})=>{
+    const history=useHistory();
     const subContent=postObj.content.substr(0,20);
+    const onDetailClick=()=>{
+        
+        window.localStorage.setItem("postObj", JSON.stringify(postObj));
+        history.push("/post");
+    }
     
     return(<div className="post-container">
         <div className="post-profile-wrapper">
@@ -19,11 +26,11 @@ const PostContainer=({postObj})=>{
             <div className="sub-wrapper">
                 <div>
             {subContent.split("\n").filter((it, index)=>index<2).map((line)=><span><br/>{line}</span>)}
-            <button> ...</button>
+            <button> ...
+        <span id="more-span" onClick={onDetailClick}>자세히 보기</span></button>
             </div>
                     </div>
            </div>
-        <span id="more-span">자세히 보기</span>
         <div className="heart-comment-wrapper"><FontAwesomeIcon id="icon" icon={faHeart}/> {postObj.heart}  <FontAwesomeIcon id="icon" icon={faComment}/>  {postObj.comment}</div>
         <hr/>
         <div className="tag-wrapper">{postObj.tag.map(it=><span>#{it} </span>)}</div>
