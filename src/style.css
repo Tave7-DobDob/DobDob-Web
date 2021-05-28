@@ -158,7 +158,7 @@ header img{
     width: 120px;
     margin-right: 30px;
 }
-.form-wrapper #check-btn{
+.form-wrapper #check-btn, .my-profile-edit-wrapper #check-btn{
     border: thin solid #ffc600;
     background-color: #ffe7999a;
     color: rgb(128, 128, 128);
@@ -725,8 +725,14 @@ hr{
 }
 .myPage .my-profile-wrapper{
     display:flex;
+    flex-direction: row;
+    justify-content: center;
     width: 80%;
     padding: 30px;
+    margin-bottom: 50px;
+}
+.my-profile-wrapper .profile-img-wrapper{
+    width: 40%;
 }
 .my-profile-wrapper .profile-img{
     width: 150px;
@@ -741,14 +747,85 @@ hr{
 .my-profile-wrapper .sub-profile-wrapper{
     font-size: large;
     width: 40%;
+    padding-left: 50px;
 }
 .my-profile-wrapper .sub-profile-wrapper span{
+    margin: 20px 0px;
+}
+.my-profile-wrapper .sub-profile-wrapper #nickName{
+
     font-size: x-large;
-    margin: 20px 50px;
 }
 .my-profile-wrapper .sub-profile-wrapper #profile-location{
     font-size: large;
 }
 .myPage .my-post-container{
     width: 80%;
+}
+.myPage .edit-btn-wrapper{
+    transform: translate(150px,-150px);
+}
+.myPage .edit-btn{
+    font-size: x-small;
+    padding:  5px 10px;
+    border: thin solid #a3a3a3;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.myPage .edit-btn:hover{
+    color: #ffc600;
+}
+.my-profile-edit-wrapper form{
+    width: 100%;
+}
+.my-profile-edit-wrapper .my-profile-edit-wrapper2{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.my-profile-edit-wrapper .profile-img{
+    margin: 0;
+}
+.my-profile-wrapper .profile-img{
+    margin: 20px;
+}
+.my-profile-edit-wrapper .profile-img-wrapper{
+    width: 40%;
+}
+.my-profile-edit-wrapper input[type=submit],button{
+    all: unset; 
+    cursor: pointer;
+}
+.my-profile-edit-wrapper #edit-profile-img-btn{
+    font-size: small;
+    margin-top: 20px;
+    color: rgb(0, 194, 194);
+    cursor: pointer;
+}
+.myPage .my-profile-edit-wrapper .address-form-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+.my-profile-edit-wrapper .address-detail span{
+    font-size: small;
+    margin-right: 5px;
+}
+.my-profile-edit-wrapper .sub-profile-wrapper{
+    width: 60%;
+    padding-top: 50px;
+}
+.my-profile-edit-wrapper .sub-profile-wrapper input[type=text]{
+    padding: 5px 10px;
+    border: thin solid #d8d8d8;
+    border-radius: 0;
+    width: 120px;
+    margin-right: 10px;
+}
+.my-profile-edit-wrapper input[type=submit]{
+    padding: 5px 20px;
+    border: thin solid #a3a3a3;
+    border-radius: 20px;
+    margin-top: 50px;
+    font-size: small;
 }

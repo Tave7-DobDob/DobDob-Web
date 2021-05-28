@@ -22,7 +22,7 @@ const MyPostContainer = ({ postObj }) => {
         <hr />
         <div className="content-wrapper">
             <h3  onClick={onDetailClick}>{postObj.title}</h3>
-
+            <span id="more-span" onClick={onDetailClick}>자세히 보기</span>
         </div>
         <div className="heart-comment-wrapper"><FontAwesomeIcon id="icon" icon={faHeart} /> {postObj.heart}  <FontAwesomeIcon id="icon" icon={faComment} />  {postObj.comment}</div>
         <hr />

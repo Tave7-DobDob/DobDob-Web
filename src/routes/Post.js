@@ -54,16 +54,6 @@ const Post = () => {
                 <div className="profile-wrapper">
                     <div onClick={onClickMyPage} className="profile-img"><img src="logo.png" /></div>
                     <span>닉네임</span>
-
-                    <Modal setIsOpenModal={setIsOpenModal}>
-
-                        <FontAwesomeIcon id="down-icon" icon={faCaretDown} data-toggle="tooltip" title="프로필 보기" onClick={onClickModal} />
-                        {isOpenMoal && <div className="profile-modal">
-                            <div>프로필</div>
-
-                        </div>}
-                    </Modal>
-
                 </div>
             </header>
             <div className="main-content">

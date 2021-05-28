@@ -44,27 +44,7 @@ const Setting = () => {
     const onPostClick = () => {
         setIsOpenModal(prev => !prev);
     }
-    const handleComplete = (data) => {
-        let fullAddress = data.address;
-        let extraAddress = '';
-        if (data.addressType === 'R') {
-            if (data.bname !== '') {
-                extraAddress += data.bname;
-            }
-            if (data.buildingName !== '') {
-                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-            }
-            fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-        }
-        setAddress(fullAddress);
-        setIsOpenModal(false);
-        axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${fullAddress}`, {
-            headers: { Authorization: 'KakaoAK 14524cc95ffb83fa772e7ebe7d3d7059' },
-        })
-            .then(res => {
-                setAddressObj(res.data.documents[0]);
-            })
-    }
+    
     return (<>
         <div className="Container setting">
             <header><img src="logo2.png" width="80px" /></header>
