@@ -180,6 +180,7 @@ header img{
     background-color: #4949495d;
     top: 0;
     left: 0;
+    z-index: 99;
 }
 .address-modal{
     position: fixed;
@@ -252,8 +253,7 @@ footer{
     padding-top: 50px;
     margin-top: 50px;
 }
-/*메인*/
-
+/*Main*/
 .main header, .post header{
     display: flex;
     padding: 10px 0;
@@ -269,10 +269,10 @@ footer{
     padding: 5px 20px;
 }
 .profile-wrapper{
+    position: absolute;
+    right: 50px;
     display: flex;
     align-items: center;
-    margin-left: 30%;
-    min-width: 200px;
 }
 .main .article-wrapper{
     padding-top: 100px;
@@ -280,26 +280,13 @@ footer{
     width: 100%;
     flex-direction: row;
 }
-.sub-menu{
-    width: 250px;
-}
 .post-wrapper{
     height: 100%;
     width:60%;
 }
 .profile-wrapper span{
-    margin: 0px 5px;
-    font-size: small;
-}
-.profile-wrapper #down-icon{
-    color: #FFE799;
-    margin-left: 10px;
-    background-color: rgba(255, 255, 255, 0.815);
-    width: 20px;
-    height: 20px;
-    padding: 5px ;
-    border-radius: 30px;
-    cursor: pointer;
+    margin: 0px 10px;
+    font-size: medium;
 }
 #plus-icon{
     position: fixed;
@@ -314,7 +301,7 @@ footer{
     bottom: 0;
     margin: 40px;
 }
-.profile-wrapper #down-icon:hover, #plus-icon:hover{
+.profile-wrapper #plus-icon:hover{
     color: #ffc600;
 }
 .profile-img img{
@@ -329,10 +316,15 @@ footer{
     border-radius: 70%;
     border: solid rgb(170, 170, 170);
     overflow: hidden;
+    cursor: pointer;
 }
 .profile-img:hover{
+    border: solid #ffc600;
+}
+header .profile-img:hover{
     border: solid white;
 }
+/*PostContainer*/
 .post-container{
     width: 90%;
     padding: 50px;
@@ -368,6 +360,12 @@ footer{
     font-size: x-small;
     margin-top: 5px;
 }
+.post-container .sub-wrapper{
+    cursor: pointer;
+}
+.post-container h2{
+    cursor: pointer;
+}
 .sub-wrapper button{
     border: none;
     margin-left: -50px;
@@ -377,7 +375,7 @@ footer{
     background: linear-gradient(90deg,rgba(255, 255, 255, 0), #fdfdfa);
     }
 .tag-wrapper{
-    color: rgb(27, 115, 216);
+    color: #1b73d8;
     margin-top: 10px;
 }
 #more-span{
@@ -397,8 +395,9 @@ footer{
 }
 .heart-comment-wrapper #icon{
     font-size: large;
-    color: rgb(197, 197, 197);
+    color: #c5c5c5;
     margin-left: 10px;
+    cursor: pointer;
 }
 .post-container #icon{
     font-size: large;
@@ -420,7 +419,6 @@ hr{
     flex-direction: column;
     width: 150px;
     padding: 5px 10px;
-    margin: 20px;
     border-radius: 10px;
     border: solid #ffe7999c;
     font-weight: 600;
@@ -428,6 +426,8 @@ hr{
     line-height: 1.5;
     box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
     position: fixed;
+    left: 30px;
+    top: 100px;
 }
 .location-wrapper span{
     margin: 10px 20px;
@@ -462,7 +462,7 @@ hr{
     margin-left: 20%;
 }
 @media screen and (max-width: 800px){
-    .main .profile-wrapper .profile-img, .main .profile-wrapper span, #date,.sub-menu{
+    .main .profile-wrapper .profile-img, .main .profile-wrapper span, #date,.location-wrapper{
         display: none;
     }
     .main .article-wrapper{
@@ -486,7 +486,7 @@ hr{
     margin-top: 20px;
     border: thin solid #FFE799;
 }
-/*포스트*/
+/*Post*/
 .post header{
     display: flex;
 }
@@ -499,8 +499,20 @@ hr{
     display: flex;
     flex-direction: row;
 }
-.post .main-content .post-container{
+.post .main-content .post-container,.edit-post-container{
     width: 50%;
+}
+.post .post-container .sub-wrapper{
+    margin-top: 20px;
+}
+.post #edit-btn{
+    margin-left: 100px;
+    margin-bottom: 20px;
+    font-size: small;
+    color: #c4c4c4;
+}
+.post #edit-btn:hover{
+    color: #ffc600;
 }
 .slider-wrapper{
     width: 100%;
@@ -532,7 +544,6 @@ hr{
     all: unset;
     color: rgba(128, 128, 128, 0);
     padding : 0 10px;
-    z-index: 999;
     cursor: pointer;
 }
 .slider-container #left{
@@ -564,13 +575,27 @@ hr{
     display: flex;
     flex-direction: column;
 }
-.comment-container input[type=text]{
+.comment-container #comment-field{
     all: unset;
     border: thin solid rgba(0, 0, 0, 0.089) ;
     padding: 5px 20px;
-    width: 80%;
+    padding-right: 25px;
+    width: 85%;
     border-radius: 20px;
     margin: 20px 0;
+    z-index: 99;
+    color: rgba(0, 0, 0, 0);
+}
+.comment-container #comment-field:focus{
+    color: black;
+	-webkit-text-fill-color: transparent;
+}
+.comment-container form .comment-highlight{
+    position: absolute;
+    transform: translate(21px, 0);
+    top: 94px;
+    width: 320px;
+    z-index: -10;
 }
 .comment-container input[type=submit]{
     all: unset;
@@ -578,6 +603,8 @@ hr{
     margin-left: 10px;
     color: #ffc600;
     cursor: pointer;
+    position: absolute;
+    transform: translate(-33px, 27px);
 }
 .comment-container .nothing-wrapper{
     color: #c4c4c4;
@@ -592,12 +619,22 @@ hr{
     font-size: x-small;
     margin-left: 10px;
 }
-.comment p{
+.comment .comment-highlight{
     font-size: small;
+    padding: 10px 0;
 }
 .comment #mention{
     
     color: rgb(27, 115, 216);
+}
+.comment #del-btn{
+    font-size: x-small;
+    margin-left: 40px;
+    margin-bottom: 20px;
+    color: #a3a3a3;
+}
+.comment #del-btn:hover{
+    color:#ff7f50;
 }
 /*posting*/
 .posting .main-content{
@@ -608,13 +645,14 @@ hr{
 .posting .posting-container{
     width: 60%;
 }
-.posting form input[type=text]{
+.posting form input[type=text],.edit-post-container form input[type=text]{
     all: unset;
     font-size: x-large;
     padding-top: 20px;
     padding-left: 20px;
+    width: 100%;
 }
-.posting #text-box{
+.posting #text-box,.edit-post-container #text-box{
     all: unset;
     width: 100%;
     overflow:hidden;
@@ -674,7 +712,7 @@ hr{
     margin: 10px;
     color: #444;
 }
-.posting #submit-btn{
+.posting #submit-btn, .edit-post-container #submit-btn{
     all: unset;
     position: fixed;
     background-color: #ffc600;
@@ -687,15 +725,15 @@ hr{
     margin: 40px;
     cursor: pointer;
 }
-.posting .tag-wrapper{
+.posting-tag-wrapper{
     margin-left: 20px;
     margin-top: 50px;
 }
-.posting .tag-wrapper input[type=text]{
+.posting-tag-wrapper input[type=text]{
     all: unset;
     margin-left: 5px;
 }
-.posting .tag-wrapper .tag-box{
+.posting-tag-wrapper .tag-box{
     display: inline-flex;
     align-items: center;
     border:thin solid #d8d8d8;

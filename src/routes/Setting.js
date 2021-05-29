@@ -16,14 +16,14 @@ const Setting = () => {
     const history = useHistory();
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [address, setAddress] = useState("");
-    const [addressObj, setAddressObj] = useState(null);
+    const [locationObj, setLocationObj] = useState(null);
 
     const onSubmit = (event) => {
         event.preventDefault();
         //설정값 post
         try {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
-            if (!addressObj) throw new Error('동네를 설정해주세요.');
+            if (!locationObj) throw new Error('동네를 설정해주세요.');
 
             history.push("/main");
         } catch (error) {
@@ -69,12 +69,12 @@ const Setting = () => {
 
                             <div className="sub-wrapper">
                                 <span style={{fontWeight:600}}>내 동네 설정 <FontAwesomeIcon icon={faMapMarkerAlt} /></span>
-                                {isOpenModal && <DaumPost setAddress={setAddress} setAddressObj={setAddressObj}/>}
+                                {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj}/>}
                                 <span onClick={onPostClick} id="address-search-btn">주소 검색</span>
                                 <div className="address-detail">
-                                    <span>{addressObj ? addressObj.address.region_1depth_name : "시/도"}</span>
-                                    <span>{addressObj ? addressObj.address.region_2depth_name : "구/군"}</span>
-                                    <span>{addressObj ? addressObj.address.region_3depth_name : "동/읍"}</span>
+                                    <span>{locationObj ? locationObj.si : "시/도"}</span>
+                                    <span>{locationObj ? locationObj.gu : "구/군"}</span>
+                                    <span>{locationObj ? locationObj.dong : "동/읍"}</span>
                                 </div>
                                 <span id="address">{address}</span>
 

@@ -4,7 +4,7 @@ import DaumPostCode from 'react-daum-postcode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-const DaumPost = ({ setAddress, setAddressObj }) => {
+const DaumPost = ({ setAddress, setLocationObj }) => {
 
     const [isOpenModal, setIsOpenModal] = useState(true);
     const onPostClick = () => {
@@ -28,7 +28,14 @@ const DaumPost = ({ setAddress, setAddressObj }) => {
             headers: { Authorization: 'KakaoAK 14524cc95ffb83fa772e7ebe7d3d7059' },
         })
             .then(res => {
-                setAddressObj(res.data.documents[0]);
+                const location =res.data.documents[0];
+                setLocationObj({
+                    si:location.address.region_1depth_name,
+                    gu:location.address.region_2depth_name,
+                    dong:location.address.region_3depth_name,
+                    locationX:location.address.x,
+                    locationY:location.address.y,
+                })
             })
     }
     return (<>
