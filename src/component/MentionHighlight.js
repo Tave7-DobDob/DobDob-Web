@@ -1,7 +1,7 @@
 import REACT from 'react';
 
 import reactStringReplace from 'react-string-replace';
-const MentionHighlight=({content})=>{
+const MentionHighlight = ({ content }) => {
     return (
         <div className="comment-highlight">
             {content.split('\n').map(line =>

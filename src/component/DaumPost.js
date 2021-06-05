@@ -25,16 +25,17 @@ const DaumPost = ({ setAddress, setLocationObj }) => {
         setAddress(fullAddress);
         setIsOpenModal(false);
         axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${fullAddress}`, {
-            headers: { Authorization: 'KakaoAK 14524cc95ffb83fa772e7ebe7d3d7059' },
+            headers: { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}` },
         })
             .then(res => {
-                const location =res.data.documents[0];
+                const location = res.data.documents[0];
                 setLocationObj({
-                    si:location.address.region_1depth_name,
-                    gu:location.address.region_2depth_name,
-                    dong:location.address.region_3depth_name,
-                    locationX:location.address.x,
-                    locationY:location.address.y,
+                    si: location.address.region_1depth_name,
+                    gu: location.address.region_2depth_name,
+                    dong: location.address.region_3depth_name,
+                    locationX: location.address.x,
+                    locationY: location.address.y,
+                    fullAddress:fullAddress
                 })
             })
     }

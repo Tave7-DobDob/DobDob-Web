@@ -1,11 +1,10 @@
 import REACT, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import Slider from '../component/Slider';
-import moment from 'moment';
+import Slider from './Slider';
 import TextareaAutosize from 'react-textarea-autosize';
 import DaumPost from './DaumPost';
-const EditPostContainer = ({ postObj, location, user}) => {
+const EditPostContainer = ({ postObj, location }) => {
     const [newPostObj, setNewPostObj] = useState(postObj);
     const [tagArr, setTagArr] = useState(postObj.tag);//태그 arr
     const [tag, setTag] = useState("");//태그필드값
@@ -49,7 +48,6 @@ const EditPostContainer = ({ postObj, location, user}) => {
     return (<>
 
         <div className="centerContainer main-content">
-
             {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
             <div className="post-container edit-post-container">
                 <div className="menu-wrapper">
@@ -73,14 +71,9 @@ const EditPostContainer = ({ postObj, location, user}) => {
                     {tagArr.map((tag, index) => <div class="centerContainer tag-box"><span>{tag}<span id="del-btn" onClick={() => onClickDelTag(index)}>X</span></span>
                     </div>)}
                 </div>
-
                 <hr />
             </div>
-
         </div>
-
-
-
     </>)
 }
 export default EditPostContainer;

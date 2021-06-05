@@ -5,7 +5,8 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faImages } from "@fortawesome/free-regular-svg-icons";
 import TextareaAutosize from 'react-textarea-autosize';
 import DaumPost from '../component/DaumPost';
-const Posting = () => {
+import axios from 'axios';
+const Posting = ({userObj}) => {
     const history = useHistory();
     const [attachments, setAttachments] = useState(null);
     const [tag, setTag] = useState("");//태그필드값
@@ -16,7 +17,7 @@ const Posting = () => {
     const [tagArr, setTagArr] = useState([]);//태그 arr
     const [isOpenModal, setIsOpenModal] = useState(false);//for 주소검색 component
     const [address, setAddress] = useState("");//for 주소검색 component
-    const [locationObj, setLocationObj] = useState(null);//for 주소검색 component
+    const [locationObj, setLocationObj] = useState(userObj.locationId);//for 주소검색 component
 
     useEffect(() => {
         //db comment 받아오기
@@ -24,7 +25,7 @@ const Posting = () => {
 
     }, []);
     const onClickLogo = () => {
-        history.push("/main");//메인페이지 이동
+        history.push("/");//메인페이지 이동
     }
     const onChange = (event) => {
         const { target: { value, name } } = event;
@@ -75,14 +76,14 @@ const Posting = () => {
         event.preventDefault();
         //db로 전송할 postObj
         const postObj = {
-            userId: "",
-            locationId: "",
+            userId: userObj.userId,
+            location: locationObj,
             title: textObj.title,
             content: textObj.content,
-            isDeleted: false,
             createdAt: new Date(),
+            tags: tagArr,
         }
-        const postTag = tagArr;
+        axios.post("http://localhost:8001/post/upload",{...postObj}).then(res=>console.log(res.data))
         const postImage = attachments;
 
     }

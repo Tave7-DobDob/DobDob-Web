@@ -2,26 +2,36 @@ import REACT from 'react';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Login from '../routes/Login';
 import Main from '../routes/Main';
-import Mypage from '../routes/Mypage';
 import Post from '../routes/Post';
 import Posting from '../routes/Posting';
 import Setting from '../routes/Setting.js';
+import Profile from '../routes/Profile';
 
-const AppRouter=({isLoggedin, isSetting})=>{
-    return(<Router>
+const AppRouter = ({ isLoggedin, isSetting, userObj, setIsSetting }) => {
+    return (<Router>
         <Switch>
-            
-            
-                <Route exact path="/main" >
-                    <Main />
-                    </Route>
-                <Route exact path="/mypage" component={Mypage}/> 
-                <Route exact path="/posting" component={Posting}/>
-                
-                <Route exact path="/post" component={Post}/>
-                <Route exact path="/" component={Login}/>
-                <Route exact path="/setting" component={Setting}/>
-            
+            {!isLoggedin ? <Route exact path="/">
+                <Login/>
+            </Route> : <>
+                {!isSetting ?
+                    <Route exact path="/">
+                        <Setting setIsSetting={setIsSetting}/>
+                    </Route>: 
+                    <>
+                        <Route exact path="/" >
+                            <Main userObj={userObj}/>
+                        </Route>
+                        <Route exact path="/profile">
+                            <Profile userObj={userObj}/>
+                        </Route>
+                        <Route exact path="/posting">
+                            <Posting userObj={userObj}/>
+                        </Route>
+                        <Route exact path="/post">
+                            <Post userObj={userObj}/>
+                        </Route>
+                    </>}
+            </>}
         </Switch>
     </Router>)
 }

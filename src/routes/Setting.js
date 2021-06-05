@@ -1,14 +1,9 @@
 import REACT, { useState } from 'react';
 import { useHistory } from 'react-router';
-import Select from 'react-select';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
-import DaumPostCode from 'react-daum-postcode';
-import PopupDom from '../component/PopupDom';
-import Modal from '../component/Modal';
-import axios from 'axios';
 import DaumPost from '../component/DaumPost';
-const Setting = () => {
+const Setting = ({setIsSetting}) => {
     const [nickname, setNickname] = useState("");
     const [errorMess, setErrorMess] = useState("");
     const [checkError, setCheckError] = useState("");
@@ -24,8 +19,9 @@ const Setting = () => {
         try {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
             if (!locationObj) throw new Error('동네를 설정해주세요.');
-
-            history.push("/main");
+            //서버 setting 정보 post 
+            setIsSetting(true);
+            history.push("/");
         } catch (error) {
             if (!checkNick) setCheckError(error.message);
             else setErrorMess(error.message);
@@ -44,7 +40,7 @@ const Setting = () => {
     const onPostClick = () => {
         setIsOpenModal(prev => !prev);
     }
-    
+
     return (<>
         <div className="Container setting">
             <header><img src="logo2.png" width="80px" /></header>
@@ -59,7 +55,7 @@ const Setting = () => {
                     <div className="centerContainer form-wrapper">
                         <form onSubmit={onSubmit} className="centerContainer">
                             <div className="sub-wrapper">
-                                <span style={{fontWeight:600}}>닉네임</span>
+                                <span style={{ fontWeight: 600 }}>닉네임</span>
                                 <div className="nickname-wrapper">
                                     <input type="text" required value={nickname} onChange={onChange} placeholder="중복 불가" />
                                     <span onClick={onCheck} id="check-btn">중복확인</span>
@@ -68,15 +64,15 @@ const Setting = () => {
                             </div>
 
                             <div className="sub-wrapper">
-                                <span style={{fontWeight:600}}>내 동네 설정 <FontAwesomeIcon icon={faMapMarkerAlt} /></span>
-                                {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj}/>}
-                                <span onClick={onPostClick} id="address-search-btn">주소 검색</span>
+                                <span style={{ fontWeight: 600 }}>내 동네 설정 </span>
+                                {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
+                                
+                                
                                 <div className="address-detail">
-                                    <span>{locationObj ? locationObj.si : "시/도"}</span>
-                                    <span>{locationObj ? locationObj.gu : "구/군"}</span>
-                                    <span>{locationObj ? locationObj.dong : "동/읍"}</span>
+                                {locationObj &&<span id="dong"> <><FontAwesomeIcon icon={faMapMarkerAlt}/> {locationObj.dong}</></span>}
+                                    <span onClick={onPostClick} id="address-search-btn">{address?"주소 재검색":"주소 검색"}</span>
                                 </div>
-                                <span id="address">{address}</span>
+                                <span id="address">{address?address:"동네를 설정해주세요."}</span>
 
                                 <span id="error">{errorMess}</span>
                             </div>

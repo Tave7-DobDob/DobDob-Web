@@ -1,15 +1,17 @@
 import REACT, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from 'react-router';
+import ProfileBox from './ProfileBox';
 const PostContainer = ({ postObj }) => {
     const history = useHistory();
     const subContent = postObj.content.substr(0, 20);
     const [isHeart, setIsHeart] = useState(false);
-    const [user, setUser] = useState({});
+    const [writer, setWriter] = useState({});
     useEffect(() => {
         //하트 검사-> setIsHeart();
-        setUser(postObj.userId);
+        //postObj.userId로 writer 검색
+        setWriter(postObj.userId);
     }, [])
     const onDetailClick = () => {
         window.localStorage.setItem("postObj", JSON.stringify(postObj));
@@ -21,11 +23,7 @@ const PostContainer = ({ postObj }) => {
     }
     return (<div className="post-container">
         <div className="post-profile-wrapper">
-            <div className="profile-img"><img src="user.png" /></div>
-            <div className="sub-profile-wrapper">
-                <span>{user.nickName}</span>
-                <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {postObj.locationId}</span>
-            </div>
+            <ProfileBox userObj={writer} locationId={postObj.locationId} />
             <span id="date">{postObj.createdAt}</span>
         </div>
         <hr />
@@ -34,8 +32,7 @@ const PostContainer = ({ postObj }) => {
             <div className="sub-wrapper" onClick={onDetailClick}>
                 <div>
                     {subContent.split("\n").filter((it, index) => index < 2).map((line) => <span><br />{line}</span>)}
-                    <button> ...
-        <span id="more-span" >자세히 보기</span></button>
+                    <button> ... 더 보기</button>
                 </div>
             </div>
         </div>
