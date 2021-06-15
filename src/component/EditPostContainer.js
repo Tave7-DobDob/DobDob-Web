@@ -1,4 +1,4 @@
-import REACT, { useEffect, useState } from 'react';
+import REACT, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import Slider from './Slider';

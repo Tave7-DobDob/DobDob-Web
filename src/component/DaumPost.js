@@ -42,8 +42,7 @@ const DaumPost = ({ setAddress, setLocationObj }) => {
     return (<>
         {isOpenModal && <div className="address-modal-bg">
             <div className="address-modal">
-
-                <span onClick={onPostClick}><FontAwesomeIcon icon={faTimes} /> 창닫기</span>
+                <span onClick={onPostClick}><FontAwesomeIcon icon={faTimes}/></span>
                 <div><DaumPostCode onComplete={handleComplete} className="post-code" /></div>
             </div>
         </div>}</>);

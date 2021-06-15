@@ -3,7 +3,10 @@ import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import DaumPost from '../component/DaumPost';
-const Setting = ({setIsSetting}) => {
+import { useDispatch } from 'react-redux';
+import { setSetting } from '../modules/user';
+const Setting = () => {
+    const dispatch=useDispatch();
     const [nickname, setNickname] = useState("");
     const [errorMess, setErrorMess] = useState("");
     const [checkError, setCheckError] = useState("");
@@ -20,12 +23,11 @@ const Setting = ({setIsSetting}) => {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
             if (!locationObj) throw new Error('동네를 설정해주세요.');
             //서버 setting 정보 post 
-            setIsSetting(true);
+            dispatch(setSetting(true));
             history.push("/");
         } catch (error) {
             if (!checkNick) setCheckError(error.message);
             else setErrorMess(error.message);
-            console.log(error.message)
         }
     }
     const onChange = (event) => {
@@ -35,7 +37,12 @@ const Setting = ({setIsSetting}) => {
     const onCheck = () => {
         //중복확인
         setCheckNick(true);
-        setCheckError("");
+        if(checkNick){
+            setCheckError("사용가능한 닉네임입니다.");
+        }
+        else{
+            setCheckError("이미 사용중인 닉네임입니다.");
+        }
     }
     const onPostClick = () => {
         setIsOpenModal(prev => !prev);
@@ -60,13 +67,12 @@ const Setting = ({setIsSetting}) => {
                                     <input type="text" required value={nickname} onChange={onChange} placeholder="중복 불가" />
                                     <span onClick={onCheck} id="check-btn">중복확인</span>
                                 </div>
-                                <span id="error">{checkError}</span>
+                                {checkNick?<span id="error" style={{color:'#00aa7d'}}>{checkError}</span>:<span id="error">{checkError}</span>}
                             </div>
 
                             <div className="sub-wrapper">
                                 <span style={{ fontWeight: 600 }}>내 동네 설정 </span>
                                 {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
-                                
                                 
                                 <div className="address-detail">
                                 {locationObj &&<span id="dong"> <><FontAwesomeIcon icon={faMapMarkerAlt}/> {locationObj.dong}</></span>}

@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from 'react-router';
 import ProfileBox from './ProfileBox';
-const PostContainer = ({ postObj }) => {
+import { useDispatch } from 'react-redux';
+import { setPostInfo } from '../modules/postInfo';
+const PostContainer = ({ userObj, postObj }) => {
     const history = useHistory();
+    const dispatch=useDispatch();
     const subContent = postObj.content.substr(0, 20);
     const [isHeart, setIsHeart] = useState(false);
     const [writer, setWriter] = useState({});
@@ -14,7 +17,7 @@ const PostContainer = ({ postObj }) => {
         setWriter(postObj.userId);
     }, [])
     const onDetailClick = () => {
-        window.localStorage.setItem("postObj", JSON.stringify(postObj));
+        dispatch(setPostInfo(postObj, userObj.userId==writer.userId))
         history.push("/post");
     }
     const onHeartClick = () => {
@@ -23,7 +26,7 @@ const PostContainer = ({ postObj }) => {
     }
     return (<div className="post-container">
         <div className="post-profile-wrapper">
-            <ProfileBox userObj={writer} locationId={postObj.locationId} />
+            <ProfileBox profileObj={writer} locationId={postObj.locationId} />
             <span id="date">{postObj.createdAt}</span>
         </div>
         <hr />

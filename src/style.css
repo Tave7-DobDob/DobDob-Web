@@ -21,6 +21,11 @@ body{
     justify-content: center;
     align-items: center;
 }
+.row-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 /*로그인 페이지*/
 header{
     background-color: #ffe799b9;
@@ -31,7 +36,7 @@ header{
     z-index: 999;
 }
 .login header{
-    background-color: rgba(255, 255, 255, 0.747);
+    background-color: #fff9e3cc;
 }
 header img{
     margin-left: 50px;
@@ -60,8 +65,8 @@ header img{
     width: 30vw;
     padding-top: 70px;
 }
-.randing-img #logo2{
-    margin-left: 150px;
+.randing-img #randing-img1{
+    margin-left: 60%;
 }
 .login-view1  h1{
     font-size: 4vw;
@@ -72,24 +77,107 @@ header img{
     margin: 20px 0;
     transition: all 1s linear;
 }
-.login-view1 h2:hover{
-    transform: scale(1.1);
-    margin-left: 10px;
-}
 .login-view1 p{
     margin-left: 10px;
     line-height: 1.5;
 }
-#kakao-login-btn{
-    padding: 20px 0;
+.login-view1 #kakao-login-btn{
+    margin: 20px 0;
+    border-radius: 10px;
     transition: all 1s linear;
+    width: 50%;
 }
-#kakao-login-btn:hover{
-    transform: scale( 1.1 )
+.login-view1 #kakao-login-btn:hover{
+    transform: scale( 1.1 );
+    box-shadow: 2px 2px 2px 2px #afafaf2f;
 }
 
 .login-view2{
-    color: #494949;
+    color: #444;
+    background-color: #ffffff;
+    width: 100%;
+}
+.login-view2 h1{
+    font-size: 2.5vw;
+    line-height: 1.5;
+    color: #fcd137;
+    margin-bottom: 100px;
+    margin-top: -20px;
+}
+.login-view2 p{
+    font-size: 1.5vw;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #686868;
+}
+.login-view2 .randing-wrapper{
+    width: 80%;
+    margin-top: 150px;
+}
+.randing-block2{
+    border-top: thin solid #ffc600;
+    padding-top: 150px;
+}
+.login-view2 .randing-wrapper .randing-text{
+    width: 40%;
+    margin-top: 10px;
+    padding-right: 100px;
+}
+.login-view2 .randing-wrapper .wrapper2{
+    width: 50%;
+    margin-top: 10px;
+    padding-right: 0;
+}
+.login-view2 .randing-wrapper .randing-text span{
+    line-height: 2;
+}
+.login-view2 .randing-wrapper .randing-img{
+    width: 50%;
+}
+.login-view2 .randing-wrapper .randing-img .searchBar-wrapper{
+    border: solid #fcd137;
+    overflow: hidden;
+    border-radius: 50px;
+    width: 80%;
+    height: 70%;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.063);
+}
+.login-view2 #randing-img{
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.063);
+}
+.login-view3{
+    width: 100%;
+    margin-top: 100px;
+    padding: 100px 0;
+}
+.login-view3 .randing-wrapper{
+    padding: 30px;
+    width: 700px;
+    background-color: #fceab1;
+    padding: 20px 50px;
+    border-radius: 50px;
+    justify-content: center;
+    box-shadow: 5px 5px 5px 5px #e1e1e183;
+}
+.login-view3 h1{
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px #ffc600;
+}
+.login-view3 p{
+    color: #f0bd05;
+    font-size: x-large;
+}
+.login-view3 .randing-text{
+    padding: 0 50px;
+    margin: 0;
+    display: inline;
+}
+.login-view3 #kakao-login-btn{
+    width: 250px;
+    border-radius: 10px;
+    margin: 0;
+    box-shadow: 2px 2px 2px 2px #afafaf41;
+
 }
 /*초기설정 페이지*/
 .setting header{
@@ -167,8 +255,8 @@ header img{
     cursor: pointer;
 }
 #error{
-    font-size: small;
-    color: rgb(209, 62, 62);
+    font-size: 0.5vw;
+    color: #ee3b3b;
     width: 100%;
     text-align: center;
 }
@@ -194,15 +282,16 @@ header img{
     width: 400px;
 }
 .address-modal span{
-    margin-left: 85%;
-    font-size: x-small;
-    background-color: rgba(255, 255, 255, 0.671);
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: 500;
+    font-size: small;
+    color: rgb(139, 139, 139);
+    background-color: rgb(255, 255, 255);
+    font-weight: 600;
     cursor: pointer;
+    width: 90%;
+    padding: 10px 5%;
+    margin: 0;
+    text-align: end;
+    border: thin solid rgb(226, 226, 226);
 }
 .address-detail #dong{
     font-weight: 600;
@@ -238,13 +327,14 @@ header img{
         align-items: center;
     }
 }
+
 footer{
     align-items: center;
     text-align: center;
     font-size: small;
     width: 100%;
     background-color: gray;
-    height: 200px;
+    height: 500px;
     padding-top: 50px;
     margin-top: 50px;
 }
@@ -289,21 +379,31 @@ footer{
     border-radius: 10px;
     z-index: 999;
     padding: 10px 0;
-    width: 130px;
+    width: 150px;
     transform: translate(-100px);
     align-items: center;
     box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
 }
 .main header .profile-modal button{
     font-size: small;
-    padding: 10px 20px;
+    padding: 10px 10px;
     color: #7b7b7b;
-    width: 80px;
+    width: 100px;
     text-align: center;
     border-radius: 10px;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.main header .profile-modal #icon{
+    color: white;
+    background-color: #f8d870;
+    padding: 5px;
+    border-radius: 20px;
+    margin-right: 10px;
 }
 .main header .profile-modal button:hover{
-    background-color: #fffbee;
+    background-color: rgb(247, 247, 247);
 }
 
 .main header .profile-modal #logout{
@@ -392,6 +492,7 @@ header .profile-img:hover{
     flex-direction: column;
     margin-left: 10px;
     justify-content: center;
+    width: 70%;
 }
 .sub-profile-wrapper span{
     font-size: small;
@@ -849,7 +950,6 @@ hr{
     margin: 20px 0px;
 }
 .my-profile-wrapper .sub-profile-wrapper #nickName{
-
     font-size: x-large;
 }
 .my-profile-wrapper .sub-profile-wrapper #profile-location{
@@ -878,8 +978,6 @@ hr{
     width: 100%;
 }
 .my-profile-edit-wrapper .my-profile-edit-wrapper2{
-    display: flex;
-    flex-direction: row;
     width: 100%;
 }
 .my-profile-edit-wrapper .profile-img{
@@ -911,9 +1009,20 @@ hr{
     margin-right: 5px;
 }
 .my-profile-edit-wrapper .sub-profile-wrapper{
-    width: 60%;
-    padding-top: 50px;
+    width: 100%;
+    padding:0;
+    margin-top: 50px;
 }
+.my-profile-edit-wrapper .sub-profile-wrapper .row-container{
+    margin-bottom: 25px;
+}
+.my-profile-edit-wrapper .sub-profile-wrapper .label-span{
+    width: 100px;
+    font-size: medium;
+    font-weight: 600;
+    color: #494949;
+}
+
 .my-profile-edit-wrapper .sub-profile-wrapper input[type=text]{
     padding: 5px 10px;
     border: thin solid #d8d8d8;
@@ -925,6 +1034,8 @@ hr{
     padding: 5px 20px;
     border: thin solid #a3a3a3;
     border-radius: 20px;
-    margin-top: 50px;
     font-size: small;
+}
+.my-profile-wrapper .sub-profile-wrapper .address-modal span{
+    margin: 0px;
 }

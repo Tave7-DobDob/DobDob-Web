@@ -3,20 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from 'react-router';
 import ProfileBox from './ProfileBox';
-const MiniPostContainer = ({ postObj }) => {
+import { useDispatch } from 'react-redux';
+import { setPostInfo } from '../modules/postInfo';
+const MiniPostContainer = ({ postObj , isOwner}) => {
+    const dispatch = useDispatch();
     const [writer, setWriter] = useState({});
     const history = useHistory();
     useEffect(() => {
+        //userId로 검색 요청
         setWriter(postObj.userId);
     }, [])
     const onDetailClick = () => {
-        window.localStorage.setItem("postObj", JSON.stringify(postObj));
+        dispatch( setPostInfo(postObj, isOwner))
         history.push("/post");
     }
 
     return (<div className="post-container my-post-container">
         <div className="post-profile-wrapper">
-            <ProfileBox userObj={writer} locationId={postObj.locationId} />
+            <ProfileBox profileObj={writer} locationId={postObj.locationId} />
             <span id="date" style={{ fontSize: "xx-small" }}>{postObj.createdAt}</span>
         </div>
         <hr />

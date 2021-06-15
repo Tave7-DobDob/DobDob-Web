@@ -10,14 +10,17 @@ import MentionHighlight from '../component/MentionHighlight';
 import EditPostContainer from '../component/EditPostContainer';
 import ProfileBox from '../component/ProfileBox';
 import Modal from '../component/Modal';
-const Post = ({userObj}) => {
-    const [postObj, setPostObj] = useState(() => JSON.parse(window.localStorage.getItem("postObj")) || 0);
-    const [isOwner, setIsOwner] = useState(userObj.userId==JSON.parse(window.localStorage.getItem("postObj")).userId);
+import { useSelector } from 'react-redux';
+const Post = () => {
+    const { postObj, isOwner } = useSelector(state => ({
+        postObj: state.postInfo.postObj,
+        isOwner: state.postInfo.isOwner
+    }));
     const [isEdit, setIsEdit] = useState(false);
     const history = useHistory();
     const [commentArr, setCommentArr] = useState([{
         commentId: "",
-        userId: { nickName: "닉1", locationId: { dong: "노량진동" } },
+        userId: { nickName: "사용자1", locationId: { dong: "노량진동" } },
         postId: postObj,
         content: "@닉네임1 저랑 같이쳐요!",
         isDeleted: false,
@@ -25,9 +28,9 @@ const Post = ({userObj}) => {
         mentionId: ["닉네임1"],
     }, {
         commentId: "",
-        userId: { nickName: "닉2", locationId: { dong: "대방동" } },
+        userId: { nickName: "사용자2", locationId: { dong: "대방동" } },
         postId: postObj,
-        content: "@닉네임1 @닉네임2 11시에 만나요!",
+        content: "@사용자1 11시에 만나요!",
         isDeleted: false,
         createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
         mentionId: ["닉네임2", "닉네임"],
@@ -37,11 +40,8 @@ const Post = ({userObj}) => {
     const [mentionArr, setMentionArr] = useState([]);
     const [locationObj, setLocationObj] = useState({});
     const [writer, setWriter] = useState({})
-    const [isOpenMoal, setIsOpenModal]=useState(false);
+    const [isOpenMoal, setIsOpenModal] = useState(false);
     useEffect(() => {
-        //db comment 받아오기
-        //db heart 받아오기
-        const post = JSON.parse(window.localStorage.getItem("postObj"));
         //post.postID로 comment 검색
         //post.locationId로 location 검색
         //post.userId로 user검색
@@ -50,12 +50,7 @@ const Post = ({userObj}) => {
             gu: "동작구",
             dong: "상도동",
         })
-        setWriter(post.userId);
     }, [])
-    const onClickMyPage = () => {
-        window.localStorage.setItem("profileObj", JSON.stringify(userObj));
-        history.push("/profile");
-    }
     const onClickLogo = () => {
         history.push("/");
     }
@@ -72,8 +67,8 @@ const Post = ({userObj}) => {
         setIsHeart(prev => !prev);
         //-> 하트 클릭 처리
     }
-    const onModalClick=()=>{
-        setIsOpenModal(prev=>!prev);
+    const onModalClick = () => {
+        setIsOpenModal(prev => !prev);
     }
     const onEditClick = () => {
         setIsEdit(true);
@@ -99,25 +94,21 @@ const Post = ({userObj}) => {
         <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" /></head>
         <div className="Container post">
             <header><img src="logo2.png" width="60px" onClick={onClickLogo} />
-                <div className="profile-wrapper">
-                    <div onClick={onClickMyPage} data-toggle="tooltip" title="마이 페이지" className="profile-img"><img src="logo.png" /></div>
-                    <span>닉네임</span>
-                </div>
             </header>
             {!isEdit ? <>
                 <div className="main-content">
                     <div className="post-container">
                         <div className="post-profile-wrapper">
-                            <ProfileBox userObj={writer} locationId={postObj.locationId} />
+                            <ProfileBox profileObj={postObj.userId} locationId={postObj.locationId} />
                             <div className="modal-container">
-                            <Modal setIsOpenModal={setIsOpenModal}>
-            
-                            {isOwner && !isOpenMoal &&<button onClick={onModalClick} data-toggle="tooltip" title="수정" id="menu-btn"><FontAwesomeIcon icon={faEllipsisV} /></button>}
-                            
-                                {isOpenMoal&&<div className="edit-del-wrapper">
-                                    <button onClick={onEditClick}>수정</button>
-                                    <button>삭제</button></div>}
-                            </Modal>
+                                <Modal setIsOpenModal={setIsOpenModal}>
+
+                                    {isOwner && !isOpenMoal && <button onClick={onModalClick} data-toggle="tooltip" title="수정" id="menu-btn"><FontAwesomeIcon icon={faEllipsisV} /></button>}
+
+                                    {isOpenMoal && <div className="edit-del-wrapper">
+                                        <button onClick={onEditClick}>수정</button>
+                                        <button>삭제</button></div>}
+                                </Modal>
                             </div>
                         </div>
                         <hr />
@@ -131,7 +122,7 @@ const Post = ({userObj}) => {
                             </div>
                         </div>
                         <div className=" centerContainer slider-wrapper">
-                            <Slider imgArr={["test.png","test2.png", "setting.png"]} />
+                            <Slider imgArr={["test.png", "test2.png", "setting.png"]} />
                         </div>
                         <div className="tag-wrapper">{postObj.tag.map(it => <span>#{it} </span>)}</div>
                         <hr />
