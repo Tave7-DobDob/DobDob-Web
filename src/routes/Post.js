@@ -11,13 +11,15 @@ import EditPostContainer from '../component/EditPostContainer';
 import ProfileBox from '../component/ProfileBox';
 import Modal from '../component/Modal';
 import { useSelector } from 'react-redux';
+import './post.css'
+import axios from 'axios';
 const Post = () => {
+    const history = useHistory();
     const { postObj, isOwner } = useSelector(state => ({
         postObj: state.postInfo.postObj,
         isOwner: state.postInfo.isOwner
     }));
     const [isEdit, setIsEdit] = useState(false);
-    const history = useHistory();
     const [commentArr, setCommentArr] = useState([{
         commentId: "",
         userId: { nickName: "사용자1", locationId: { dong: "노량진동" } },
@@ -34,7 +36,31 @@ const Post = () => {
         isDeleted: false,
         createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
         mentionId: ["닉네임2", "닉네임"],
-    }]);
+    }, {
+        commentId: "",
+        userId: { nickName: "사용자2", locationId: { dong: "대방동" } },
+        postId: postObj,
+        content: "@사용자1 11시에 만나요!",
+        isDeleted: false,
+        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        mentionId: ["닉네임2", "닉네임"],
+    }, {
+        commentId: "",
+        userId: { nickName: "사용자2", locationId: { dong: "대방동" } },
+        postId: postObj,
+        content: "@사용자1 11시에 만나요!",
+        isDeleted: false,
+        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        mentionId: ["닉네임2", "닉네임"],
+    }, {
+        commentId: "",
+        userId: { nickName: "사용자2", locationId: { dong: "대방동" } },
+        postId: postObj,
+        content: "@사용자1 11시에 만나요!",
+        isDeleted: false,
+        createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        mentionId: ["닉네임2", "닉네임"],
+    }]);//test데이터
     const [comment, setComment] = useState("");//comment 입력 필드값
     const [isHeart, setIsHeart] = useState(false);
     const [mentionArr, setMentionArr] = useState([]);
@@ -67,12 +93,15 @@ const Post = () => {
         setIsHeart(prev => !prev);
         //-> 하트 클릭 처리
     }
+    const onDeleteClick = ()=>{
+        axios.delete(`http://localhost:8001/post/${postObj.postId}`).then(res=>console.log(res.data))
+        history.push("/");
+    }
     const onModalClick = () => {
         setIsOpenModal(prev => !prev);
     }
     const onEditClick = () => {
         setIsEdit(true);
-        //-> 하트 클릭 처리
     }
     const onSubmit = (event) => {
         event.preventDefault();
@@ -102,12 +131,10 @@ const Post = () => {
                             <ProfileBox profileObj={postObj.userId} locationId={postObj.locationId} />
                             <div className="modal-container">
                                 <Modal setIsOpenModal={setIsOpenModal}>
-
-                                    {isOwner && !isOpenMoal && <button onClick={onModalClick} data-toggle="tooltip" title="수정" id="menu-btn"><FontAwesomeIcon icon={faEllipsisV} /></button>}
-
+                                    {isOwner && !isOpenMoal && <button onClick={onModalClick} id="menu-btn"><FontAwesomeIcon icon={faEllipsisV} /></button>}
                                     {isOpenMoal && <div className="edit-del-wrapper">
                                         <button onClick={onEditClick}>수정</button>
-                                        <button>삭제</button></div>}
+                                        <button onClick={onDeleteClick}>삭제</button></div>}
                                 </Modal>
                             </div>
                         </div>
@@ -129,20 +156,27 @@ const Post = () => {
                     </div>
                     <div className="comment-container">
                         <form onSubmit={onSubmit}>
-                            <div className="heart-comment-wrapper"><FontAwesomeIcon id="icon" icon={faHeart} style={{ color: `${isHeart ? "#ff7f50" : "#c5c5c5"}` }} onClick={onHeartClick} /> {postObj.heart}  <FontAwesomeIcon id="icon" icon={faComment} />  {postObj.comment}</div>
+                            <div className="heart-comment-wrapper">
+                                <FontAwesomeIcon name="heart" id="icon" icon={faHeart} style={{ color: `${isHeart ? "#ff7f50" : "#c5c5c5"}` }} onClick={onHeartClick} /> 
+                                <span>{postObj.heart}</span>  
+                                <FontAwesomeIcon id="icon" icon={faComment} />  
+                                <span>{postObj.comment}</span></div>
 
                             <TextareaAutosize id="comment-field" type="text" placeholder="댓글을 입력해주세요. " value={comment} onChange={onChange} />
                             <MentionHighlight content={comment} onChange={onChange} />
 
                             <input type="submit" value="&#xf054;" />
                         </form>
+                        <div className="comment-scroll-wrapper">
                         {commentArr.length == 0 ?
                             <div className="centerContainer nothing-wrapper">
                                 <h5>아직 댓글이 없습니다 <FontAwesomeIcon icon={faSearch} /></h5>
                                 <h4>이웃에게 댓글을 달아주세요!</h4>
                             </div> : commentArr.reverse().map(comment => <Comment commentObj={comment} isOwner={true} />)}
+                        </div>
+                        
                     </div>
-                </div></> : <EditPostContainer postObj={postObj} location={locationObj} user={writer} />}
+                </div></> : <EditPostContainer postObj={postObj} location={locationObj} isOwner={isOwner} setIsEdit={setIsEdit}/>}
         </div>
 
 

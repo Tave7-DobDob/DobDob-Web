@@ -5,10 +5,11 @@ import { useHistory } from 'react-router';
 import ProfileBox from './ProfileBox';
 import { useDispatch } from 'react-redux';
 import { setPostInfo } from '../modules/postInfo';
+import axios from 'axios';
 const PostContainer = ({ userObj, postObj }) => {
     const history = useHistory();
     const dispatch=useDispatch();
-    const subContent = postObj.content.substr(0, 20);
+    const subContent = postObj.content.substr(0, 30);
     const [isHeart, setIsHeart] = useState(false);
     const [writer, setWriter] = useState({});
     useEffect(() => {
@@ -17,7 +18,10 @@ const PostContainer = ({ userObj, postObj }) => {
         setWriter(postObj.userId);
     }, [])
     const onDetailClick = () => {
-        dispatch(setPostInfo(postObj, userObj.userId==writer.userId))
+        axios.get(`http://localhost:8001/post/${postObj.postId}`)
+        .then(res=>
+            dispatch(setPostInfo(res.data.post, userObj.userId==writer.userId)))
+        
         history.push("/post");
     }
     const onHeartClick = () => {
@@ -32,14 +36,19 @@ const PostContainer = ({ userObj, postObj }) => {
         <hr />
         <div className="content-wrapper">
             <h2 onClick={onDetailClick}>{postObj.title}</h2>
-            <div className="sub-wrapper" onClick={onDetailClick}>
+            {<div className="sub-wrapper" onClick={onDetailClick}>
                 <div>
                     {subContent.split("\n").filter((it, index) => index < 2).map((line) => <span><br />{line}</span>)}
-                    <button> ... 더 보기</button>
+                    <button id="more-btn"> ... 더 보기</button>
                 </div>
-            </div>
+            </div>}
         </div>
-        <div className="heart-comment-wrapper"><FontAwesomeIcon id="icon" icon={faHeart} style={{ color: `${isHeart ? "#ff7f50" : "#c5c5c5"}` }} onClick={onHeartClick} /> {postObj.heart}  <FontAwesomeIcon id="icon" icon={faComment} onClick={onDetailClick} />  {postObj.comment}</div>
+        <div className="heart-comment-wrapper">
+            <FontAwesomeIcon id="icon" icon={faHeart} style={{ color: `${isHeart ? "#ff7f50" : "#c5c5c5"}` }} onClick={onHeartClick} /> 
+            <span>{postObj.heart} </span> 
+            <FontAwesomeIcon id="icon" icon={faComment} onClick={onDetailClick} />  
+            <span>{postObj.comment}</span>
+        </div>
         <hr />
         <div className="tag-wrapper">{postObj.tag.map(it => <span>#{it} </span>)}</div>
     </div>);

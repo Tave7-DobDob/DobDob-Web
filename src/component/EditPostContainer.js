@@ -4,12 +4,15 @@ import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import Slider from './Slider';
 import TextareaAutosize from 'react-textarea-autosize';
 import DaumPost from './DaumPost';
-const EditPostContainer = ({ postObj, location }) => {
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setPostInfo } from '../modules/postInfo';
+const EditPostContainer = ({ postObj, location, isOwner, setIsEdit }) => {
+    const dispatch=useDispatch();
     const [newPostObj, setNewPostObj] = useState(postObj);
     const [tagArr, setTagArr] = useState(postObj.tag);//태그 arr
     const [tag, setTag] = useState("");//태그필드값
     const [isOpenModal, setIsOpenModal] = useState(false);//for 주소검색 component
-    const [address, setAddress] = useState("");//for 주소검색 component
     const [locationObj, setLocationObj] = useState(location);//for 주소검색 component
     const onChange = (event) => {
         const { target: { value, name } } = event;
@@ -42,13 +45,16 @@ const EditPostContainer = ({ postObj, location }) => {
         event.preventDefault();
         try {
             //서버 전송
-            //newPostObj, tagArr전송
+            axios.patch(`http://localhost:8001/post/${postObj.postId}`,{...newPostObj,tag:tagArr})
+            
+            dispatch(setPostInfo({...newPostObj,tag:tagArr}, isOwner))
+            setIsEdit(false);
         } catch { }
     }
     return (<>
 
         <div className="centerContainer main-content">
-            {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
+            {isOpenModal && <DaumPost setLocationObj={setLocationObj} />}
             <div className="post-container edit-post-container">
                 <div className="menu-wrapper">
                     <span className="location" data-toggle="tooltip" title="위치 재설정" onClick={onClickLocation}><FontAwesomeIcon icon={faMapMarkerAlt} id="marker" color="#ffc600" /> {locationObj ? locationObj.dong : "동네를 설정해주세요."}</span>
