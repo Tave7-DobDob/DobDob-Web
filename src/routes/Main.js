@@ -9,6 +9,7 @@ import Modal from '../component/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProfileInfo } from '../modules/profileInfo';
 import { setLoggedInfo } from '../modules/user';
+import './main.css';
 const Main = () => {
     const history = useHistory();
     const dispatch =useDispatch()
@@ -17,6 +18,7 @@ const Main = () => {
     const [searchPost, setSearchPost]=useState();
     const [postList, setPostList] = useState(
         [{
+            postId:123,
             userId: { userId: 1, nickName: "김지현", locationId: { dong: "상도동" } }
             , locationId: { dong: "상도동" },
             title: "같이 배드민턴 쳐요",
@@ -26,6 +28,7 @@ const Main = () => {
             heart: 12,
             comment: 2
         }, {
+            postId:1234,
             userId: { userId: 2, nickName: "사용자", locationId: { dong: "노량진동" } }
             , locationId: { dong: "상도동" },
             title: "맛집좀 알려주세요!",
@@ -34,9 +37,8 @@ const Main = () => {
             tag: ["우리동네", "맛집","추천"],
             heart: 2,
             comment: 10
-        }]);
+        }]);//test데이터
     const [isOpenDaum, setIsOpenDaum] = useState(false);
-    const [address, setAddress] = useState("");
     const [locationObj, setLocationObj] = useState(userObj.locationId);
     const [isOpenMoal, setIsOpenModal] = useState(false);
     useEffect(() => {
@@ -44,7 +46,7 @@ const Main = () => {
         //addressObj.locationId을 통해서 포스트 리스트 받기
         //setPostList();
         
-    }, []);
+    }, [locationObj]);
     
     const onChange=(event)=>{
         const {target:{value}}=event;
@@ -69,7 +71,6 @@ const Main = () => {
         history.push("/");
     }
     const onClickLogout=()=>{
-        window.localStorage.removeItem("userObj");
         dispatch(setLoggedInfo(null, false));
         window.location.replace("/")
     }
@@ -97,11 +98,10 @@ const Main = () => {
                         <button id="logout" onClick={onClickLogout}><FontAwesomeIcon icon={faSignOutAlt} id="icon"/> 로그아웃</button>
                     </div>}
                 </Modal>
-
             </div>
         </header>
         <div className="centerContainer article-wrapper">
-            {isOpenDaum && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
+            {isOpenDaum && <DaumPost setLocationObj={setLocationObj} />}
             <div className="location-wrapper">
                 <span className="label"><FontAwesomeIcon icon={faMapMarkerAlt} /> 나의 동네<FontAwesomeIcon id="icon" icon={faSlidersH} onClick={onClickLocation} data-toggle="tooltip" title="동네 재설정" /></span>
                 <span>{locationObj ? locationObj.dong : "동네를 설정해주세요."}</span>

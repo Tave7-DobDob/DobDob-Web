@@ -1,10 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 body{
     margin: 0;
     padding: 0;
-    font-family: 'Nanum Gothic', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 *{
     outline: none;
@@ -24,9 +25,11 @@ body{
 .row-container{
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
-/*로그인 페이지*/
+.col-container{
+    display: flex;
+    flex-direction: column;
+}
 header{
     background-color: #ffe799b9;
     position: fixed;
@@ -35,299 +38,10 @@ header{
     width: 100%;
     z-index: 999;
 }
-.login header{
-    background-color: #fff9e3cc;
-}
 header img{
     margin-left: 50px;
     cursor: pointer;
 }
-.login-view1{
-    background-color: #fceab1;
-    width: 100%;
-    height: 100%;
-    padding: 100px 0;
-    color: white;
-    font-family: 'sans-serif';
-}
-.randing-wrapper{
-    display: flex;
-    flex-direction: row;
-    padding-top: 50px;
-}
-.randing-text{
-    width: 30vw;
-    padding-right: 150px;
-}
-.randing-img{
-    display: flex;
-    flex-direction: column;
-    width: 30vw;
-    padding-top: 70px;
-}
-.randing-img #randing-img1{
-    margin-left: 60%;
-}
-.login-view1  h1{
-    font-size: 4vw;
-}
-.login-view1  h2{
-    color: #ffc600;
-    font-size: 50px;
-    margin: 20px 0;
-    transition: all 1s linear;
-}
-.login-view1 p{
-    margin-left: 10px;
-    line-height: 1.5;
-}
-.login-view1 #kakao-login-btn{
-    margin: 20px 0;
-    border-radius: 10px;
-    transition: all 1s linear;
-    width: 50%;
-}
-.login-view1 #kakao-login-btn:hover{
-    transform: scale( 1.1 );
-    box-shadow: 2px 2px 2px 2px #afafaf2f;
-}
-
-.login-view2{
-    color: #444;
-    background-color: #ffffff;
-    width: 100%;
-}
-.login-view2 h1{
-    font-size: 2.5vw;
-    line-height: 1.5;
-    color: #fcd137;
-    margin-bottom: 100px;
-    margin-top: -20px;
-}
-.login-view2 p{
-    font-size: 1.5vw;
-    line-height: 1.5;
-    font-weight: 600;
-    color: #686868;
-}
-.login-view2 .randing-wrapper{
-    width: 80%;
-    margin-top: 150px;
-}
-.randing-block2{
-    border-top: thin solid #ffc600;
-    padding-top: 150px;
-}
-.login-view2 .randing-wrapper .randing-text{
-    width: 40%;
-    margin-top: 10px;
-    padding-right: 100px;
-}
-.login-view2 .randing-wrapper .wrapper2{
-    width: 50%;
-    margin-top: 10px;
-    padding-right: 0;
-}
-.login-view2 .randing-wrapper .randing-text span{
-    line-height: 2;
-}
-.login-view2 .randing-wrapper .randing-img{
-    width: 50%;
-}
-.login-view2 .randing-wrapper .randing-img .searchBar-wrapper{
-    border: solid #fcd137;
-    overflow: hidden;
-    border-radius: 50px;
-    width: 80%;
-    height: 70%;
-    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.063);
-}
-.login-view2 #randing-img{
-    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.063);
-}
-.login-view3{
-    width: 100%;
-    margin-top: 100px;
-    padding: 100px 0;
-}
-.login-view3 .randing-wrapper{
-    padding: 30px;
-    width: 700px;
-    background-color: #fceab1;
-    padding: 20px 50px;
-    border-radius: 50px;
-    justify-content: center;
-    box-shadow: 5px 5px 5px 5px #e1e1e183;
-}
-.login-view3 h1{
-    color: rgb(255, 255, 255);
-    text-shadow: 2px 2px #ffc600;
-}
-.login-view3 p{
-    color: #f0bd05;
-    font-size: x-large;
-}
-.login-view3 .randing-text{
-    padding: 0 50px;
-    margin: 0;
-    display: inline;
-}
-.login-view3 #kakao-login-btn{
-    width: 250px;
-    border-radius: 10px;
-    margin: 0;
-    box-shadow: 2px 2px 2px 2px #afafaf41;
-
-}
-/*초기설정 페이지*/
-.setting header{
-    background-color: #ffe799b9;
-}
-.setting-wrapper{
-    padding-top: 70px;
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-}
-.setting .text-wrapper{
-    width: 40%;
-    padding: 50px;
-    color: #494949;
-}
-.setting .text-wrapper h1{
-    font-size: 2.3vw;
-    line-height: 2;
-}
-.form-wrapper-wrapper{
-    width: 50%;
-}
-.setting .form-wrapper{
-    border: thin solid rgba(204, 204, 204, 0.508);
-    border-radius: 20px;
-    width: 350px;
-    height: 450px;
-    margin: 50px;
-}
-.form-wrapper .sub-wrapper{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.sub-wrapper span{
-    color: #6d6c6c;
-}
-.form-wrapper span{
-    margin: 20px 0;
-}
-.form-wrapper form{
-    width: 70%;
-}
-.form-wrapper #select{
-    margin: 5px;
-    font-size: small;
-}
-.select-wrapper{
-    display: flex;
-    flex-direction: row;
-}
-.form-wrapper input[type=submit]{
-    border: none;
-    background-color: #fcd137;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    width: 30%;
-    cursor: pointer;
-}
-.form-wrapper input[type=text]{
-    padding: 5px 10px;
-    border-radius: 0;
-    border: thin solid rgba(128, 128, 128, 0.289);
-    width: 120px;
-    margin-right: 20px;
-}
-.form-wrapper #check-btn, .my-profile-edit-wrapper #check-btn{
-    background-color: #c4c3c03f;
-    color: rgb(80, 80, 80);
-    font-size: 10px;
-    padding: 8px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-#error{
-    font-size: 0.5vw;
-    color: #ee3b3b;
-    width: 100%;
-    text-align: center;
-}
-.address-modal-bg{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #4949495d;
-    top: 0;
-    left: 0;
-    z-index: 99;
-}
-.address-modal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-}
-.address-modal div{
-    width: 400px;
-}
-.address-modal span{
-    font-size: small;
-    color: rgb(139, 139, 139);
-    background-color: rgb(255, 255, 255);
-    font-weight: 600;
-    cursor: pointer;
-    width: 90%;
-    padding: 10px 5%;
-    margin: 0;
-    text-align: end;
-    border: thin solid rgb(226, 226, 226);
-}
-.address-detail #dong{
-    font-weight: 600;
-    font-size: medium;
-    color: #ffc600;
-    padding: 5px;
-    margin-right: 10px;
-}
-#address-search-btn{
-    background-color: #c4c3c03f;
-    width: 60px;
-    padding: 8px 10px;
-    font-weight: 500;
-    font-size: 10px;
-    border-radius: 10px;
-    text-align: center;
-    cursor: pointer;
-}
-#address{
-    font-size: x-small;
-    font-weight: 500;
-    border: thin solid rgba(128, 128, 128, 0.289);
-    padding: 5px 10px;
-    line-height: 1.5;
-    color: #6d6c6ca2;
-}
-@media screen and (max-width: 800px){
-    .text-wrapper{
-        display: none;
-    }
-    .setting-wrapper{
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
 footer{
     align-items: center;
     text-align: center;
@@ -338,139 +52,12 @@ footer{
     padding-top: 50px;
     margin-top: 50px;
 }
-/*Main*/
-.main header, .post header{
-    display: flex;
-    padding: 10px 0;
-    align-items: center;
-}
-.main header input{
-    height: 30px;
-    width: 30%;
-    min-width: 300px;
-    margin-left: 12%;
-    border-radius: 20px;
-    border: none;
-    padding: 5px 20px;
-}
-.main header #tag-char{
-    transform: translate(-40px);
-    color: #ffc600;
-    font-weight: 600;
-    padding: 5px 10px;
-    border-radius: 20px;
-}
-.main header #tag-char:hover{
-    background-color: #ffc80036;
-}
-.main header #menu-btn{
-    color: rgb(128, 127, 127);
-}
-.main header #menu-btn:hover{
-    color: #fcd137
-}
-.main header .profile-modal{
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    background-color: rgba(255, 255, 255, 0.385);
-    margin-top: 30px;
-    border: thin solid #ffc600;
-    border-radius: 10px;
-    z-index: 999;
-    padding: 10px 0;
-    width: 150px;
-    transform: translate(-100px);
-    align-items: center;
-    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
-}
-.main header .profile-modal button{
-    font-size: small;
-    padding: 10px 10px;
-    color: #7b7b7b;
-    width: 100px;
-    text-align: center;
-    border-radius: 10px;
-    text-align: start;
-    display: flex;
-    align-items: center;
-}
-.main header .profile-modal #icon{
-    color: white;
-    background-color: #f8d870;
-    padding: 5px;
-    border-radius: 20px;
-    margin-right: 10px;
-}
-.main header .profile-modal button:hover{
-    background-color: rgb(247, 247, 247);
-}
 
-.main header .profile-modal #logout{
-    color: #f34646;
-    border-top: thin solid #ffedae;
-}
-.profile-wrapper{
-    position: absolute;
-    right: 50px;
-    display: flex;
-    align-items: center;
-}
-.main .article-wrapper{
-    padding-top: 100px;
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-}
-.post-wrapper{
-    height: 100%;
-    width:60%;
-}
-.profile-wrapper span{
-    margin: 0px 10px;
-    font-size: medium;
-}
-#plus-icon{
-    position: fixed;
-    color: white;
-    background-color: #FFE799;
-    width: 20px;
-    height: 20px;
-    padding: 25px;
-    border-radius: 50px;
-    cursor: pointer;
-    right: 0;
-    bottom: 0;
-    margin: 40px;
-}
-.profile-wrapper #plus-icon:hover{
-    color: #ffc600;
-}
-.profile-img img{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: cover;
-}
-.profile-img{
-    width: 30px;
-    height: 30px;
-    border-radius: 70%;
-    border: solid rgb(170, 170, 170);
-    overflow: hidden;
-    cursor: pointer;
-}
-.profile-img:hover{
-    border: solid #ffc600;
-}
-header .profile-img:hover{
-    border: solid white;
-}
 /*PostContainer*/
 .post-container{
     width: 90%;
     padding: 50px;
-    border: thin solid rgba(0, 0, 0, 0.089);
+    border: thin solid #00000017;
     background-color: white;
     border-radius: 20px;
     margin-bottom: 20px;
@@ -488,11 +75,11 @@ header .profile-img:hover{
     display: flex;
 }
 .sub-profile-wrapper{
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     margin-left: 10px;
     justify-content: center;
-    width: 70%;
+    display: inline-flex;
 }
 .sub-profile-wrapper span{
     font-size: small;
@@ -508,14 +95,15 @@ header .profile-img:hover{
 .post-container h2{
     cursor: pointer;
 }
-.sub-wrapper button{
+.sub-wrapper #more-btn{
     border: none;
     margin-left: -50px;
     padding: 5px 20px;
     padding-right: 0;
     padding-left: 60px;
-    background: linear-gradient(90deg,rgba(255, 255, 255, 0), #fdfdfa);
-    color: #a3a3a3;
+    background: linear-gradient(90deg,#ffffff00, #fdfdfa);
+    color: #888888;
+    font-size: small;
 }
 .sub-wrapper button:hover{
     text-decoration: underline;
@@ -524,518 +112,30 @@ header .profile-img:hover{
     color: #1b73d8;
     margin-top: 10px;
 }
-#more-span{
-    font-size: small;
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: thin solid rgb(223, 223, 223);
-    background-color: white;
-    width: 70px;
-    margin: 10px 0;
-    cursor: pointer;
-    margin-left: 10px;
-}
 .heart-comment-wrapper{
     font-size: xx-small;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .heart-comment-wrapper #icon{
     font-size: large;
     color: #c5c5c5;
-    margin-left: 10px;
     cursor: pointer;
 }
-.post-container #icon{
-    font-size: large;
-    color: rgb(197, 197, 197);
-    margin-left: 10px;
+.heart-comment-wrapper span{
+    padding: 0 5px;
 }
 hr{
     border: none;
-    border-top: thin solid rgba(0, 0, 0, 0.089);
+    border-top: thin solid #00000017;
     width: 100%;
     margin-top: 30px;
 }
 #date{
+    color: #cacaca;
     font-size: small;
-    color: #a3a3a3;
-    font-size: x-small;
     margin-left: 5px;
     display: flex;
     align-items: flex-end;
     padding-bottom: 7px;
 }
-.location-wrapper{
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-    padding: 5px 10px;
-    border-radius: 10px;
-    border: solid #ffe7999c;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.397);
-    line-height: 1.5;
-    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
-    position: fixed;
-    left: 30px;
-    top: 100px;
-}
-.location-wrapper span{
-    margin: 10px 20px;
-    font-size: small;
-}
-.location-wrapper #icon{
-    color: rgba(128, 128, 128, 0.377);
-    font-size: small;
-    float: right;
-    padding: 5px;
-    cursor: pointer;
-}
-.location-wrapper .label{
-    color: #ffc600;
-    margin: 0;
-    font-size: medium;
-}
-.nothing-post-wrapper{
-    font-size: large;
-    font-weight: 700;
-    padding-top: 50px;
-    line-height: 2;
-    border-radius: 20px;
-    border: thin solid #ffe7999c;
-    color: #49494996;
-    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
-}
-.nothing-post-wrapper p{
-    width: 80%;
-}
-.nothing-post-wrapper img{
-    margin-left: 20%;
-}
-@media screen and (max-width: 800px){
-    .main .profile-wrapper .profile-img, .main .profile-wrapper span, #date,.location-wrapper{
-        display: none;
-    }
-    .main .article-wrapper{
-        flex-direction: column;
-        align-items: center;
-    }
-    .post-wrapper{
-        width: 80%;
-    }
-    h2{
-        font-size: medium;
-    }
-    span{
-        font-size: small;
-    }
-}
 
-/*Post*/
-.post header{
-    display: flex;
-}
-.post header .profile-wrapper{
-    margin-left: 80%;
-}
-.post .main-content{
-    margin-top: 100px;
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-}
-.post .main-content .post-container,.edit-post-container{
-    width: 50%;
-}
-.post .post-container .sub-wrapper{
-    margin-top: 20px;
-}
-.post .modal-container{
-    margin-left: 70%;
-    width: 50px;
-}
-.post #menu-btn,.post .edit-del-wrapper{
-    font-size: small;
-    color: #c4c4c4;
-    margin-left: 100%;
-}
-
-.post #menu-btn{
-    font-size: medium;
-}
-.post #menu-btn:hover{
-    color: #ffc600;
-}
-.post .edit-del-wrapper{
-    width: 50px;
-    display: flex;
-    flex-direction: column;
-}
-.post .edit-del-wrapper button{
-    margin: 5px;
-}
-.post .edit-del-wrapper button:hover{
-    color: #ffc600;
-}
-.slider-wrapper{
-    margin-top: 50px;
-    width: 500px;
-    height: 500px;
-}
-.img-wrapper{
-    background-color: black;
-    width: 500px;
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.img-wrapper img{
-    max-width: 500px;
-    max-height: 500px;
-}
-.alice-carousel__prev-btn-item,.alice-carousel__next-btn-item{
-    position: absolute;
-    display: none;
-}
-.alice-carousel__prev-btn-item{
-    transform: translate(-15px,-50px);
-}
-.alice-carousel__next-btn-item{
-    transform: translate(5px,-50px);
-}
-.alice-carousel__dots{
-    left: 50%;
-    transform: translate(-50%,-100px);
-    display: none;
-    position: absolute;
-}
-.alice-carousel:hover .alice-carousel__prev-btn-item{
-    display: inline;
-    color: white;
-}
-.alice-carousel:hover .alice-carousel__next-btn-item{
-    display: inline;
-    color: white;
-}
-.alice-carousel:hover .alice-carousel__dots{
-    display: block;
-}
-
-.comment-container{
-    position: fixed;
-    width: 30%;
-    right: 5%;
-    padding: 30px;
-    border: thin solid rgba(0, 0, 0, 0.089);
-    background-color: white;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
-    display: flex;
-    flex-direction: column;
-}
-.comment-container #comment-field{
-    all: unset;
-    border: thin solid rgba(0, 0, 0, 0.089) ;
-    padding: 5px 20px;
-    padding-right: 25px;
-    width: 25vw;
-    border-radius: 20px;
-    margin: 20px 0;
-    z-index: 99;
-    color: rgba(0, 0, 0, 0);
-}
-.comment-container #comment-field:focus{
-    color: black;
-	-webkit-text-fill-color: transparent;
-}
-.comment-container form .comment-highlight{
-    position: absolute;
-    transform: translate(21px, 0);
-    top: 94px;
-    width: 25vw;
-    z-index: -10;
-}
-.comment-container input[type=submit]{
-    all: unset;
-    font-family: "FontAwesome";
-    margin-left: 10px;
-    color: #ffc600;
-    cursor: pointer;
-    position: absolute;
-    transform: translate(-33px, 27px);
-}
-.comment-container .nothing-wrapper{
-    color: #c4c4c4;
-}
-/*comment*/
-.comment{
-    border-top: thin solid rgba(0, 0, 0, 0.089);
-    padding: 10px;
-    padding-top: 20px;
-}
-.comment #date{
-    padding-bottom: 2px;
-}
-.comment .comment-highlight{
-    font-size: small;
-    padding: 10px 0;
-}
-.comment #mention{
-    
-    color: rgb(27, 115, 216);
-}
-.comment #del-btn{
-    font-size: x-small;
-   position: absolute;
-    color: #a3a3a3;
-    right: 50px;
-}
-.comment #del-btn:hover{
-    color:#ff7f50;
-}
-/*posting*/
-.posting .main-content{
-    margin-top: 100px;
-    width: 100%;
-    margin-bottom: 50px;
-}
-.posting .posting-container{
-    width: 60%;
-}
-.posting form input[type=text],.edit-post-container form input[type=text]{
-    all: unset;
-    font-size: x-large;
-    padding-top: 20px;
-    padding-left: 20px;
-    width: 100%;
-}
-.posting #text-box,.edit-post-container #text-box{
-    all: unset;
-    width: 100%;
-    overflow:hidden;
-    resize: none;
-    padding: 10px 0;
-    padding-left: 20px;  
-    line-height: 2;
-    height: 500px;
-}
-.posting .menu-wrapper{
-    display: flex;
-    width: 100%;
-    border-bottom: thin solid rgba(0, 0, 0, 0.089);
-    padding: 20px;
-    padding-top: 0;
-    color: #686868;
-    font-size: large;
-    margin-bottom: 20px;
-}
-
-.menu-wrapper label{
-    cursor: pointer;
-    margin-left: 30px;
-    align-items: center;
-    display: flex;
-}
-.menu-wrapper label span{
-    font-size: small;
-    margin-left: 5px;
-}
-.menu-wrapper .location {
-    font-size: medium;
-    cursor: pointer;
-}
-.location:hover{
-    color: #ffc600;
-}
-.posting .posting-wrapper{
-    width: 100%;
-}
-.posting .attachment-wrapper{
-    display: flex;
-}
-.posting form img{
-    margin: 10px;
-    border: thin solid #d3d3d3;
-    height: 100%;
-}
-.posting form{
-    height: 60vh;
-}
-.posting #img-count{
-    background-color: #eeeeee;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: x-small;
-    margin: 10px;
-    color: #444;
-}
-.posting #submit-btn, .edit-post-container #submit-btn{
-    all: unset;
-    position: fixed;
-    background-color: #ffc600;
-    padding: 10px 30px;
-    border-radius: 20px;
-    color: white;
-    font-size: large;
-    right: 0;
-    bottom: 0;
-    margin: 40px;
-    cursor: pointer;
-}
-.posting-tag-wrapper{
-    margin-left: 20px;
-    margin-top: 50px;
-}
-.posting-tag-wrapper input[type=text]{
-    all: unset;
-    margin-left: 5px;
-}
-.posting-tag-wrapper .tag-box{
-    display: inline-flex;
-    align-items: center;
-    border:thin solid #d8d8d8;
-    color: black;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: small;
-    margin-right: 10px;
-}
-.tag-box span{
-    display: inline-flex;
-    align-items: center;
-}
-.tag-box #del-btn{
-    padding-left: 5px;
-    cursor: pointer;
-    font-size: x-small;
-}
-/*myPage*/
-.myPage .wrapper{
-    width: 100%;
-}
-.myPage .main-content{
-    margin-top: 100px;
-    width: 50%;
-    background-color: #ffffff;
-}
-.myPage .my-profile-wrapper{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 80%;
-    padding: 30px;
-    margin-bottom: 50px;
-}
-.my-profile-wrapper .profile-img-wrapper{
-    width: 30%;
-}
-.my-profile-wrapper .profile-img{
-    width: 150px;
-    height: 150px;
-    margin-left: 50px;
-    border: thin solid rgb(170, 170, 170);
-}
-.my-profile-wrapper .profile-img:hover{
-
-    border: thin solid rgb(170, 170, 170);
-}
-.my-profile-wrapper .sub-profile-wrapper{
-    font-size: large;
-    width: 30%;
-    padding-left: 50px;
-}
-.my-profile-wrapper .sub-profile-wrapper span{
-    margin: 20px 0px;
-}
-.my-profile-wrapper .sub-profile-wrapper #nickName{
-    font-size: x-large;
-}
-.my-profile-wrapper .sub-profile-wrapper #profile-location{
-    font-size: large;
-}
-.myPage .my-post-container{
-    width: 80%;
-}
-.myPage .my-post-container h3{
-    cursor: pointer;
-}
-.myPage .edit-btn-wrapper{
-    transform: translate(15vw,-150px);
-}
-.myPage .edit-btn{
-    font-size: x-small;
-    padding:  5px 10px;
-    border: thin solid #a3a3a3;
-    border-radius: 20px;
-    cursor: pointer;
-}
-.myPage .edit-btn:hover{
-    color: #ffc600;
-}
-.my-profile-edit-wrapper form{
-    width: 100%;
-}
-.my-profile-edit-wrapper .my-profile-edit-wrapper2{
-    width: 100%;
-}
-.my-profile-edit-wrapper .profile-img{
-    margin: 0;
-}
-.my-profile-wrapper .profile-img{
-    margin: 20px;
-}
-.my-profile-edit-wrapper .profile-img-wrapper{
-    width: 40%;
-}
-.my-profile-edit-wrapper input[type=submit],button{
-    all: unset; 
-    cursor: pointer;
-}
-.my-profile-edit-wrapper #edit-profile-img-btn{
-    font-size: small;
-    margin-top: 20px;
-    color: rgb(0, 194, 194);
-    cursor: pointer;
-}
-.myPage .my-profile-edit-wrapper .address-form-wrapper{
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-}
-.my-profile-edit-wrapper .address-detail span{
-    font-size: small;
-    margin-right: 5px;
-}
-.my-profile-edit-wrapper .sub-profile-wrapper{
-    width: 100%;
-    padding:0;
-    margin-top: 50px;
-}
-.my-profile-edit-wrapper .sub-profile-wrapper .row-container{
-    margin-bottom: 25px;
-}
-.my-profile-edit-wrapper .sub-profile-wrapper .label-span{
-    width: 100px;
-    font-size: medium;
-    font-weight: 600;
-    color: #494949;
-}
-
-.my-profile-edit-wrapper .sub-profile-wrapper input[type=text]{
-    padding: 5px 10px;
-    border: thin solid #d8d8d8;
-    border-radius: 0;
-    width: 120px;
-    margin-right: 10px;
-}
-.my-profile-edit-wrapper input[type=submit]{
-    padding: 5px 20px;
-    border: thin solid #a3a3a3;
-    border-radius: 20px;
-    font-size: small;
-}
-.my-profile-wrapper .sub-profile-wrapper .address-modal span{
-    margin: 0px;
-}

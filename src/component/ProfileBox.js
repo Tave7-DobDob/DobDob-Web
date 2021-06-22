@@ -13,7 +13,7 @@ const ProfileBox = ({ profileObj, locationId }) => {
     useEffect(() => {
         //locaionId로 검색
         setLocation(locationId)
-        //사용자와 검사
+        //profileObj.userId로 검색
     })
     const onProfileClick = () => {
         dispatch(setProfileInfo(profileObj, profileObj.userId==userObj.userId));

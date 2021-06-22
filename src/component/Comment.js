@@ -4,11 +4,12 @@ import ProfileBox from './ProfileBox';
 const Comment = ({ commentObj, isOwner }) => {
     const [writer, setWriter] = useState({});
     useEffect(() => {
+        //userId로 검색요청
         setWriter(commentObj.userId);
     }, [])
 
     const onDelClick = () => {
-        //isDeleted:true 로 변경
+        //isDeleted:true 로 변경요청
     }
     return (<div className="comment">
         <div className="post-profile-wrapper">

@@ -1,0 +1,153 @@
+/*초기설정 페이지*/
+.setting-wrapper{
+    padding-top: 70px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+}
+.setting .text-wrapper{
+    width: 40%;
+    padding: 50px;
+    color: #494949;
+}
+.setting .text-wrapper h1{
+    font-size: 2.3vw;
+    line-height: 2;
+}
+.form-wrapper-wrapper{
+    width: 50%;
+}
+.setting .form-wrapper{
+    border: thin solid #cccccc82;
+    border-radius: 20px;
+    width: 25vw;
+    height: 100%;
+    margin: 50px;
+}
+.form-wrapper .sub-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.sub-wrapper span{
+    color: #494949;
+}
+.form-wrapper span{
+    margin: 20px 0;
+    font-size: 1.2vw;
+}
+.form-wrapper form{
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+}
+.form-wrapper input[type=submit]{
+    border: none;
+    background-color: #f8d870;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 20px;
+    width: 80%;
+    cursor: pointer;
+    font-size: 1vw;
+}
+.form-wrapper input[type=text]{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: thin solid #aeaeae;
+    width: 50%;
+    margin-right: 20px;
+    font-size: 1vw;
+}
+.form-wrapper #check-btn, .my-profile-edit-wrapper #check-btn, #address-search-btn{
+    background-color: #ffffff;
+    border: thin solid #dddddd;
+    color: black;
+    font-size: 0.8vw;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+#error{
+    font-size: 0.8vw;
+    color: #ee3b3b;
+    width: 100%;
+    text-align: center;
+}
+#nick-error{
+    font-size: 0.8vw;
+    color: #ee3b3b;
+    width: 100%;
+}
+.address-modal-bg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #4949495d;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+.address-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.address-modal div{
+    width: 400px;
+}
+.address-modal-bar{
+    font-size: small;
+    color: #8b8b8b;
+    background-color: #ffffff;
+    text-align: center;
+    border-bottom: thin solid #e2e2e2;
+    padding: 10px 0px;
+}
+.address-modal-bar span{
+    font-size: small;
+    text-align: center;
+    border: none;
+    font-weight: 500;
+}
+.address-modal-bar button{
+    position: absolute;
+    right: 15px;
+    top: 3px;
+}
+.address-detail #dong{
+    font-weight: 500;
+    font-size: 1.2vw;
+    color: #ffc600;
+    padding: 5px;
+    margin-right: 10px;
+}
+#address{
+    font-size: 0.8vw;
+    font-weight: 500;
+    border: thin solid #8080804a;
+    border-radius: 5px;
+    padding: 5px 10px;
+    line-height: 1.5;
+    color: #6d6c6ca2;
+}
+@media screen and (max-width: 1000px){
+    .text-wrapper{
+        display: none;
+    }
+    .setting-wrapper{
+        flex-direction: column;
+        align-items: center;
+    }
+    .setting .form-wrapper{
+        border: thin solid #cccccc82;
+        border-radius: 20px;
+        width: 350px;
+        height: 450px;
+        margin: 50px;
+    }
+}

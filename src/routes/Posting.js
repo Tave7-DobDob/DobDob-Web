@@ -1,11 +1,12 @@
 import REACT, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faImages } from "@fortawesome/free-regular-svg-icons";
 import TextareaAutosize from 'react-textarea-autosize';
 import DaumPost from '../component/DaumPost';
 import axios from 'axios';
+import './posting.css'
 const Posting = ({ userObj }) => {
     const history = useHistory();
     const [attachments, setAttachments] = useState(null);
@@ -17,7 +18,6 @@ const Posting = ({ userObj }) => {
     })//제목, 내용 값
     const [tagArr, setTagArr] = useState([]);//태그 arr
     const [isOpenModal, setIsOpenModal] = useState(false);//for 주소검색 component
-    const [address, setAddress] = useState("");//for 주소검색 component
     const [locationObj, setLocationObj] = useState(userObj.locationId);//for 주소검색 component
 
     useEffect(() => {
@@ -29,12 +29,13 @@ const Posting = ({ userObj }) => {
         const { target: { value, name } } = event;
         //태그필드 onChange
         if (name == "tag") {
-            //태그 검색 기능 추가
             setTag(value);
             if (value == " ") { setTag(value.replace(' ', '')); }
             else if ((value.indexOf(" ")) != -1) {
                 setTag("");
+                if(!tagArr.includes(value)){
                 setTagArr(tagArr => ([...tagArr, value]));
+            }
             }
         }
         //제목 , 내용 필드 onChange
@@ -101,7 +102,7 @@ const Posting = ({ userObj }) => {
         <div className="Container posting">
             <header><img src="logo2.png" width="60px" onClick={onClickLogo} /></header>
             <div className="centerContainer main-content">
-                {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
+                {isOpenModal && <DaumPost setLocationObj={setLocationObj} />}
                 <div className="centerContainer posting-container">
                     <div className="menu-wrapper">
                         <span className="location" data-toggle="tooltip" title="위치 재설정" onClick={onClickLocation}><FontAwesomeIcon icon={faMapMarkerAlt} id="marker" color="#ffc600" /> {locationObj ? locationObj.dong : "동네를 설정해주세요."}</span>
@@ -124,7 +125,7 @@ const Posting = ({ userObj }) => {
                         <div className="tag-wrapper posting-tag-wrapper">
                             <span>#</span>
                             <input type="text" name="tag" value={tag} onChange={onChange} placeholder="태그를 입력해보세요 !" />
-                            {tagArr.map((tag, index) => <div class="centerContainer tag-box"><span>{tag}<span id="del-btn" onClick={() => onClickDelTag(index)}>X</span></span>
+                            {tagArr.map((tag, index) => <div class="centerContainer tag-box"><span>{tag}<span id="del-btn" onClick={() => onClickDelTag(index)}><FontAwesomeIcon icon={faTimes}/></span></span>
                             </div>)}
                         </div>
                     </div>

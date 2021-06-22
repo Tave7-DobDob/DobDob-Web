@@ -4,7 +4,7 @@ import DaumPostCode from 'react-daum-postcode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-const DaumPost = ({ setAddress, setLocationObj }) => {
+const DaumPost = ({ setLocationObj }) => {
 
     const [isOpenModal, setIsOpenModal] = useState(true);
     const onPostClick = () => {
@@ -22,7 +22,6 @@ const DaumPost = ({ setAddress, setLocationObj }) => {
             }
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
-        setAddress(fullAddress);
         setIsOpenModal(false);
         axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${fullAddress}`, {
             headers: { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}` },
@@ -35,14 +34,17 @@ const DaumPost = ({ setAddress, setLocationObj }) => {
                     dong: location.address.region_3depth_name,
                     locationX: location.address.x,
                     locationY: location.address.y,
-                    fullAddress:fullAddress
+                    fullAddress: fullAddress
                 })
             })
     }
     return (<>
         {isOpenModal && <div className="address-modal-bg">
             <div className="address-modal">
-                <span onClick={onPostClick}><FontAwesomeIcon icon={faTimes}/></span>
+                <div className="address-modal-bar">
+                    <span>주소검색</span>
+                    <button onClick={onPostClick}><FontAwesomeIcon icon={faTimes} /></button>
+                </div>
                 <div><DaumPostCode onComplete={handleComplete} className="post-code" /></div>
             </div>
         </div>}</>);
