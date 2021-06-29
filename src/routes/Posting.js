@@ -7,7 +7,9 @@ import TextareaAutosize from 'react-textarea-autosize';
 import DaumPost from '../component/DaumPost';
 import axios from 'axios';
 import './posting.css'
+import { useSelector } from 'react-redux';
 const Posting = ({ userObj }) => {
+    const user=useSelector(state=>state.user.userObj);
     const history = useHistory();
     const [attachments, setAttachments] = useState(null);
     const [fileArr, setFileArr] = useState([]);
@@ -21,6 +23,7 @@ const Posting = ({ userObj }) => {
     const [locationObj, setLocationObj] = useState(userObj.locationId);//for 주소검색 component
 
     useEffect(() => {
+        console.log(user.id);
     }, []);
     const onClickLogo = () => {
         history.push("/");//메인페이지 이동
@@ -80,17 +83,16 @@ const Posting = ({ userObj }) => {
             for (let i = 0; i < fileArr.length; i++) {
                 formData.append('postImage', fileArr[i])
             }
-            formData.append('userId', userObj.userId)
-            formData.append('location', locationObj)
+            formData.append('userId', user.id)
+            formData.append('location', JSON.stringify(locationObj))
             formData.append('title', textObj.title)
             formData.append('content', textObj.content)
-            formData.append('createdAt', new Date())
             formData.append('tags', tagArr)
-            axios.post("http://localhost:8001/post/upload", formData, {
+            axios.post("/post/upload", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }
-            }).then(res => console.log(res.data))
+            }).then(res => console.log(res.data))  
             history.push("/");
         }
         catch(error){
