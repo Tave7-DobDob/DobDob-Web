@@ -6,10 +6,11 @@ import DaumPost from '../component/DaumPost';
 import { useDispatch } from 'react-redux';
 import user, { setSetting, setUserInfo } from '../modules/user';
 import './setting.css';
+import axios from 'axios';
 const Setting = ({userObj}) => {
     const dispatch=useDispatch();
     const history = useHistory();
-    const [nickname, setNickname] = useState("");
+    const [nickName, setNickName] = useState("");
     const [errorMess, setErrorMess] = useState("");
     const [nickError, setNickError] = useState("");
     const [checkNick, setCheckNick] = useState(false);
@@ -28,7 +29,8 @@ const Setting = ({userObj}) => {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
             if (!locationObj) throw new Error('동네를 설정해주세요.');
             //서버 setting 정보 post 
-            dispatch(setUserInfo({...userObj,nickName:nickname, locationId:locationObj}))
+            //axios.patch(`/user/${userObj.Id}`,{nickName:nickname, location:locationObj})
+            dispatch(setUserInfo({...userObj,nickName:nickName, locationId:locationObj}))
             dispatch(setSetting(true));
             history.push("/");
         } catch (error) {
@@ -38,22 +40,28 @@ const Setting = ({userObj}) => {
     }
     const onChange = (event) => {
         const { target: { value } } = event;
-        setNickname(value);
+        setNickName(value);
     }
     const onCheck = () => {
-        setErrorMess("");
-        if(nickname.length<3) setNickError('닉네임은 최소 2자 이상으로 설정해주세요.')
+        setErrorMess("");        
+        let valNick=/^[a-z]+[0-9a-z]+[a-z0-9]{2,20}$/g;
+        if(!valNick.test(nickName)){
+            setCheckNick(false);
+            setNickError('- 2자 이상 20자 이하의 영문 소문자/한글(숫자혼합 가능)\n- 공백 및 특수문자 불가')
+        }
         else{
             //DB중복확인
-            setCheckNick(true);
-            if(checkNick){
-                setNickError("사용가능한 닉네임입니다.");
-            }
-            else{
-                setNickError("이미 사용중인 닉네임입니다.");
-            }
+            axios.get(`/user/nickname/${nickName}`).then(res=>{
+                setCheckNick(!res.data.isExisted)
+                if(!res.data.isExisted){
+                    setNickError("사용가능한 닉네임입니다.");
+                }
+                else{
+                    setNickError("이미 사용중인 닉네임입니다.");
+                }
+            });
+
         }
-        
     }
     const onPostClick = () => {
         setIsOpenModal(prev => !prev);
@@ -75,10 +83,11 @@ const Setting = ({userObj}) => {
                             <div className="sub-wrapper">
                                 <span>닉네임</span>
                                 <div className="nickname-wrapper">
-                                    <input type="text" required value={nickname} onChange={onChange} placeholder="최소 2자 이상" />
+                                    <input type="text" required value={nickName} onChange={onChange} placeholder="최소 2자 이상" />
                                     <span onClick={onCheck} id="check-btn">중복확인</span>
                                 </div>
-                                {checkNick?<span id="nick-error" style={{color:'#00aa7d'}}>{nickError}</span>:<span id="nick-error">{nickError}</span>}
+                                {checkNick?<span id="nick-error" style={{color:'#00aa7d'}}>{nickError}</span>:
+                                <span id="nick-error">{nickError.split("\n").map(it=><>{it}<br/></>)}</span>}
                             </div>
 
                             <div className="sub-wrapper">

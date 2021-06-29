@@ -1,15 +1,15 @@
-import REACT, { useEffect, useReducer, useState } from 'react';
+import REACT, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
 import DaumPost from '../component/DaumPost';
-import MiniPostContainer from '../component/MiniPostContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../modules/user';
 import { setProfileInfo } from '../modules/profileInfo';
 import './profile.css'
 import PostContainer from '../component/PostContainer';
+import axios from 'axios';
 const Profile = () => {
     const dispatch = useDispatch();
     const { user, isOwner } = useSelector(state => ({
@@ -17,47 +17,47 @@ const Profile = () => {
         isOwner: state.profileInfo.isOwner
     }))
     const [editUser, setEditUser] = useState(user);
-    const [postList, setPostList] = useState(
-        [{
-            userId: { nickName: "닉네임", locationId: { dong: "상도동" } }
-            , locationId: { dong: "상도동" },
-            title: "같이 배드민턴 쳐요",
-            content: "도화공원에서 같이 배드민턴 칠 사람 구해요 :-)",
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            tag: ["운동", "배드민턴"],
-            heart: 12,
-            comment: 10
-        }, {
-            userId: { nickName: "닉네임", }
-            , locationId: { dong: "상도동" },
-            title: "제목",
-            content: "내용 어쩌구 저쩌구\nㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍddddddddddddddddddddddddddd",
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            tag: ["태그1", "태그2"],
-            heart: 12,
-            comment: 10
-        }]);
+    const [postList, setPostList] = useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [address, setAddress] = useState(useSelector(state => state.user.userObj).locationId.fullAddress);
     const [locationObj, setLocationObj] = useState(useSelector(state => state.user.userObj).locationId);
     const [isEdit, setIsEdit] = useState(false);
-    const [errorMess, setErrorMess] = useState("");
     const [nickError, setNickError] = useState("");
     const [checkNick, setCheckNick] = useState(false);
+    useEffect(()=>{
+        //setPostList();
+        axios.get("/post").then(res => {
+            setPostList([...res.data.posts])
+            console.log([...res.data.posts]);
+        });
+    },[])
+    useEffect(() => {
+        if (locationObj != null) {
+            setEditUser(editUser => ({ ...editUser, locationId: locationObj }));
+        }
+        //postArr검색
+    }, [locationObj])
     const onCheck = () => {
-        setErrorMess("");
-        if (editUser.nickName.length < 3) setNickError('닉네임은 최소 2자 이상으로 설정해주세요.')
+        let valNick=/^[a-z]+[0-9a-z]+[a-z0-9]{2,20}$/g;
+        if(!valNick.test(editUser.nickName)){
+            setCheckNick(false);
+            setNickError('- 2자 이상 20자 이하의 영문 소문자/한글(숫자혼합 가능)\n- 공백 및 특수문자 불가')
+        }
+        else if(user.nickName==editUser.nickName){
+            setCheckNick(true);   
+            setNickError("사용가능한 닉네임입니다.");}
         else {
             //DB중복확인
-            setCheckNick(true);
-            if (checkNick) {
-                setNickError("사용가능한 닉네임입니다.");
-            }
-            else {
-                setNickError("이미 사용중인 닉네임입니다.");
-            }
-        }
-
+            axios.get(`/user/nickname/${editUser.nickName}`).then(res=>{
+                setCheckNick(!res.data.isExisted)
+                if(!res.data.isExisted){
+                    setNickError("사용가능한 닉네임입니다.");
+                }
+                else{
+                    setNickError("이미 사용중인 닉네임입니다.");
+                }
+            });
+        } 
     }
     const onPostClick = () => {
         setIsOpenModal(prev => !prev);
@@ -86,30 +86,28 @@ const Profile = () => {
     };
     const onSubmit = (event) => {
         event.preventDefault();
-        //if(user.nickName==editUser.nickName&&user.locationId.fullAddress==editUser.locationId.fullAddress)return ;
         try {
             //중복확인
             //주소확인
-            if (!checkNick) throw new Error('중복확인을 해주세요.');
-            //userId로 user정보 update요청
-            dispatch(setUserInfo(editUser));
-            window.localStorage.setItem("userObj", JSON.stringify(editUser));
-            dispatch(setProfileInfo(editUser, true));
-            //db로 업데이트 전송
-            setIsEdit(false);
-            setIsOpenModal(false);
-            setNickError("");
+            
+            if(JSON.stringify(user)===JSON.stringify(editUser)){
+                setIsEdit(false);
+            }
+            else{
+                if (!checkNick) throw new Error('중복확인을 해주세요.');
+                //userId로 user정보 update요청
+                //axios.patch(`/user/${user.id}`,{nickName:editUSer.nickName, location:locationObj})
+                dispatch(setUserInfo(editUser));
+                dispatch(setProfileInfo(editUser, true));
+                setIsEdit(false);
+                setIsOpenModal(false);
+                setNickError("");
+            }
         } catch (error) {
             if (!checkNick) setNickError(error.message);
         }
     }
-    useEffect(() => {
-        console.log(editUser);
-        if (locationObj != null) {
-            setEditUser(editUser => ({ ...editUser, locationId: locationObj }));
-        }
-        //postArr검색
-    }, [locationObj])
+
     return (<div className="Container profile">
         <header><img src="logo2.png" width="60px" onClick={onClickLogo} /></header>
         <div className="centerContainer wrapper">
@@ -119,7 +117,7 @@ const Profile = () => {
                         <form className="centerContainer" onSubmit={onSubmit}>
                             <div className="centerContainer profile-edit-wrapper2">
                                 <div className="centerContainer profile-img-wrapper">
-                                    <div className="profile-img"><img src={editUser.profileUrl ? editUser.profileUrl : "user.png"} /></div>
+                                    <div className="profile-img"><img src={editUser.profileUrl ? editUser.profileUrl : "profile_img.png"} /></div>
                                     <label for="profile-img-upload" id="edit-profile-img-btn">프로필 사진 수정</label>
                                     <input type="file" onChange={onFileChange} id="profile-img-upload" style={{ display: "none" }} />
                                 </div>
@@ -131,7 +129,10 @@ const Profile = () => {
                                                 <input type="text" name="nickName" required value={editUser.nickName} placeholder="닉네임" onChange={onChange} />
                                                 <span onClick={onCheck} id="check-btn">중복확인</span>
                                             </div>
-                                            {checkNick ? <span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span> : <span id="nick-error">{nickError}</span>}
+                                            {checkNick ? 
+                                            <span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span> 
+                                            : 
+                                            <span id="nick-error">{nickError.split("\n").map(it=><>{it}<br/></>)}</span>}
                                         </div>
                                     </div>
 
@@ -153,7 +154,7 @@ const Profile = () => {
                     </div>
                     : <><div className="centerContainer profile-wrapper">
                         <div className="profile-img-wrapper">
-                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "user.png"} /></div>
+                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "profile_img.png"} /></div>
                         </div>
 
                         <div className="sub-profile-wrapper">
