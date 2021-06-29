@@ -20,7 +20,7 @@ const ProfileBox = ({ profileObj, locationId }) => {
         history.push("/profile");
     }
     return (<>
-        <div className="profile-img" onClick={onProfileClick}><img src={profileObj.profileUrl ? profileObj.profileUrl : "user.png"} /></div>
+        <div className="profile-img" onClick={onProfileClick}><img src={profileObj.profileUrl ? profileObj.profileUrl : "profile_img.png"} /></div>
         <div className="sub-profile-wrapper">
             <span>{profileObj.nickName}</span>
             <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {location && location.dong}</span>

@@ -47,12 +47,26 @@ footer{
     text-align: center;
     font-size: small;
     width: 100%;
-    background-color: gray;
-    height: 500px;
-    padding-top: 50px;
+    background-color: #777777;
+    height: 100%;
+    padding: 50px;
     margin-top: 50px;
+    color: #c4c4c4;
 }
-
+footer hr{
+    border-top: thin solid #ffffff2c;
+}
+footer .footer-wrapper1{
+    width: 70%;
+    align-items: flex-start;
+    padding: 50px;
+}
+footer .footer-wrapper1 img{
+    margin-bottom: 20px;
+}
+footer .footer-wrapper2{
+    padding-top: 50px;
+}
 /*PostContainer*/
 .post-container{
     width: 90%;
@@ -132,10 +146,13 @@ hr{
 }
 #date{
     color: #cacaca;
-    font-size: small;
-    margin-left: 5px;
+    font-size: x-small;
     display: flex;
-    align-items: flex-end;
-    padding-bottom: 7px;
+    align-items:flex-end;
+    padding-bottom: 0;
+    font-size: x-small;
+    margin-left: 5px;
 }
+
+
 
