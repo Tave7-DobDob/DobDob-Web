@@ -67,6 +67,7 @@ const Post = () => {
     const [locationObj, setLocationObj] = useState({});
     const [writer, setWriter] = useState({})
     const [isOpenMoal, setIsOpenModal] = useState(false);
+    
     useEffect(() => {
         //post.postID로 comment 검색
         //post.locationId로 location 검색
@@ -94,7 +95,7 @@ const Post = () => {
         //-> 하트 클릭 처리
     }
     const onDeleteClick = ()=>{
-        axios.delete(`http://localhost:8001/post/${postObj.postId}`).then(res=>console.log(res.data))
+        axios.delete(`/post/${postObj.postId}`).then(res=>console.log(res.data))
         history.push("/");
     }
     const onModalClick = () => {
@@ -128,7 +129,7 @@ const Post = () => {
                 <div className="main-content">
                     <div className="post-container">
                         <div className="post-profile-wrapper">
-                            <ProfileBox profileObj={postObj.userId} locationId={postObj.locationId} />
+                            <ProfileBox profileObj={postObj.User} locationId={postObj.locationId} />
                             <div className="modal-container">
                                 <Modal setIsOpenModal={setIsOpenModal}>
                                     {isOwner && !isOpenMoal && <button onClick={onModalClick} id="menu-btn"><FontAwesomeIcon icon={faEllipsisV} /></button>}
@@ -141,17 +142,17 @@ const Post = () => {
                         <hr />
                         <div className="content-wrapper">
                             <h2>{postObj.title}</h2>
-                            <span id="date">{postObj.createdAt}</span>
+                            <span id="date">{postObj.createdAt.split(/[T|.]/,2).map(it=>it+" ")}</span>
                             <div className="sub-wrapper">
                                 <div>
                                     {postObj.content.split("\n").map((line) => <span><br />{line}</span>)}
                                 </div>
                             </div>
                         </div>
-                        <div className=" centerContainer slider-wrapper">
-                            <Slider imgArr={["test.png", "test2.png", "setting.png"]} />
-                        </div>
-                        <div className="tag-wrapper">{postObj.tag.map(it => <span>#{it} </span>)}</div>
+                        {postObj.PostImages&&<div className=" centerContainer slider-wrapper">
+                            <Slider imgArr={postObj.PostImages.map(it=>it.url)} />
+                        </div>}
+                        <div className="tag-wrapper">{postObj.tag&&postObj.tag.map(it => <span>#{it} </span>)}</div>
                         <hr />
                     </div>
                     <div className="comment-container">
