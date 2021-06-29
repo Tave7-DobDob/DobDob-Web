@@ -14,13 +14,13 @@ const PostContainer = ({ userObj, postObj }) => {
     const [writer, setWriter] = useState({});
     useEffect(() => {
         //하트 검사-> setIsHeart();
-        //postObj.userId로 writer 검색
-        setWriter(postObj.userId);
+       // console.log(postObj);
+        setWriter(postObj.User);
     }, [])
     const onDetailClick = () => {
-        axios.get(`http://localhost:8001/post/${postObj.postId}`)
+        axios.get(`/post/${postObj.id}`)
         .then(res=>
-            dispatch(setPostInfo(res.data.post, userObj.userId==writer.userId)))
+            dispatch(setPostInfo(res.data.post, userObj.id==writer.id)))
         
         history.push("/post");
     }
@@ -30,8 +30,8 @@ const PostContainer = ({ userObj, postObj }) => {
     }
     return (<div className="post-container">
         <div className="post-profile-wrapper">
-            <ProfileBox profileObj={writer} locationId={postObj.locationId} />
-            <span id="date">{postObj.createdAt}</span>
+            <ProfileBox profileObj={postObj.User} locationId={postObj.locationId} />
+            <span id="date">{postObj.createdAt.split(/[T|.]/,2).map(it=>it+" ")}</span>
         </div>
         <hr />
         <div className="content-wrapper">
@@ -50,7 +50,7 @@ const PostContainer = ({ userObj, postObj }) => {
             <span>{postObj.comment}</span>
         </div>
         <hr />
-        <div className="tag-wrapper">{postObj.tag.map(it => <span>#{it} </span>)}</div>
+        <div className="tag-wrapper">{postObj.tag&&postObj.tag.map(it => <span>#{it} </span>)}</div>
     </div>);
 }
 export default PostContainer;
