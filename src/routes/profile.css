@@ -61,7 +61,7 @@
 .profile-edit-wrapper .profile-img{
     margin: 0;
 }
-.profile-wrapper .profile-img{
+.profile .profile-wrapper .profile-img{
     margin: 20px;
 }
 .profile-edit-wrapper .profile-img-wrapper{
@@ -100,6 +100,9 @@
 .profile #nick-error{
     margin-top: 10px;
 }
+.profile #nick-error .span{
+    font-size: 0.8vw;
+}
 .profile-edit-wrapper .address-detail span{
     font-size: small;
     margin-right: 5px;
@@ -137,3 +140,4 @@
 .profile-wrapper .sub-profile-wrapper .address-modal span{
     margin: 0px;
 }
+ 
