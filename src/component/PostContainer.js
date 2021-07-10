@@ -10,28 +10,27 @@ const PostContainer = ({ userObj, postObj }) => {
     const history = useHistory();
     const dispatch=useDispatch();
     const subContent = postObj.content.substr(0, 30);
-    const [isHeart, setIsHeart] = useState(false);
-    const [writer, setWriter] = useState({});
-    useEffect(() => {
-        //하트 검사-> setIsHeart();
-       // console.log(postObj);
-        setWriter(postObj.User);
-    }, [])
+    //const [isHeart, setIsHeart] = useState(postObj.Likes.findIndex(i => i.id == userObj.id)!=-1); //like clicked 여부
+    const [isHeart, setIsHeart] = useState(false); //like clicked 여부
+    
     const onDetailClick = () => {
         axios.get(`/post/${postObj.id}`)
-        .then(res=>
-            dispatch(setPostInfo(res.data.post, userObj.id==writer.id)))
+        .then(res=>{
+            dispatch(setPostInfo(res.data.post, userObj.id==postObj.User.id))
+            history.push("/post");
+            })
         
-        history.push("/post");
+        
     }
     const onHeartClick = () => {
-        setIsHeart(prev => !prev);
-        //-> 하트 클릭 처리
+        isHeart?
+        axios.delete(`/like/${userObj.id}/${postObj.id}`).then(setIsHeart(false))
+        :
+        axios.post("/like", {userId:userObj.id, postId:postObj.id}).then(setIsHeart(true))
     }
     return (<div className="post-container">
         <div className="post-profile-wrapper">
-            <ProfileBox profileObj={postObj.User} locationId={postObj.locationId} />
-            <span id="date">{postObj.createdAt.split(/[T|.]/,2).map(it=>it+" ")}</span>
+            <ProfileBox profileObj={postObj.User} location={postObj.Location} date={postObj.createdAt}/>
         </div>
         <hr />
         <div className="content-wrapper">
@@ -39,18 +38,18 @@ const PostContainer = ({ userObj, postObj }) => {
             {<div className="sub-wrapper" onClick={onDetailClick}>
                 <div>
                     {subContent.split("\n").filter((it, index) => index < 2).map((line) => <span><br />{line}</span>)}
-                    <button id="more-btn"> ... 더 보기</button>
+                    {postObj.content.length>30||postObj.content.split('\n').length>3&&<button id="more-btn"> ... 더 보기</button>}
                 </div>
             </div>}
         </div>
         <div className="heart-comment-wrapper">
             <FontAwesomeIcon id="icon" icon={faHeart} style={{ color: `${isHeart ? "#ff7f50" : "#c5c5c5"}` }} onClick={onHeartClick} /> 
-            <span>{postObj.heart} </span> 
+            <span>{postObj.likeCount} </span> 
             <FontAwesomeIcon id="icon" icon={faComment} onClick={onDetailClick} />  
-            <span>{postObj.comment}</span>
+            <span>{postObj.commentCount}</span>
         </div>
         <hr />
-        <div className="tag-wrapper">{postObj.tag&&postObj.tag.map(it => <span>#{it} </span>)}</div>
+        <div className="tag-wrapper">{postObj.Tags&&postObj.Tags.map(it => <span>#{it.name} </span>)}</div>
     </div>);
 }
 export default PostContainer;

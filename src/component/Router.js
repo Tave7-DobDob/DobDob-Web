@@ -19,16 +19,16 @@ const AppRouter = ({ isLoggedin, isSetting, userObj, getUserfromServer }) => {
                     </Route>: 
                     <>
                         <Route exact path="/" >
-                            <Main userObj={userObj}/>
+                            <Main />
                         </Route>
                         <Route exact path="/profile">
-                            <Profile userObj={userObj}/>
+                            <Profile/>
                         </Route>
                         <Route exact path="/posting">
-                            <Posting userObj={userObj}/>
+                            <Posting />
                         </Route>
                         <Route exact path="/post">
-                            <Post userObj={userObj}/>
+                            <Post />
                         </Route>
                     </>}
             </>}

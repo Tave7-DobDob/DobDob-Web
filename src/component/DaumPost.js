@@ -23,7 +23,6 @@ const DaumPost = ({ setLocationObj }) => {
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
         setIsOpenModal(false);
-        console.log(fullAddress);
         axios.get(`https://dapi.kakao.com/v2/local/search/address.json?query=${fullAddress}`, {
             headers: { Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_REST_KEY}` },
         })
@@ -35,7 +34,7 @@ const DaumPost = ({ setLocationObj }) => {
                     dong: location.address.region_3depth_name,
                     locationX: location.address.x,
                     locationY: location.address.y,
-                    fullAddress: fullAddress
+                    detail: fullAddress
                 })
             })
     }

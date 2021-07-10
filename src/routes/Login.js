@@ -54,7 +54,7 @@ const Login = () => {
                     <sppn>직접 원하는 동네에 글을 작성하거나, 댓글을 남길 수 있어요 !</sppn>
                 </div>
                 <div className="randing-img">
-                    <img src="comment_posting.png" width="120%" />
+                    <img src="randing2.png" width="120%" />
                 </div>
             </div>
         </div>

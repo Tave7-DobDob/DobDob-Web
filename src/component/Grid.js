@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import SliderSlick from './SliderSlick';
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const Grid = ({ imgArr }) => {
 
   const [isOpen, setIsOpen] = useState(false);

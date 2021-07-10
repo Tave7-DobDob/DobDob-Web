@@ -63,7 +63,6 @@ function App() {
         received_at: new Date().getTime()
       }));
       //서버에 user정보 요청
-      console.log(res.data);
       getUserfromServer({
         access_token: res.data.access_token,
         refresh_token: res.data.refresh_token
