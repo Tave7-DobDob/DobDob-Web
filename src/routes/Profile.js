@@ -2,7 +2,6 @@ import REACT, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment';
 import DaumPost from '../component/DaumPost';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../modules/user';
@@ -11,6 +10,7 @@ import './profile.css'
 import PostContainer from '../component/PostContainer';
 import axios from 'axios';
 const Profile = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { user, isOwner } = useSelector(state => ({
         user: state.profileInfo.profileObj,
@@ -18,51 +18,45 @@ const Profile = () => {
     }))
     const [editUser, setEditUser] = useState(user);
     const [postList, setPostList] = useState([]);
-    const [isOpenModal, setIsOpenModal] = useState(false);
-    const [address, setAddress] = useState(useSelector(state => state.user.userObj).locationId.fullAddress);
-    const [locationObj, setLocationObj] = useState(useSelector(state => state.user.userObj).locationId);
+    const [isOpenDaum, setIsOpenDaum] = useState(false);
+    const [locationObj, setLocationObj] = useState(user.Location);
     const [isEdit, setIsEdit] = useState(false);
     const [nickError, setNickError] = useState("");
     const [checkNick, setCheckNick] = useState(false);
-    useEffect(()=>{
-        //setPostList();
-        axios.get("/post").then(res => {
-            setPostList([...res.data.posts])
-            console.log([...res.data.posts]);
-        });
-    },[])
+    const [profileImage, setProfileImage]=useState(null);
     useEffect(() => {
-        if (locationObj != null) {
-            setEditUser(editUser => ({ ...editUser, locationId: locationObj }));
-        }
-        //postArr검색
-    }, [locationObj])
+        axios.get(`/user/${user.id}/posts`).then(res => {
+            setPostList(res.data.posts)
+        });
+    }, [])
+    useEffect(() => {
+            setEditUser(editUser => ({ ...editUser, Location: locationObj }));
+    }, [locationObj])  
+    
     const onCheck = () => {
-        let valNick=/^[a-z]+[0-9a-z]+[a-z0-9]{2,20}$/g;
-        if(!valNick.test(editUser.nickName)){
+        let valNick = /^[가-힣a-z0-9]{2,20}$/g;
+        if (!valNick.test(editUser.nickName)) {
             setCheckNick(false);
             setNickError('- 2자 이상 20자 이하의 영문 소문자/한글(숫자혼합 가능)\n- 공백 및 특수문자 불가')
         }
-        else if(user.nickName==editUser.nickName){
-            setCheckNick(true);   
-            setNickError("사용가능한 닉네임입니다.");}
+        else if (user.nickName == editUser.nickName) {
+            setCheckNick(true);
+            setNickError("사용가능한 닉네임입니다.");
+        }
         else {
             //DB중복확인
-            axios.get(`/user/nickname/${editUser.nickName}`).then(res=>{
+            axios.get(`/user/nickname/${editUser.nickName}`).then(res => {
                 setCheckNick(!res.data.isExisted)
-                if(!res.data.isExisted){
-                    setNickError("사용가능한 닉네임입니다.");
-                }
-                else{
-                    setNickError("이미 사용중인 닉네임입니다.");
-                }
+                !res.data.isExisted?
+                setNickError("사용가능한 닉네임입니다.")
+                :
+                setNickError("이미 사용중인 닉네임입니다.")
             });
-        } 
+        }
     }
-    const onPostClick = () => {
-        setIsOpenModal(prev => !prev);
+    const onClickLocation = () => {
+        setIsOpenDaum(prev => !prev);
     }
-    const history = useHistory();
     const onClickLogo = () => {
         history.push("/");
     }
@@ -77,6 +71,7 @@ const Profile = () => {
         const { target: { files } } = event;
         let file;
         file = files[0];
+        setProfileImage(files[0]);
         let reader = new FileReader();
         reader.onload = () => {
             setEditUser(editUser => ({ ...editUser, profileUrl: reader.result }));
@@ -87,21 +82,41 @@ const Profile = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         try {
-            //중복확인
-            //주소확인
-            
-            if(JSON.stringify(user)===JSON.stringify(editUser)){
+            if (JSON.stringify(user) === JSON.stringify(editUser)) {
                 setIsEdit(false);
             }
-            else{
-                if (!checkNick) throw new Error('중복확인을 해주세요.');
-                //userId로 user정보 update요청
-                //axios.patch(`/user/${user.id}`,{nickName:editUSer.nickName, location:locationObj})
+            else {
+                if (user.nickName!=editUser.nickName&&!checkNick) throw new Error('중복확인을 해주세요.');
+                
+                if(profileImage){
+                    const formData = new FormData();
+                    formData.append('profileImage', profileImage)
+                    
+                    axios.patch(`/user/profile/${user.id}`, formData).then(res => {
+                        res.status==200&&
+                            axios.patch(`/user/${user.id}`, { nickName: editUser.nickName, location: JSON.stringify(locationObj) }).then(res => {
+                                //res profile변경 예정
+                                //dispatch(setUserInfo({ ...user, nickName: editUser.nickName, Location: locationObj }))
+                                axios.get(`/user/${user.id}/posts`).then(res => {
+                                    setPostList(res.data.posts)
+                                });
+                            }) 
+                    }) 
+                }
+                else{
+                    axios.patch(`/user/${user.id}`, { nickName: editUser.nickName, location: JSON.stringify(locationObj) }).then(res => {
+                        //dispatch(setUserInfo({ ...user, nickName: editUser.nickName, Location: locationObj }))
+                        axios.get(`/user/${user.id}/posts`).then(res => {
+                            setPostList(res.data.posts)
+                        });
+                    }) 
+                }
                 dispatch(setUserInfo(editUser));
                 dispatch(setProfileInfo(editUser, true));
                 setIsEdit(false);
-                setIsOpenModal(false);
+                setIsOpenDaum(false);
                 setNickError("");
+                
             }
         } catch (error) {
             if (!checkNick) setNickError(error.message);
@@ -129,22 +144,20 @@ const Profile = () => {
                                                 <input type="text" name="nickName" required value={editUser.nickName} placeholder="닉네임" onChange={onChange} />
                                                 <span onClick={onCheck} id="check-btn">중복확인</span>
                                             </div>
-                                            {checkNick ? 
-                                            <span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span> 
-                                            : 
-                                            <span id="nick-error">{nickError.split("\n").map(it=><>{it}<br/></>)}</span>}
+                                            {checkNick ?<span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span>
+                                                :<span id="nick-error">{nickError.split("\n").map(it => <>{it}<br /></>)}</span>}
                                         </div>
                                     </div>
 
-                                    {isOpenModal && <DaumPost setAddress={setAddress} setLocationObj={setLocationObj} />}
+                                    {isOpenDaum && <DaumPost setLocationObj={setLocationObj} />}
                                     <div className="row-container">
                                         <span className="label-span">나의 동네</span>
                                         <div className="address-form-wrapper">
                                             <div className="address-detail">
-                                                {locationObj && <span id="dong"> <><FontAwesomeIcon icon={faMapMarkerAlt} /> {locationObj.dong}</></span>}
-                                                <span onClick={onPostClick} id="address-search-btn">{address ? "주소 재검색" : "주소 검색"}</span>
+                                                {locationObj && <span id="dong"> <><FontAwesomeIcon icon={faMapMarkerAlt} /> {editUser.Location.dong}</></span>}
+                                                <span onClick={onClickLocation} id="address-search-btn">{editUser.Location.detail ? "주소 재검색" : "주소 검색"}</span>
                                             </div>
-                                            <span id="address">{address ? address : "동네를 설정해주세요."}</span>
+                                            <span id="address">{editUser.Location.detail ? editUser.Location.detail : "동네를 설정해주세요."}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -156,19 +169,16 @@ const Profile = () => {
                         <div className="profile-img-wrapper">
                             <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "profile_img.png"} /></div>
                         </div>
-
                         <div className="sub-profile-wrapper">
                             <span id="nickName">{user.nickName}</span>
-                            <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {user.locationId.dong}</span>
+                            <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {user.Location.dong}</span>
                             {isOwner && <div className="edit-btn-wrapper" onClick={onEditClick}><span className="edit-btn">프로필 수정</span></div>}
-
                         </div>
                     </div>
                         <span>{user.nickName}님이 작성한 글</span>
                         <hr />
                         {postList.map(post => <PostContainer userObj={user} postObj={post} />)}
                     </>}
-
             </div>
         </div>
     </div>);
