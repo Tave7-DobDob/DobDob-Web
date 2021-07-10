@@ -6,21 +6,25 @@
 }
 .main header input{
     height: 30px;
-    width: 30%;
+    width: 90%;
     min-width: 300px;
-    margin-left: 12%;
     border-radius: 20px;
     border: none;
     padding: 5px 20px;
 }
-.main header #tag-char{
-    transform: translate(-40px);
+.main header form{
+    width: 40%;
+    margin-left: 12%;
+}
+.main header #tag-char-btn, #search-btn-label{
+    transform: translate(-80px);
     color: #ffc600;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 5px 8px;
     border-radius: 20px;
+    cursor: pointer;
 }
-.main header #tag-char:hover{
+.main header #tag-char-btn:hover{
     background-color: #ffc80036;
 }
 .main header #menu-btn{
