@@ -8,8 +8,8 @@ import DaumPost from '../component/DaumPost';
 import axios from 'axios';
 import './posting.css'
 import { useSelector } from 'react-redux';
-const Posting = ({ userObj }) => {
-    const user=useSelector(state=>state.user.userObj);
+const Posting = () => {
+    const userObj=useSelector(state=>state.user.userObj);
     const history = useHistory();
     const [attachments, setAttachments] = useState(null);
     const [fileArr, setFileArr] = useState([]);
@@ -19,14 +19,11 @@ const Posting = ({ userObj }) => {
         content: ""
     })//제목, 내용 값
     const [tagArr, setTagArr] = useState([]);//태그 arr
-    const [isOpenModal, setIsOpenModal] = useState(false);//for 주소검색 component
-    const [locationObj, setLocationObj] = useState(userObj.locationId);//for 주소검색 component
+    const [isOpenDaum, setIsOpenDaum] = useState(false);
+    const [locationObj, setLocationObj] = useState(userObj.Location);
 
-    useEffect(() => {
-        console.log(user.id);
-    }, []);
     const onClickLogo = () => {
-        history.push("/");//메인페이지 이동
+        history.push("/");
     }
     const onChange = (event) => {
         const { target: { value, name } } = event;
@@ -37,7 +34,7 @@ const Posting = ({ userObj }) => {
             else if ((value.indexOf(" ")) != -1) {
                 setTag("");
                 if(!tagArr.includes(value)){
-                setTagArr(tagArr => ([...tagArr, value]));
+                setTagArr(tagArr => ([...tagArr, value.replace(' ', '')]));
             }
             }
         }
@@ -48,7 +45,7 @@ const Posting = ({ userObj }) => {
     }
     //for 주소검색 component
     const onClickLocation = () => {
-        setIsOpenModal(true);
+        setIsOpenDaum(true);
     }
     const onFileChange = (event) => {
         //사진 arr 처리
@@ -78,25 +75,21 @@ const Posting = ({ userObj }) => {
     const onSubmit = (event) => {
         event.preventDefault();
         try {
-            if(locationObj==null)new Error("동네를 설정해주세요.")
             const formData = new FormData();
             for (let i = 0; i < fileArr.length; i++) {
                 formData.append('postImage', fileArr[i])
             }
-            formData.append('userId', user.id)
+            console.log(JSON.stringify(locationObj));
+            formData.append('userId', userObj.id)
             formData.append('location', JSON.stringify(locationObj))
             formData.append('title', textObj.title)
             formData.append('content', textObj.content)
-            formData.append('tags', tagArr)
-            axios.post("/post/upload", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
-            }).then(res => console.log(res.data))  
-            history.push("/");
+            formData.append('tags', JSON.stringify(tagArr))
+            
+            axios.post("/post/upload", formData).then(history.push("/"))  
         }
         catch(error){
-            window.alert(error);
+            window.alert(error.message);
         }
     }
 
@@ -104,7 +97,7 @@ const Posting = ({ userObj }) => {
         <div className="Container posting">
             <header><img src="logo2.png" width="60px" onClick={onClickLogo} /></header>
             <div className="centerContainer main-content">
-                {isOpenModal && <DaumPost setLocationObj={setLocationObj} />}
+                {isOpenDaum && <DaumPost setLocationObj={setLocationObj} />}
                 <div className="centerContainer posting-container">
                     <div className="menu-wrapper">
                         <span className="location" data-toggle="tooltip" title="위치 재설정" onClick={onClickLocation}><FontAwesomeIcon icon={faMapMarkerAlt} id="marker" color="#ffc600" /> {locationObj ? locationObj.dong : "동네를 설정해주세요."}</span>
