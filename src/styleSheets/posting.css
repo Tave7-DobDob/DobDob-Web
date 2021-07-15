@@ -1,0 +1,119 @@
+/*posting*/
+.posting .main-content{
+    margin-top: 100px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.posting .posting-container{
+    width: 60%;
+}
+.posting form input[type=text],.edit-post-container form input[type=text]{
+    all: unset;
+    font-size: x-large;
+    padding-top: 20px;
+    padding-left: 20px;
+    width: 100%;
+}
+.posting #text-box,.edit-post-container #text-box{
+    all: unset;
+    width: 100%;
+    overflow:hidden;
+    resize: none;
+    padding: 10px 0;
+    padding-left: 20px;  
+    line-height: 2;
+    position: relative;
+    
+}
+.posting .menu-wrapper{
+    display: flex;
+    width: 100%;
+    border-bottom: thin solid #00000017;
+    padding: 20px;
+    padding-top: 0;
+    color: #686868;
+    font-size: large;
+    margin-bottom: 20px;
+}
+
+.menu-wrapper label{
+    cursor: pointer;
+    margin-left: 30px;
+    align-items: center;
+    display: flex;
+}
+.menu-wrapper label span{
+    font-size: small;
+    margin-left: 5px;
+}
+.menu-wrapper .location {
+    font-size: medium;
+    cursor: pointer;
+}
+.location:hover{
+    color: #ffc600;
+}
+.posting .posting-wrapper{
+    width: 100%;
+}
+.posting .attachment-wrapper{
+    display: flex;
+}
+.posting form img{
+    margin: 10px;
+    border: thin solid #d3d3d3;
+    height: 100%;
+}
+.posting form{
+    height: 100%;
+    min-height: 30vw;
+}
+.posting #img-count{
+    background-color: #eeeeee;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: x-small;
+    margin: 10px;
+    color: #444;
+}
+.posting #submit-btn, .edit-post-container #submit-btn{
+    all: unset;
+    position: fixed;
+    background-color: #fcd137;
+    padding: 10px 40px;
+    border-radius: 30px;
+    color: white;
+    font-size: large;
+    right: 0;
+    bottom: 0;
+    margin: 40px;
+    cursor: pointer;
+}
+.posting-tag-wrapper{
+    margin-left: 20px;
+    margin-top: 50px;
+}
+.posting-tag-wrapper input[type=text]{
+    all: unset;
+    margin-left: 5px;
+}
+.posting-tag-wrapper .tag-box{
+    display: inline-flex;
+    align-items: center;
+    border:thin solid #d8d8d8;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: small;
+    margin-right: 10px;
+}
+.tag-box span{
+    display: inline-flex;
+    align-items: center;
+}
+.tag-box #del-btn{
+    padding-left: 8px;
+    cursor: pointer;
+    font-size: x-small;
+    color: #686868;
+}

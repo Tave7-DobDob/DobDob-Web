@@ -1,0 +1,53 @@
+header #menu-btn{
+    color: rgb(128, 127, 127);
+}
+header #menu-btn:hover{
+    color: #fcd137
+}
+header .profile-modal{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.385);
+    margin-top: 30px;
+    border: thin solid #ffc600;
+    border-radius: 10px;
+    z-index: 999;
+    padding: 10px 0;
+    width: 150px;
+    transform: translate(-100px);
+    align-items: center;
+    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
+}
+header .profile-modal button{
+    font-size: small;
+    padding: 10px 10px;
+    color: #7b7b7b;
+    width: 100px;
+    text-align: center;
+    border-radius: 10px;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+header .profile-modal #icon{
+    color: white;
+    background-color: #f8d870;
+    padding: 5px;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+header .profile-modal button:hover{
+    background-color: rgb(247, 247, 247);
+}
+
+header .profile-modal #logout{
+    color: #f34646;
+    border-top: thin solid #ffedae;
+}
+header .profile-wrapper{
+    position: absolute;
+    right: 50px;
+    display: flex;
+    align-items: center;
+}

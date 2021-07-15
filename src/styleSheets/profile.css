@@ -1,0 +1,155 @@
+/*myPage*/
+.profile .wrapper{
+    width: 100%;
+}
+.profile .main-content{
+    margin-top: 100px;
+    width: 60%;
+
+}
+.profile .profile-wrapper{
+    display:flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    padding: 30px;
+    margin-bottom: 50px;
+    margin-left: 0;
+
+}
+.profile .profile-img-wrapper{
+    width: 30%;
+}
+.profile .profile-img{
+    width: 12vw;
+    height: 12vw;
+    margin-left: 50px;
+    border: thin solid rgb(170, 170, 170);
+}
+.profile-wrapper .sub-profile-wrapper{
+    width: 30%;
+    padding-left: 5vw;
+}
+.profile-wrapper .sub-profile-wrapper span{
+    margin: 20px 0px;
+}
+.profile-wrapper .sub-profile-wrapper #nickName{
+    font-size: 2vw;
+}
+.profile-wrapper .sub-profile-wrapper #profile-location{
+    font-size: 1.5vw;
+}
+.profile .edit-btn-wrapper{
+    transform: translate(15vw,-100px);
+    position: absolute;
+}
+.profile .edit-btn{
+    font-size: x-small;
+    padding:  5px 10px;
+    border: thin solid #a3a3a3;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.profile .edit-btn:hover{
+    color: #ffc600;
+    border: thin solid #ffc600;
+}
+.profile-edit-wrapper form{
+    width: 100%;
+}
+.profile-edit-wrapper .profile-edit-wrapper2{
+    width: 100%;
+}
+.profile-edit-wrapper .profile-img{
+    margin: 0;
+}
+.profile .profile-wrapper .profile-img{
+    margin: 20px;
+}
+.profile-edit-wrapper .profile-img-wrapper{
+    width: 40%;
+}
+.profile-edit-wrapper input[type=submit],button{
+    all: unset; 
+    cursor: pointer;
+}
+.profile-edit-wrapper #edit-profile-img-btn{
+    font-size: small;
+    margin-top: 20px;
+    color: rgb(0, 194, 194);
+    cursor: pointer;
+}
+.profile-edit-wrapper .setting-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px 0;
+}
+.profile-edit-wrapper .nickname-wrapper input[type=text]{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: thin solid #aeaeae;
+    width: 50%;
+    margin-right: 20px;
+    font-size: 1vw;
+}
+.profile .profile-edit-wrapper .nickname-wrapper{
+    width: 300px;
+}
+.profile .profile-edit-wrapper .address-form-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.profile .profile-edit-wrapper .address-form-wrapper #address{
+    margin-top: 20px;
+    margin-right: 50px;
+}
+.profile #nick-error{
+    margin-top: 10px;
+}
+.profile #nick-error .span{
+    font-size: 0.8vw;
+}
+.profile-edit-wrapper .address-detail span{
+    font-size: small;
+    margin-right: 5px;
+}
+.profile-edit-wrapper .sub-profile-wrapper{
+    width: 100%;
+    padding:0;
+    margin-top: 50px;
+}
+.profile-edit-wrapper .sub-profile-wrapper .row-container{
+    margin-bottom: 50px;
+}
+.profile-edit-wrapper .sub-profile-wrapper .label-span{
+    width: 100px;
+    font-size: medium;
+    font-weight: 600;
+    color: #494949;
+}
+
+.profile-edit-wrapper .sub-profile-wrapper #address-search-btn, #check-btn{
+    background-color: #ffffff;
+    border: thin solid #dddddd;
+    color: black;
+    font-size: 0.8vw;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.profile-edit-wrapper input[type=submit]{
+    padding: 5px 20px;
+    border: thin solid #a3a3a3;
+    border-radius: 20px;
+    font-size: small;
+}
+.profile-wrapper .sub-profile-wrapper .address-modal span{
+    margin: 0px;
+}
+.main-content> hr{
+    width: 650px;
+    margin-bottom: 0px;
+}

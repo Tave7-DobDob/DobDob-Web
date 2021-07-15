@@ -1,0 +1,142 @@
+
+/*로그인 페이지*/
+.login header{
+    background-color: #fff9e3cc;
+}
+.login-view1{
+    background-color: #fceab1;
+    width: 100%;
+    height: 100%;
+    padding: 100px 0;
+    color: white;
+}
+.randing-wrapper{
+    display: flex;
+    flex-direction: row;
+    padding-top: 50px;
+}
+.randing-text{
+    width: 30vw;
+    padding-right: 150px;
+}
+.randing-img{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    padding-top: 70px;
+}
+.randing-img #randing-img1{
+    margin-left: 60%;
+}
+.login-view1  h1{
+    font-size: 4vw;
+}
+.login-view1  h2{
+    color: #ffc600;
+    font-size: 50px;
+    margin: 20px 0;
+    transition: all 1s linear;
+}
+.login-view1 p{
+    margin-left: 10px;
+    line-height: 1.5;
+}
+.login-view1 #kakao-login-btn{
+    margin: 20px 0;
+    border-radius: 10px;
+    transition: all 1s linear;
+    width: 50%;
+}
+.login-view1 #kakao-login-btn:hover{
+    transform: scale( 1.1 );
+    box-shadow: 2px 2px 2px 2px #afafaf2f;
+}
+
+.login-view2{
+    color: #444;
+    background-color: #ffffff;
+    width: 100%;
+}
+.login-view2 h1{
+    font-size: 2.7vw;
+    line-height: 1.5;
+    color: #fcd137;
+    margin-bottom: 100px;
+    margin-top: -20px;
+}
+.login-view2 p{
+    font-size: 1.5vw;
+    line-height: 2;
+    font-weight: 600;
+    color: #686868;
+}
+.login-view2 .randing-wrapper{
+    width: 80%;
+    margin-top: 150px;
+}
+.randing-block2{
+    border-top: thin solid #ffc600;
+    padding-top: 150px;
+}
+.login-view2 .randing-wrapper .randing-text{
+    width: 40%;
+    margin-top: 10px;
+    padding-right: 100px;
+}
+.login-view2 .randing-wrapper .wrapper2{
+    width: 50%;
+    padding-right: 0;
+    margin-left: 100px;
+}
+.login-view2 .randing-wrapper .randing-text span{
+    line-height: 2;
+}
+.login-view2 .randing-wrapper .randing-img{
+    width: 50%;
+}
+.login-view2 .randing-wrapper .randing-img .searchBar-wrapper{
+    border: solid #fcd137;
+    overflow: hidden;
+    border-radius: 50px;
+    width: 100%;
+    box-shadow: 2px 2px 5px 5px #00000010;
+    margin: 50px 0;
+}
+.login-view2 #randing-img{
+    box-shadow: 2px 2px 5px 5px #00000010;
+}
+.login-view3{
+    width: 100%;
+    margin-top: 100px;
+    padding: 100px 0;
+}
+.login-view3 .randing-wrapper{
+    align-items: center;
+    padding: 30px;
+    width: 700px;
+    background-color: #ffffff;
+    padding: 20px 50px;
+    border-radius: 30px;
+    justify-content: center;
+    box-shadow: 5px 5px 5px 5px #fcfcfc83;
+    border: solid #ffc600;
+}
+.login-view3 h1{
+    color: #ffc600;
+}
+.login-view3 p{
+    color: #916d47;
+    font-size: x-large;
+    font-weight: 700;
+}
+.login-view3 .randing-text{
+    padding: 0 50px;
+    margin: 0;
+    display: inline;
+}
+.login-view3 #kakao-login-btn{
+    width: 250px;
+    border-radius: 10px;
+    margin: 0;
+    box-shadow: 2px 2px 2px 2px #afafaf41;
+}
