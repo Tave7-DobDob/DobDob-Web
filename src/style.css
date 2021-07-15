@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
 body{
     margin: 0;
     padding: 0;
@@ -69,7 +70,7 @@ footer .footer-wrapper2{
 }
 /*PostContainer*/
 .post-container{
-    width: 90%;
+    width: 600px;
     padding: 50px;
     border: thin solid #00000017;
     background-color: white;
@@ -88,7 +89,6 @@ footer .footer-wrapper2{
 .post-profile-wrapper{
     display: flex;
     align-items: center;
-    flex-direction: row;
 }
 .sub-profile-wrapper{
     display: inline-flex;
@@ -96,6 +96,11 @@ footer .footer-wrapper2{
     margin-left: 10px;
     justify-content: center;
     display: inline-flex;
+}
+.sub-profile-wrapper2{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 }
 .sub-profile-wrapper span{
     font-size: small;
@@ -142,7 +147,20 @@ footer .footer-wrapper2{
     cursor: pointer;
 }
 .heart-comment-wrapper span{
-    padding: 0 5px;
+    padding: 5px;
+    margin-right: 5px;
+}
+.heart-comment-wrapper .bold-span{
+    font-size: 0.6vw;
+    padding-right: 0;
+    font-weight: 600;
+    color: #777777;
+}
+.heart-comment-wrapper #like-list{
+    cursor: pointer;
+}
+.heart-comment-wrapper #like-list:hover{
+    color: black;
 }
 hr{
     border: none;
@@ -153,12 +171,8 @@ hr{
 #date{
     color: #cacaca;
     font-size: x-small;
-    display: flex;
-    align-items:flex-end;
-    padding-bottom: 0;
-    font-size: x-small;
+    align-self: flex-end;
     margin-left: 5px;
 }
-
 
 

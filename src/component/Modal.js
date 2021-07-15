@@ -1,49 +1,27 @@
-import React, { Component } from 'react';
-export default class Modal extends Component {
-  constructor(props) {
-    super(props);
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.state = {
-      isOpenMoal: false,
-    };
+import React, {  useEffect, useRef } from 'react';
+const Modal =({isOpenModal, setIsOpenModal, children})=> {
+  const wrapperRef = useRef();
+  useEffect(()=>{
+    document.addEventListener('mousedown', handleClickOutside);
 
-  }
+    return()=>{
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
 
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
-  /**
-   * Set the wrapper ref
-   */
-  setWrapperRef(node) {
-    this.wrapperRef = node;
-  }
-
-  /**
-   * Alert if clicked on outside of element
-   */
-  handleClickOutside(event) {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.setState({
-        isOpenMoal: false
-      })
+  })
+  const handleClickOutside=(event)=>{
+    if (wrapperRef && !wrapperRef.current.contains(event.target)) {
+      setIsOpenModal(false);
     }
     else {
-      this.setState({
-        isOpenMoal: true,
-      })
+      setIsOpenModal(true);
     }
   }
-  render() {
-    return <div ref={this.setWrapperRef} value={this.props.setIsOpenModal(this.state.isOpenMoal)} className="modal">
-      {this.props.children}
+ 
+    return (<div ref={wrapperRef} value={isOpenModal} className="modal">
+      {children}
 
-    </div>;
-  }
+    </div>);
+  
 }
+export default Modal;

@@ -4,6 +4,8 @@ import axios from 'axios';
 import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoggedInfo, setSetting } from '../modules/user';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Footer from './Footer'
 function App() {
   const dispatch = useDispatch();
@@ -17,22 +19,21 @@ function App() {
 
   useEffect(() => {
     if (window.location.pathname == "/oauth") {
-      //로그인 후 토큰 발급
       getKakaoTokenHandler(query);
     }
     else {
-      if (userObj != null && token && (new Date().getTime() - token.received_at) > 0) {
-        //user setting정보 확인
+
+      if(userObj == null || !token || (new Date().getTime() - token.received_at) < 0) {
+        dispatch(setLoggedInfo(null, false));
+        window.localStorage.removeItem("token");
+      }
+      else {
         if (userObj.nickName != "") {
           dispatch(setSetting(true));
         }
         else {
           dispatch(setSetting(false));
         }
-      }
-      else {
-        dispatch(setLoggedInfo(null, false));
-        window.localStorage.removeItem("token");
       }
     }
 
@@ -55,26 +56,22 @@ function App() {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     }).then((res) => {
-      //발급받은 액세스 토큰 저장
       window.localStorage.setItem("token", JSON.stringify({
         access_token: res.data.access_token,
         refresh_token: res.data.refresh_token,
         refresh_token_expires_in: 5183999,
-        received_at: new Date().getTime()
+        received_at: new Date().now
       }));
-      //서버에 user정보 요청
-      getUserfromServer({
+      sendTokenToServer({
         access_token: res.data.access_token,
         refresh_token: res.data.refresh_token
       });
       window.history.replaceState({}, null, window.location.origin + window.location.hash);
     });
   }
-  //토큰으로 서버에 user요청
-  const getUserfromServer = (token) => {
+  const sendTokenToServer = (token) => {
     axios.post('/auth/kakao', { ...token })
       .then(res => {
-        console.log(res.data);
         if (res.status == 200) {
           window.localStorage.setItem("token", JSON.stringify({
             ...res.data.kakaoToken,
@@ -83,7 +80,6 @@ function App() {
           }));
         }
         if (res.status == 201 || res.status == 200) {
-          //setting 검사
           const user=res.data.user;
           dispatch(setLoggedInfo(user, true));
           if (user.nickName != "") {
@@ -99,7 +95,7 @@ function App() {
       })
   }
   return (<>
-    <AppRouter isLoggedin={isLoggedin} isSetting={isSetting} userObj={userObj} token={token} getUserfromServer={getUserfromServer} />
+    <AppRouter isLoggedin={isLoggedin} isSetting={isSetting} userObj={userObj} />
     <Footer/>
 </>
   );

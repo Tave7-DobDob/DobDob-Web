@@ -7,7 +7,7 @@ import Posting from '../routes/Posting';
 import Setting from '../routes/Setting.js';
 import Profile from '../routes/Profile';
 
-const AppRouter = ({ isLoggedin, isSetting, userObj, getUserfromServer }) => {
+const AppRouter = ({ isLoggedin, isSetting, userObj }) => {
     return (<Router>
         <Switch>
             {!isLoggedin ? <Route exact path="/">

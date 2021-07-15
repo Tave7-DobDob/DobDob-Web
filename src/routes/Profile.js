@@ -6,33 +6,36 @@ import DaumPost from '../component/DaumPost';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../modules/user';
 import { setProfileInfo } from '../modules/profileInfo';
-import './profile.css'
+import '../styleSheets/profile.css'
 import PostContainer from '../component/PostContainer';
 import axios from 'axios';
+import { useFileInput } from '../component/useInput';
+import Modal from '../component/Modal';
+import Header from '../component/Header';
 const Profile = () => {
     const history = useHistory();
     const dispatch = useDispatch();
+
     const { user, isOwner } = useSelector(state => ({
         user: state.profileInfo.profileObj,
         isOwner: state.profileInfo.isOwner
     }))
-    const [editUser, setEditUser] = useState(user);
     const [postList, setPostList] = useState([]);
-    const [isOpenDaum, setIsOpenDaum] = useState(false);
-    const [locationObj, setLocationObj] = useState(user.Location);
-    const [isEdit, setIsEdit] = useState(false);
-    const [nickError, setNickError] = useState("");
-    const [checkNick, setCheckNick] = useState(false);
-    const [profileImage, setProfileImage]=useState(null);
     useEffect(() => {
         axios.get(`/user/${user.id}/posts`).then(res => {
             setPostList(res.data.posts)
         });
     }, [])
-    useEffect(() => {
-            setEditUser(editUser => ({ ...editUser, Location: locationObj }));
-    }, [locationObj])  
-    
+
+
+
+    const [isEdit, setIsEdit] = useState(false);
+    const onEditClick = () => {
+        setIsEdit(true);
+    }
+
+    const [checkNick, setCheckNick] = useState(false);
+    const [nickError, setNickError] = useState("");
     const onCheck = () => {
         let valNick = /^[가-힣a-z0-9]{2,20}$/g;
         if (!valNick.test(editUser.nickName)) {
@@ -44,41 +47,33 @@ const Profile = () => {
             setNickError("사용가능한 닉네임입니다.");
         }
         else {
-            //DB중복확인
             axios.get(`/user/nickname/${editUser.nickName}`).then(res => {
                 setCheckNick(!res.data.isExisted)
-                !res.data.isExisted?
-                setNickError("사용가능한 닉네임입니다.")
-                :
-                setNickError("이미 사용중인 닉네임입니다.")
+                !res.data.isExisted ?
+                    setNickError("사용가능한 닉네임입니다.")
+                    :
+                    setNickError("이미 사용중인 닉네임입니다.")
             });
         }
     }
+
+    const [locationObj, setLocationObj] = useState(user.Location);
+    const [isOpenDaum, setIsOpenDaum] = useState(false);
+    
+    const [profileImage, setProfileImage, profileUrl, _] = useFileInput(null, user.profileUrl);
+    useEffect(() => {
+        setEditUser(editUser => ({ ...editUser, Location: locationObj, profileUrl: profileUrl }));
+    }, [locationObj, profileUrl])
     const onClickLocation = () => {
         setIsOpenDaum(prev => !prev);
     }
-    const onClickLogo = () => {
-        history.push("/");
-    }
-    const onEditClick = () => {
-        setIsEdit(true);
-    }
+
+    
+    const [editUser, setEditUser] = useState(user);
     const onChange = (event) => {
         const { target: { value, name } } = event;
         setEditUser(editUser => ({ ...editUser, [name]: value }))
     }
-    const onFileChange = (event) => {
-        const { target: { files } } = event;
-        let file;
-        file = files[0];
-        setProfileImage(files[0]);
-        let reader = new FileReader();
-        reader.onload = () => {
-            setEditUser(editUser => ({ ...editUser, profileUrl: reader.result }));
-        };
-        reader.readAsDataURL(file);
-
-    };
     const onSubmit = (event) => {
         event.preventDefault();
         try {
@@ -86,37 +81,33 @@ const Profile = () => {
                 setIsEdit(false);
             }
             else {
-                if (user.nickName!=editUser.nickName&&!checkNick) throw new Error('중복확인을 해주세요.');
-                
-                if(profileImage){
+                if (user.nickName != editUser.nickName && !checkNick) throw new Error('중복확인을 해주세요.');
+
+                const userprofile = { nickName: editUser.nickName, location: JSON.stringify(locationObj) }
+                if (profileImage) {
                     const formData = new FormData();
-                    formData.append('profileImage', profileImage)
-                    
+                    formData.append('profileImage', profileImage[0])
                     axios.patch(`/user/profile/${user.id}`, formData).then(res => {
-                        res.status==200&&
-                            axios.patch(`/user/${user.id}`, { nickName: editUser.nickName, location: JSON.stringify(locationObj) }).then(res => {
-                                //res profile변경 예정
-                                //dispatch(setUserInfo({ ...user, nickName: editUser.nickName, Location: locationObj }))
-                                axios.get(`/user/${user.id}/posts`).then(res => {
-                                    setPostList(res.data.posts)
-                                });
-                            }) 
-                    }) 
+                        res.status == 200 && 
+                        axios.patch(`/user/${user.id}`, userprofile).then(res => {
+                            axios.get(`/user/${user.id}/posts`).then(res => {
+                                setPostList(res.data.posts)
+                            });
+                        })
+                    })
                 }
-                else{
-                    axios.patch(`/user/${user.id}`, { nickName: editUser.nickName, location: JSON.stringify(locationObj) }).then(res => {
-                        //dispatch(setUserInfo({ ...user, nickName: editUser.nickName, Location: locationObj }))
+                else {
+                    axios.patch(`/user/${user.id}`, userprofile).then(res => {
                         axios.get(`/user/${user.id}/posts`).then(res => {
                             setPostList(res.data.posts)
                         });
-                    }) 
+                    })
                 }
-                dispatch(setUserInfo(editUser));
-                dispatch(setProfileInfo(editUser, true));
+                dispatch(setUserInfo({ ...editUser, profileUrl: profileUrl }));
+                dispatch(setProfileInfo({ ...editUser, profileUrl: profileUrl }, true));
                 setIsEdit(false);
                 setIsOpenDaum(false);
                 setNickError("");
-                
             }
         } catch (error) {
             if (!checkNick) setNickError(error.message);
@@ -124,7 +115,7 @@ const Profile = () => {
     }
 
     return (<div className="Container profile">
-        <header><img src="logo2.png" width="60px" onClick={onClickLogo} /></header>
+        <Header />
         <div className="centerContainer wrapper">
             <div className="centerContainer main-content">
                 {isEdit ?
@@ -132,9 +123,9 @@ const Profile = () => {
                         <form className="centerContainer" onSubmit={onSubmit}>
                             <div className="centerContainer profile-edit-wrapper2">
                                 <div className="centerContainer profile-img-wrapper">
-                                    <div className="profile-img"><img src={editUser.profileUrl ? editUser.profileUrl : "profile_img.png"} /></div>
+                                    <div className="profile-img"><img src={editUser.profileUrl ? editUser.profileUrl : "img_p.png"} /></div>
                                     <label for="profile-img-upload" id="edit-profile-img-btn">프로필 사진 수정</label>
-                                    <input type="file" onChange={onFileChange} id="profile-img-upload" style={{ display: "none" }} />
+                                    <input type="file" onChange={setProfileImage} id="profile-img-upload" style={{ display: "none" }} />
                                 </div>
                                 <div className="centerContainer sub-profile-wrapper">
                                     <div className="row-container">
@@ -144,12 +135,13 @@ const Profile = () => {
                                                 <input type="text" name="nickName" required value={editUser.nickName} placeholder="닉네임" onChange={onChange} />
                                                 <span onClick={onCheck} id="check-btn">중복확인</span>
                                             </div>
-                                            {checkNick ?<span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span>
-                                                :<span id="nick-error">{nickError.split("\n").map(it => <>{it}<br /></>)}</span>}
+                                            {checkNick ? <span id="nick-error" style={{ color: '#00aa7d' }}>{nickError}</span>
+                                                : <span id="nick-error">{nickError.split("\n").map(it => <>{it}<br /></>)}</span>}
                                         </div>
                                     </div>
 
-                                    {isOpenDaum && <DaumPost setLocationObj={setLocationObj} />}
+                                    {isOpenDaum && <div className="address-modal-bg">
+                                        <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />} /></div>}
                                     <div className="row-container">
                                         <span className="label-span">나의 동네</span>
                                         <div className="address-form-wrapper">
@@ -167,7 +159,7 @@ const Profile = () => {
                     </div>
                     : <><div className="centerContainer profile-wrapper">
                         <div className="profile-img-wrapper">
-                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "profile_img.png"} /></div>
+                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "img_p.png"} /></div>
                         </div>
                         <div className="sub-profile-wrapper">
                             <span id="nickName">{user.nickName}</span>

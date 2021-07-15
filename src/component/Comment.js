@@ -1,5 +1,5 @@
 import axios from 'axios';
-import REACT, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MentionHighlight from './MentionHighlight';
 import ProfileBox from './ProfileBox';
 const Comment = ({ commentObj, isOwner }) => {
@@ -17,4 +17,4 @@ const Comment = ({ commentObj, isOwner }) => {
         </div>
     </div>)
 }
-export default Comment;
+export default React.memo(Comment);

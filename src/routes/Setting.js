@@ -5,8 +5,9 @@ import { faMapMarkerAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import DaumPost from '../component/DaumPost';
 import { useDispatch } from 'react-redux';
 import user, { setSetting, setUserInfo } from '../modules/user';
-import './setting.css';
+import '../styleSheets/setting.css';
 import axios from 'axios';
+import Modal from '../component/Modal';
 const Setting = ({ userObj }) => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -26,7 +27,7 @@ const Setting = ({ userObj }) => {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
             if (!locationObj) throw new Error('동네를 설정해주세요.');
             //서버 setting 정보 post 
-            axios.patch(`/user/${userObj.id}`, { nickName: nickName, location: locationObj }).then(() => {
+            axios.patch(`/user/${userObj.id}`, { nickName: nickName, location: JSON.stringify(locationObj) }).then(() => {
                 dispatch(setUserInfo({ ...userObj, nickName: nickName, Location: locationObj }))
                 dispatch(setSetting(true));
                 history.push("/");
@@ -85,7 +86,8 @@ const Setting = ({ userObj }) => {
                             </div>
                             <div className="sub-wrapper">
                                 <span>내 동네 설정 </span>
-                                {isOpenDaum && <DaumPost setLocationObj={setLocationObj} />}
+                                {isOpenDaum && <div className="address-modal-bg">
+                <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum}/>}/></div> }
 
                                 <div className="address-detail">
                                     {locationObj && <span id="dong"> <><FontAwesomeIcon icon={faMapMarkerAlt} /> {locationObj.dong}</></span>}

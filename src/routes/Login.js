@@ -1,5 +1,5 @@
 import REACT from 'react';
-import './login.css';
+import '../styleSheets/login.css';
 const Login = () => {
     const kauthUrl=`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&redirect_uri=http://localhost:3000/oauth&response_type=code`
     return (<><div className="Container login">
@@ -32,7 +32,7 @@ const Login = () => {
             </div>
             <div className="randing-wrapper">
                 <div className="randing-img">
-                    <img id="randing-img" src="main2.gif" width="80%" /></div>
+                    <img id="randing-img" src="main.gif" width="80%" /></div>
                 <div className="randing-text wrapper2">
                     <p>위치 설정으로 다른 동네의 글들도 볼 수 있어요.</p>
                     <span>다른동네의 이야기들도 궁금하다면 원하는 동네를 설정해서 찾아볼 수 있어요 !</span>
@@ -51,10 +51,10 @@ const Login = () => {
                 <div className="randing-text">
                     <h1>이웃들에게 물어봐요 !</h1>
                     <p>동네의 궁금증이나 사소한 이야기에 대해 <br/>직접 이야기 할 수 있어요.</p>
-                    <sppn>직접 원하는 동네에 글을 작성하거나, 댓글을 남길 수 있어요 !</sppn>
+                    <sppn>직접 원하는 동네에 글을 작성하거나 댓글을 남길 수 있어요 !</sppn>
                 </div>
                 <div className="randing-img">
-                    <img src="randing2.png" width="120%" />
+                    <img src="randing2.png" width="100%" />
                 </div>
             </div>
         </div>

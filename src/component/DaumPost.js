@@ -4,11 +4,10 @@ import DaumPostCode from 'react-daum-postcode';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
-const DaumPost = ({ setLocationObj }) => {
+const DaumPost = ({ setLocationObj , setIsOpenModal}) => {
 
-    const [isOpenModal, setIsOpenModal] = useState(true);
     const onPostClick = () => {
-        setIsOpenModal(prev => !prev);
+        setIsOpenModal(false);
     }
     const handleComplete = (data) => {
         let fullAddress = data.address;
@@ -39,7 +38,6 @@ const DaumPost = ({ setLocationObj }) => {
             })
     }
     return (<>
-        {isOpenModal && <div className="address-modal-bg">
             <div className="address-modal">
                 <div className="address-modal-bar">
                     <span>주소검색</span>
@@ -47,6 +45,6 @@ const DaumPost = ({ setLocationObj }) => {
                 </div>
                 <div><DaumPostCode onComplete={handleComplete} className="post-code" /></div>
             </div>
-        </div>}</>);
+        </>);
 }
 export default DaumPost;
