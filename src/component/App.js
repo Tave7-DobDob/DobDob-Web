@@ -14,7 +14,7 @@ function App() {
     isLoggedin: state.user.isLoggedin,
     isSetting: state.user.isSetting
   }))
-  const [token] = useState(JSON.parse(window.localStorage.getItem('token')));
+  const token = useState(JSON.parse(window.localStorage.getItem('token')));
   const query = queryString.parse(window.location.search);
 
   useEffect(() => {
@@ -22,24 +22,17 @@ function App() {
       getKakaoTokenHandler(query);
     }
     else {
-
-      if(userObj == null || !token || (new Date().getTime() - token.received_at) < 0) {
+      if(userObj == null || !token ) {
         dispatch(setLoggedInfo(null, false));
         window.localStorage.removeItem("token");
       }
       else {
-        if (userObj.nickName != "") {
-          dispatch(setSetting(true));
-        }
-        else {
-          dispatch(setSetting(false));
-        }
+        sendJwtTokenToServer(token);
       }
     }
 
   }, []);
 
-  //카카오 rest api 토큰 발급
   const getKakaoTokenHandler = async (query) => {
     const data = {
       grant_type: "authorization_code",
@@ -56,30 +49,20 @@ function App() {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     }).then((res) => {
-      window.localStorage.setItem("token", JSON.stringify({
+      sendKakaoTokenToServer({
         access_token: res.data.access_token,
-        refresh_token: res.data.refresh_token,
-        refresh_token_expires_in: 5183999,
-        received_at: new Date().now
-      }));
-      sendTokenToServer({
-        access_token: res.data.access_token,
-        refresh_token: res.data.refresh_token
       });
       window.history.replaceState({}, null, window.location.origin + window.location.hash);
     });
   }
-  const sendTokenToServer = (token) => {
-    axios.post('/auth/kakao', { ...token })
+  //일반 로그인
+  const sendKakaoTokenToServer = (token) => {
+    axios.post('/auth/kakao',{...token })
       .then(res => {
-        if (res.status == 200) {
-          window.localStorage.setItem("token", JSON.stringify({
-            ...res.data.kakaoToken,
-            refresh_token_expires_in: 5183999,
-            received_at: new Date().getTime()
-          }));
-        }
         if (res.status == 201 || res.status == 200) {
+          window.localStorage.setItem("token", JSON.stringify({
+            access_token: res.data.jwt
+          }));
           const user=res.data.user;
           dispatch(setLoggedInfo(user, true));
           if (user.nickName != "") {
@@ -90,7 +73,33 @@ function App() {
           }
         }
         else {
-          //오류확인
+          window.alert("로그인에 실패하였습니다.");
+        }
+      })
+  }
+  //자동로그인
+  const sendJwtTokenToServer = (jwtToken) => {
+    console.log("token");
+    axios.post('/auth/kakao',{
+      headers:{
+        'Authorization': jwtToken
+      }
+     })
+      .then(res => {
+        if ( res.status == 200) {
+          const user=res.data.user;
+          dispatch(setLoggedInfo(user, true));
+          if (user.nickName != "") {
+            dispatch(setSetting(true));
+          }
+          else {
+            dispatch(setSetting(false));
+          }
+        }
+        else {
+          window.alert("로그인에 실패하였습니다.");
+          dispatch(setLoggedInfo(null, false));
+          window.localStorage.removeItem("token");
         }
       })
   }
