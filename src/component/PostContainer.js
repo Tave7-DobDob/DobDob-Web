@@ -8,7 +8,7 @@ import { setPostInfo } from '../modules/postInfo';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import LikeComment from './LikeComment';
-
+import '../styleSheets/postContainer.css';
 const PostContainer = ({ userObj, postObj }) => {
     const history = useHistory();
     const dispatch=useDispatch();

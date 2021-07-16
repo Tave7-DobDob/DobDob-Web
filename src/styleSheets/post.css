@@ -1,9 +1,4 @@
 /*Post*/
-.post header{
-    display: flex;
-    padding: 10px 0;
-    align-items: center;
-}
 .post .main-content{
     margin-top: 100px;
     width: 90%;

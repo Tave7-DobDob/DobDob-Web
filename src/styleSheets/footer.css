@@ -1,0 +1,26 @@
+
+footer{
+    align-items: center;
+    text-align: center;
+    font-size: small;
+    width: 100%;
+    background-color: #777777;
+    height: 100%;
+    padding: 50px;
+    margin-top: 50px;
+    color: #c4c4c4;
+}
+footer hr{
+    border-top: thin solid #ffffff2c;
+}
+footer .footer-wrapper1{
+    width: 70%;
+    align-items: flex-start;
+    padding: 50px;
+}
+footer .footer-wrapper1 img{
+    margin-bottom: 20px;
+}
+footer .footer-wrapper2{
+    padding-top: 50px;
+}

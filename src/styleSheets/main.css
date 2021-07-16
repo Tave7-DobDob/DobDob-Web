@@ -1,35 +1,4 @@
 /*Main*/
-.main header{
-    display: flex;
-    padding: 10px 0;
-    align-items: center;
-}
-.main header input{
-    height: 30px;
-    width: 90%;
-    min-width: 300px;
-    border-radius: 20px;
-    border: none;
-    padding: 5px 20px;
-}
-.main header form{
-    width: 600px;
-    margin-left: 15vw;
-    display: flex;
-    align-items: center;
-}
-.main header #tag-char-btn, #search-btn-label{
-    transform: translate(-70px);
-    color: #ffc600;
-    font-weight: 600;
-    padding: 5px 8px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-.main header #tag-char-btn:hover{
-    background-color: #ffc80036;
-}
-
 .main .article-wrapper{
     padding-top: 100px;
     display: flex;
@@ -74,20 +43,17 @@
 .profile-img:hover{
     border: solid #fcd137;
 }
-header .profile-img:hover{
-    border: solid white;
-}
 .location-wrapper{
     display: flex;
     flex-direction: column;
-    width: 150px;
-    padding: 5px 10px;
-    border-radius: 10px;
+    width: 12vw;
+    padding: 1% 2%;
+    border-radius: 15px;
     border: solid #ffe7999c;
     font-weight: 600;
-    color: rgba(0, 0, 0, 0.397);
+    color: #00000065;
     line-height: 1.5;
-    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.075);
+    box-shadow: 2px 2px 2px 2px #80808013;
     position: fixed;
     left: 30px;
     top: 100px;
@@ -95,20 +61,20 @@ header .profile-img:hover{
     z-index: 98;
 }
 .location-wrapper span{
-    margin: 10px 20px;
-    font-size: small;
+    margin: 10% 12%;
+    font-size: 1.2vw;
 }
 .location-wrapper #icon{
     color: rgba(128, 128, 128, 0.377);
-    font-size: small;
+    font-size: 1.2vw;
     float: right;
-    padding: 5px;
+    padding: 5%;
     cursor: pointer;
 }
 .location-wrapper .label{
     color: #ffc600;
     margin: 0;
-    font-size: medium;
+    font-size: 1.4vw;
 }
 .nothing-post-wrapper{
     font-size: large;

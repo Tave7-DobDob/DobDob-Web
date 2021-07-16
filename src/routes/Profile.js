@@ -59,7 +59,7 @@ const Profile = () => {
 
     const [locationObj, setLocationObj] = useState(user.Location);
     const [isOpenDaum, setIsOpenDaum] = useState(false);
-    
+
     const [profileImage, setProfileImage, profileUrl, _] = useFileInput(null, user.profileUrl);
     useEffect(() => {
         setEditUser(editUser => ({ ...editUser, Location: locationObj, profileUrl: profileUrl }));
@@ -68,7 +68,7 @@ const Profile = () => {
         setIsOpenDaum(prev => !prev);
     }
 
-    
+
     const [editUser, setEditUser] = useState(user);
     const onChange = (event) => {
         const { target: { value, name } } = event;
@@ -88,12 +88,12 @@ const Profile = () => {
                     const formData = new FormData();
                     formData.append('profileImage', profileImage[0])
                     axios.patch(`/user/profile/${user.id}`, formData).then(res => {
-                        res.status == 200 && 
-                        axios.patch(`/user/${user.id}`, userprofile).then(res => {
-                            axios.get(`/user/${user.id}/posts`).then(res => {
-                                setPostList(res.data.posts)
-                            });
-                        })
+                        res.status == 200 &&
+                            axios.patch(`/user/${user.id}`, userprofile).then(res => {
+                                axios.get(`/user/${user.id}/posts`).then(res => {
+                                    setPostList(res.data.posts)
+                                });
+                            })
                     })
                 }
                 else {
@@ -118,7 +118,21 @@ const Profile = () => {
         <Header />
         <div className="centerContainer wrapper">
             <div className="centerContainer main-content">
-                {isEdit ?
+                {!isEdit ?
+                    <><div className="centerContainer profile-wrapper">
+                        <div className="profile-img-wrapper">
+                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "img_p.png"} /></div>
+                        </div>
+                        <div className="sub-profile-wrapper">
+                            <span id="nickName">{user.nickName}</span>
+                            <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {user.Location.dong}</span>
+                            {isOwner && <div className="edit-btn-wrapper" onClick={onEditClick}><span className="edit-btn">프로필 수정</span></div>}
+                        </div>
+                    </div>
+                        <span>{user.nickName}님이 작성한 글</span>
+                        <hr />
+                        {postList.map(post => <PostContainer userObj={user} postObj={post} />)}
+                    </> :
                     <div className=" centerContainer profile-edit-wrapper">
                         <form className="centerContainer" onSubmit={onSubmit}>
                             <div className="centerContainer profile-edit-wrapper2">
@@ -157,20 +171,7 @@ const Profile = () => {
                             <input type="submit" value="완료" />
                         </form>
                     </div>
-                    : <><div className="centerContainer profile-wrapper">
-                        <div className="profile-img-wrapper">
-                            <div className="profile-img"><img src={user.profileUrl ? user.profileUrl : "img_p.png"} /></div>
-                        </div>
-                        <div className="sub-profile-wrapper">
-                            <span id="nickName">{user.nickName}</span>
-                            <span id="profile-location"><FontAwesomeIcon icon={faMapMarkerAlt} /> {user.Location.dong}</span>
-                            {isOwner && <div className="edit-btn-wrapper" onClick={onEditClick}><span className="edit-btn">프로필 수정</span></div>}
-                        </div>
-                    </div>
-                        <span>{user.nickName}님이 작성한 글</span>
-                        <hr />
-                        {postList.map(post => <PostContainer userObj={user} postObj={post} />)}
-                    </>}
+                }
             </div>
         </div>
     </div>);

@@ -1,3 +1,15 @@
+header{
+    background-color: #ffe799b9;
+    position: fixed;
+    top: 0;
+    padding: 10px 0;
+    width: 100%;
+    z-index: 999;
+}
+header img{
+    margin-left: 50px;
+    cursor: pointer;
+}
 header #menu-btn{
     color: rgb(128, 127, 127);
 }
@@ -45,9 +57,47 @@ header .profile-modal #logout{
     color: #f34646;
     border-top: thin solid #ffedae;
 }
+header .profile-img:hover{
+    border: solid white;
+}
 header .profile-wrapper{
     position: absolute;
     right: 50px;
     display: flex;
+    align-items: center;
+}
+.main header{
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+}
+.main header input{
+    height: 30px;
+    width: 90%;
+    min-width: 300px;
+    border-radius: 20px;
+    border: none;
+    padding: 5px 20px;
+}
+.main header form{
+    width: 600px;
+    margin-left: 15vw;
+    display: flex;
+    align-items: center;
+}
+.main header #tag-char-btn, #search-btn-label{
+    transform: translate(-70px);
+    color: #ffc600;
+    font-weight: 600;
+    padding: 5px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.main header #tag-char-btn:hover{
+    background-color: #ffc80036;
+}
+.post header{
+    display: flex;
+    padding: 10px 0;
     align-items: center;
 }
