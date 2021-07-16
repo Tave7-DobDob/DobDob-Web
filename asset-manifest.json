@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/DobDob-Web/static/css/main.cebacf6e.chunk.css",
-    "main.js": "/DobDob-Web/static/js/main.9770fc76.chunk.js",
-    "main.js.map": "/DobDob-Web/static/js/main.9770fc76.chunk.js.map",
+    "main.js": "/DobDob-Web/static/js/main.1d81b061.chunk.js",
+    "main.js.map": "/DobDob-Web/static/js/main.1d81b061.chunk.js.map",
     "runtime-main.js": "/DobDob-Web/static/js/runtime-main.b540de03.js",
     "runtime-main.js.map": "/DobDob-Web/static/js/runtime-main.b540de03.js.map",
     "static/css/2.ef8961a0.chunk.css": "/DobDob-Web/static/css/2.ef8961a0.chunk.css",
-    "static/js/2.e1448960.chunk.js": "/DobDob-Web/static/js/2.e1448960.chunk.js",
-    "static/js/2.e1448960.chunk.js.map": "/DobDob-Web/static/js/2.e1448960.chunk.js.map",
+    "static/js/2.382f8cb9.chunk.js": "/DobDob-Web/static/js/2.382f8cb9.chunk.js",
+    "static/js/2.382f8cb9.chunk.js.map": "/DobDob-Web/static/js/2.382f8cb9.chunk.js.map",
     "index.html": "/DobDob-Web/index.html",
     "static/css/2.ef8961a0.chunk.css.map": "/DobDob-Web/static/css/2.ef8961a0.chunk.css.map",
     "static/css/main.cebacf6e.chunk.css.map": "/DobDob-Web/static/css/main.cebacf6e.chunk.css.map",
-    "static/js/2.e1448960.chunk.js.LICENSE.txt": "/DobDob-Web/static/js/2.e1448960.chunk.js.LICENSE.txt",
+    "static/js/2.382f8cb9.chunk.js.LICENSE.txt": "/DobDob-Web/static/js/2.382f8cb9.chunk.js.LICENSE.txt",
     "static/media/slick-theme.css": "/DobDob-Web/static/media/slick.c94f7671.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.b540de03.js",
     "static/css/2.ef8961a0.chunk.css",
-    "static/js/2.e1448960.chunk.js",
+    "static/js/2.382f8cb9.chunk.js",
     "static/css/main.cebacf6e.chunk.css",
-    "static/js/main.9770fc76.chunk.js"
+    "static/js/main.1d81b061.chunk.js"
   ]
 }
