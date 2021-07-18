@@ -21,12 +21,12 @@
  
 <p><img src="https://img.shields.io/badge/JavaSCript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/Html5-#E34F26?style=flat-square&logo=Html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/Html5-E34F26?style=flat-square&logo=Html5&logoColor=white"/>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/></p>
 
 ### 라이브러리
 
-<p><img src="https://img.shields.io/badge/Redux-#764ABC?style=flat-square&logo=Redux&logoColor=white"/>
+<p><img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/Axios-0.21.1-blue?style=flat-square"/></p>
 
 ## 🖥 View
