@@ -44,6 +44,12 @@
     transform: translate(15vw,-100px);
     position: absolute;
 }
+.post-container .profile-img{
+    position: relative;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+}
 .profile .edit-btn{
     font-size: x-small;
     padding:  5px 10px;
@@ -54,6 +60,30 @@
 .profile .edit-btn:hover{
     color: #ffc600;
     border: thin solid #ffc600;
+}
+.post-profile-wrapper{
+    display: flex;
+    align-items: center;
+}
+.sub-profile-wrapper{
+    display: inline-flex;
+    flex-direction: column;
+    margin-left: 10px;
+    justify-content: center;
+    display: inline-flex;
+}
+.sub-profile-wrapper2{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.sub-profile-wrapper span{
+    font-size: small;
+}
+.sub-profile-wrapper #profile-location{
+    color: gray;
+    font-size: x-small;
+    margin-top: 5px;
 }
 .profile-edit-wrapper form{
     width: 100%;

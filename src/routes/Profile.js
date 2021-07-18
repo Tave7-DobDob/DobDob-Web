@@ -13,7 +13,6 @@ import { useFileInput } from '../component/useInput';
 import Modal from '../component/Modal';
 import Header from '../component/Header';
 const Profile = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
 
     const { user, isOwner } = useSelector(state => ({
@@ -22,10 +21,10 @@ const Profile = () => {
     }))
     const [postList, setPostList] = useState([]);
     useEffect(() => {
-        axios.get(`/user/${user.id}/posts`).then(res => {
+        axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/${user.id}/posts`).then(res => {
             setPostList(res.data.posts)
         });
-    }, [])
+    }, [user])
 
 
 
@@ -47,7 +46,7 @@ const Profile = () => {
             setNickError("사용가능한 닉네임입니다.");
         }
         else {
-            axios.get(`/user/nickname/${editUser.nickName}`).then(res => {
+            axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/nickname/${editUser.nickName}`).then(res => {
                 setCheckNick(!res.data.isExisted)
                 !res.data.isExisted ?
                     setNickError("사용가능한 닉네임입니다.")
@@ -87,21 +86,13 @@ const Profile = () => {
                 if (profileImage) {
                     const formData = new FormData();
                     formData.append('profileImage', profileImage[0])
-                    axios.patch(`/user/profile/${user.id}`, formData).then(res => {
+                    axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/profile/${user.id}`, formData).then(res => {
                         res.status == 200 &&
-                            axios.patch(`/user/${user.id}`, userprofile).then(res => {
-                                axios.get(`/user/${user.id}/posts`).then(res => {
-                                    setPostList(res.data.posts)
-                                });
-                            })
+                            axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/${user.id}`, userprofile)
                     })
                 }
                 else {
-                    axios.patch(`/user/${user.id}`, userprofile).then(res => {
-                        axios.get(`/user/${user.id}/posts`).then(res => {
-                            setPostList(res.data.posts)
-                        });
-                    })
+                    axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/${user.id}`, userprofile)
                 }
                 dispatch(setUserInfo({ ...editUser, profileUrl: profileUrl }));
                 dispatch(setProfileInfo({ ...editUser, profileUrl: profileUrl }, true));

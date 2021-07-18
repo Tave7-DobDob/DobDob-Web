@@ -8,7 +8,7 @@ import { setProfileInfo } from '../modules/profileInfo';
 import { setLoggedInfo } from '../modules/user';
 import axios from 'axios';
 import '../styleSheets/header.css';
-const Header = ({ onSubmit, setSearch, search, userObj }) => {
+const Header = ({ onSubmit, setSearch, search, userObj , locationObj, setPostList}) => {
     const history = useHistory();
     const dispatch = useDispatch();
     
@@ -28,11 +28,18 @@ const Header = ({ onSubmit, setSearch, search, userObj }) => {
     const onClickLogo = () => {
         search!=undefined && setSearch("");
         history.push("/");
+        if(locationObj!=undefined){
+            axios.post("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/list", {
+                data: {locationX: parseFloat(locationObj.locationX), locationY: parseFloat(locationObj.locationY)}}).then(res => {
+                setPostList(res.data.posts)
+    
+            });
+        }
     }
 
     const onClickLogout = () => {
         dispatch(setLoggedInfo(null, false));
-        axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&logout_redirect_uri=http://localhost:3000/logout`).then(() => {
+        axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&logout_redirect_uri=https://tave7-dobdob.github.io/DobDob-Web/logout`).then(() => {
             window.localStorage.clear();
             history.push("/");
             window.location.replace("/")

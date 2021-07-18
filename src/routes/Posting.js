@@ -39,7 +39,7 @@ const Posting = () => {
             formData.append('content', textObj.content)
             formData.append('tags', JSON.stringify(tagArr))
             
-            axios.post("/post/upload", formData).then(res=>{ 
+            axios.post("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/upload", formData).then(res=>{ 
                 if(res.status==201)history.push("/")
                 else{
                     throw new Error("Posting 에러")

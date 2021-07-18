@@ -27,7 +27,7 @@ const Setting = ({ userObj }) => {
             if (!checkNick) throw new Error('중복확인을 해주세요.');
             if (!locationObj) throw new Error('동네를 설정해주세요.');
             //서버 setting 정보 post 
-            axios.patch(`/user/${userObj.id}`, { nickName: nickName, location: JSON.stringify(locationObj) }).then(() => {
+            axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/${userObj.id}`, { nickName: nickName, location: JSON.stringify(locationObj) }).then(() => {
                 dispatch(setUserInfo({ ...userObj, nickName: nickName, Location: locationObj }))
                 dispatch(setSetting(true));
                 history.push("/");
@@ -50,7 +50,7 @@ const Setting = ({ userObj }) => {
         }
         else {
             //DB중복확인
-            axios.get(`/user/nickname/${nickName}`).then(res => {
+            axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/nickname/${nickName}`).then(res => {
                 setCheckNick(!res.data.isExisted)
                 !res.data.isExisted ?
                     setNickError("사용가능한 닉네임입니다.")

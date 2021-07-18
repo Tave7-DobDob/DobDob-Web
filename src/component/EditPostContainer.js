@@ -29,7 +29,13 @@ const EditPostContainer = ({ postObj, location, setIsEdit }) => {
     const onSubmit = (event) => {
         event.preventDefault();
         try {
-            axios.patch(`/post/${postObj.id}`, { ...textObj, tags: JSON.stringify(tagArr), location: JSON.stringify(locationObj) }).then(() => {
+            JSON.stringify(location)!==JSON.stringify(locationObj)?
+            axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`, { ...textObj, tags: JSON.stringify(tagArr), location: JSON.stringify(locationObj) }).then(() => {
+                dispatch(setPostInfo({ ...postObj, ...textObj, Tags: tagArr, Location: locationObj }, true));
+                setIsEdit(false);
+            })
+            :
+            axios.patch(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`, { ...textObj, tags: JSON.stringify(tagArr) }).then(() => {
                 dispatch(setPostInfo({ ...postObj, ...textObj, Tags: tagArr, Location: locationObj }, true));
                 setIsEdit(false);
             })

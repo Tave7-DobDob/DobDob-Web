@@ -13,11 +13,11 @@ const LikeComment = ({postObj, userObj, onDetailClick}) => {
 
     const onHeartClick = () => {
         isLike?
-        axios.delete(`/like/${userObj.id}/${postObj.id}`).then(()=>{
+        axios.delete(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/like/${userObj.id}/${postObj.id}`).then(()=>{
             setLikeCount(p=>p-1);
             setIsLike(false)})
         :
-        axios.post("/like", {userId:userObj.id, postId:postObj.id}).then(()=>{
+        axios.post("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/like", {userId:userObj.id, postId:postObj.id}).then(()=>{
             setLikeCount(p=>p+1);
             setIsLike(true)})
     }

@@ -15,7 +15,7 @@ const PostContainer = ({ userObj, postObj }) => {
 
 
     const onDetailClick = () => {
-        axios.get(`/post/${postObj.id}`)
+        axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`)
         .then(res=>{
             dispatch(setPostInfo(res.data.post, userObj.id==postObj.User.id))
             history.push("/post");

@@ -11,13 +11,12 @@ import axios from 'axios';
 import Header from '../component/Header';
 const Main = () => {
     const history=useHistory();
-
     const userObj = useSelector(state => state.user.userObj);
     const [postList, setPostList] = useState([]);
     const [locationObj, setLocationObj] = useState(userObj.Location);
     useEffect(() => {
-        axios.post("/post/list", {
-            locationX: parseFloat(locationObj.locationX),
+        axios.post("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/list", 
+        {locationX: parseFloat(locationObj.locationX),
             locationY: parseFloat(locationObj.locationY)
         }).then(res => {
             setPostList(res.data.posts)
@@ -30,17 +29,15 @@ const Main = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         search[0] == "#" ?
-            axios.post(`/post/list/tag`, {
+            axios.post(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/list/tag`, {
                 keyword:search.substring(1),
                 locationX: parseFloat(locationObj.locationX),
-                locationY: parseFloat(locationObj.locationY)
-            }).then(res => setPostList(res.data.posts))//태그 검색
+                locationY: parseFloat(locationObj.locationY)}).then(res => setPostList(res.data.posts))//태그 검색
             :
-            axios.post(`/post/list/title`,{
+            axios.post(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/list/title`,{
                 keyword:search,
                 locationX: parseFloat(locationObj.locationX),
-                locationY: parseFloat(locationObj.locationY)
-            }).then(res => setPostList(res.data.posts)) //제목 검색
+                locationY: parseFloat(locationObj.locationY)}).then(res => setPostList(res.data.posts)) //제목 검색
     }
     
     const [isOpenDaum, setIsOpenDaum] = useState(false);
@@ -52,7 +49,7 @@ const Main = () => {
         history.push("/posting")
     }
     return (<div className="Container main">
-        <Header onSubmit={onSubmit} search={search} setSearch={setSearch} userObj={userObj}/>
+        <Header onSubmit={onSubmit} search={search} setSearch={setSearch} userObj={userObj} locationObj={locationObj} setPostList={setPostList}/>
         <div className="centerContainer article-wrapper">
             {isOpenDaum && <div className="address-modal-bg">
                 <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum}/>}/></div> }
@@ -66,7 +63,7 @@ const Main = () => {
                     <div className="centerContainer nothing-post-wrapper"><p>해당 동네 게시물이 아직 없습니다.<br />먼저 글을 작성해보세요 !</p>
                         <img src="nothingPost.png" width="60%" />
                     </div>
-                </> : postList.map(post => <PostContainer postObj={post} userObj={userObj} />)}
+                </> : postList.map(post => <PostContainer postObj={post} userObj={userObj}/>)}
             </div>
             <FontAwesomeIcon id="plus-icon" icon={faPlus} data-toggle="tooltip" title="글쓰기" onClick={onClickPosting} />
         </div>

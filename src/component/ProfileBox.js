@@ -14,7 +14,7 @@ const ProfileBox = ({ profileObj, location, date }) => {
     const userObj = useSelector(state => state.user.userObj);
 
     const onProfileClick = () => {
-        axios.get(`/user/${profileObj.id}`).then(res => {
+        axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/user/${profileObj.id}`).then(res => {
             dispatch(setProfileInfo(res.data.user, profileObj.id == userObj.id));
             history.push("/profile");
         })

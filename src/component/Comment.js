@@ -5,7 +5,7 @@ import ProfileBox from './ProfileBox';
 const Comment = ({ commentObj, isOwner }) => {
 
     const onDelClick = () => {
-        axios.delete(`/comment/${commentObj.id}`)
+        axios.delete(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/comment/${commentObj.id}`)
     }
     return (<div className="comment">
         <div className="post-profile-wrapper">

@@ -46,8 +46,8 @@
 .location-wrapper{
     display: flex;
     flex-direction: column;
-    width: 12vw;
-    padding: 1% 2%;
+    width: 15vw;
+    padding: 0.6vw 1.2vw;
     border-radius: 15px;
     border: solid #ffe7999c;
     font-weight: 600;
@@ -61,14 +61,14 @@
     z-index: 98;
 }
 .location-wrapper span{
-    margin: 10% 12%;
+    margin: 1.2vw 12%;
     font-size: 1.2vw;
 }
 .location-wrapper #icon{
     color: rgba(128, 128, 128, 0.377);
     font-size: 1.2vw;
     float: right;
-    padding: 5%;
+    padding: 0.6vw 0;
     cursor: pointer;
 }
 .location-wrapper .label{

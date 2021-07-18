@@ -1,7 +1,8 @@
 import REACT from 'react';
 import '../styleSheets/login.css';
 const Login = () => {
-    const kauthUrl=`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&redirect_uri=http://localhost:3000/oauth&response_type=code`
+    const kauthUrl=`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&redirect_uri=https://tave7-dobdob.github.io/DobDob-Web/&response_type=code`
+
     return (<><div className="Container login">
         <header><img src="logo3.png" width="80px" /></header>
         <div className="centerContainer login-view1">

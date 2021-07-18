@@ -26,7 +26,7 @@ const Post = () => {
     const [commentArr, setCommentArr] = useState([]);
     useEffect(() => {
         const update = setInterval(() => {
-            axios.get(`/post/${postObj.id}`).then(res => {
+            axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`).then(res => {
                 dispatch(setPostInfo(res.data.post, isOwner))
                 setCommentArr(res.data.post.Comments)
             })
@@ -51,7 +51,7 @@ const Post = () => {
                 postId: postObj.id
             }
             //서버 전송
-            axios.post(`/comment/`, { ...cmt })
+            axios.post(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/comment/`, { ...cmt })
             setComment("");
         } catch (error) {
             window.alert(error.toString())
@@ -60,7 +60,7 @@ const Post = () => {
     
     const onDeleteClick = () => {
         if (window.confirm("글을 삭제하시겠습니까?") == true) {
-            axios.delete(`/post/${postObj.id}`).then(history.goBack(1))
+            axios.delete(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`).then(history.goBack(1))
         }
     }
     const onModalClick = () => {
