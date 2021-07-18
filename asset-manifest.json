@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/DobDob-Web/static/css/main.488f827d.chunk.css",
-    "main.js": "/DobDob-Web/static/js/main.697aea9b.chunk.js",
-    "main.js.map": "/DobDob-Web/static/js/main.697aea9b.chunk.js.map",
+    "main.css": "/DobDob-Web/static/css/main.6cb2f290.chunk.css",
+    "main.js": "/DobDob-Web/static/js/main.7ef5e194.chunk.js",
+    "main.js.map": "/DobDob-Web/static/js/main.7ef5e194.chunk.js.map",
     "runtime-main.js": "/DobDob-Web/static/js/runtime-main.b540de03.js",
     "runtime-main.js.map": "/DobDob-Web/static/js/runtime-main.b540de03.js.map",
     "static/css/2.ef8961a0.chunk.css": "/DobDob-Web/static/css/2.ef8961a0.chunk.css",
@@ -10,7 +10,7 @@
     "static/js/2.9cfef6c5.chunk.js.map": "/DobDob-Web/static/js/2.9cfef6c5.chunk.js.map",
     "index.html": "/DobDob-Web/index.html",
     "static/css/2.ef8961a0.chunk.css.map": "/DobDob-Web/static/css/2.ef8961a0.chunk.css.map",
-    "static/css/main.488f827d.chunk.css.map": "/DobDob-Web/static/css/main.488f827d.chunk.css.map",
+    "static/css/main.6cb2f290.chunk.css.map": "/DobDob-Web/static/css/main.6cb2f290.chunk.css.map",
     "static/js/2.9cfef6c5.chunk.js.LICENSE.txt": "/DobDob-Web/static/js/2.9cfef6c5.chunk.js.LICENSE.txt",
     "static/media/slick-theme.css": "/DobDob-Web/static/media/slick.c94f7671.ttf"
   },
@@ -18,7 +18,7 @@
     "static/js/runtime-main.b540de03.js",
     "static/css/2.ef8961a0.chunk.css",
     "static/js/2.9cfef6c5.chunk.js",
-    "static/css/main.488f827d.chunk.css",
-    "static/js/main.697aea9b.chunk.js"
+    "static/css/main.6cb2f290.chunk.css",
+    "static/js/main.7ef5e194.chunk.js"
   ]
 }
