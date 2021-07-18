@@ -23,7 +23,7 @@ const Post = () => {
         isOwner: state.postInfo.isOwner
     }));
     const userObj = useSelector(state => state.user.userObj);
-    const [commentArr, setCommentArr] = useState([]);
+    const [commentArr, setCommentArr] = useState(postObj.Comments);
     useEffect(() => {
         const update = setInterval(() => {
             axios.get(`http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/${postObj.id}`).then(res => {
