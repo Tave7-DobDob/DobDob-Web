@@ -64,13 +64,12 @@ const Header = ({ onSubmit, setSearch, search, userObj, locationObj, setPostList
             {userObj && <div className="profile-wrapper">
                 <div onClick={onClickMyPage} className="profile-img" data-toggle="tooltip" title="마이 페이지"><img src={userObj.profileUrl ? userObj.profileUrl : "img_p.png"} /></div>
                 <span>{userObj.nickName}</span>
-                <Modal isOpenMoal={isOpenMoal} setIsOpenModal={setIsOpenModal} children={<>
+                <Modal isOpenMoal={isOpenMoal} setIsOpenModal={setIsOpenModal}>
                     <button onClick={onModalClick} id="menu-btn"><FontAwesomeIcon icon={faCaretDown} /></button>
                     {isOpenMoal && <div className="profile-modal">
                         <button onClick={onClickMyPage}><FontAwesomeIcon icon={faUserCircle} id="icon" /> 프로필 보기</button>
                         <button id="logout" onClick={onClickLogout}><FontAwesomeIcon icon={faSignOutAlt} id="icon" /> 로그아웃</button>
                     </div>}
-                </>}>
                 </Modal>
             </div>}
         </header>

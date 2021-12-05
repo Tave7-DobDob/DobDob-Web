@@ -4,7 +4,7 @@ import { useState } from 'react';
 import DaumPost from '../component/DaumPost';
 import Modal from '../component/Modal';
 import '../styleSheets/profile.css';
-const EditLocation = ({locationObj, setLocationObj, editUser}) => {
+const EditLocation = ({ locationObj, setLocationObj, editUser }) => {
     const [isOpenDaum, setIsOpenDaum] = useState(false);
 
     const onClickLocation = () => {
@@ -14,7 +14,9 @@ const EditLocation = ({locationObj, setLocationObj, editUser}) => {
     return (
         <>
             {isOpenDaum && <div className="address-modal-bg">
-                <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />} /></div>}
+                <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum}>
+                    <DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />
+                </Modal></div>}
             <div className="row-container">
                 <span className="label-span">나의 동네</span>
                 <div className="address-form-wrapper">

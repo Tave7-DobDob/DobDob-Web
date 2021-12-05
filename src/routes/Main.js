@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import PostContainer from '../component/PostContainer';
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt, faPlus, faSlidersH } from "@fortawesome/free-solid-svg-icons";
-import DaumPost from '../component/DaumPost';
-import Modal from '../component/Modal';
-import { useSelector } from 'react-redux';
-import '../styleSheets/main.css';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import Header from '../component/Header';
 import Location from '../component/Main/Location';
+import PostContainer from '../component/PostContainer';
+import '../styleSheets/main.css';
 const Main = () => {
     const history=useHistory();
     const userObj = useSelector(state => state.user.userObj);
