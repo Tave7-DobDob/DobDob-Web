@@ -55,7 +55,4 @@
 
 ![image](https://user-images.githubusercontent.com/70322673/126069108-ac7c078f-9e1e-4bec-946b-f39180964ad0.png)
 
-### 배포
-[<p>👉 이웃과 나누는 동네이야기, 돕돕</p>](https://tave7-dobdob.github.io/DobDob-Web/#/)
-+ 브라우저 http 허용
        
