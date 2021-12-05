@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import DaumPost from '../component/DaumPost';
 import Modal from '../component/Modal';
 import '../styleSheets/main.css';
-const Location = ({locationObj, setLocationObj}) => {
+const Location = ({ locationObj, setLocationObj }) => {
     const [isOpenDaum, setIsOpenDaum] = useState(false);
 
     const onClickLocation = () => {
@@ -15,7 +15,9 @@ const Location = ({locationObj, setLocationObj}) => {
         <>
             {isOpenDaum &&
                 <div className="address-modal-bg">
-                    <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />} />
+                    <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum}>
+                        <DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />
+                    </Modal>
                 </div>}
             <div className="location-wrapper">
                 <span className="label">

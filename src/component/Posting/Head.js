@@ -16,7 +16,9 @@ const Head = ({ setFileArr }) => {
     return (
         <>
             {isOpenDaum && <div className="address-modal-bg">
-                <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum} children={<DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />} /></div>}
+                <Modal isOpenModal={isOpenDaum} setIsOpenModal={setIsOpenDaum}>
+                    <DaumPost setLocationObj={setLocationObj} setIsOpenModal={setIsOpenDaum} />
+                </Modal></div>}
             <div className="menu-wrapper">
                 <span className="location" data-toggle="tooltip" title="위치 재설정" onClick={onClickLocation}>
                     <FontAwesomeIcon icon={faMapMarkerAlt} id="marker" color="#ffc600" />
