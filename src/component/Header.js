@@ -8,10 +8,10 @@ import { setProfileInfo } from '../modules/profileInfo';
 import { setLoggedInfo } from '../modules/user';
 import axios from 'axios';
 import '../styleSheets/header.css';
-const Header = ({ onSubmit, setSearch, search, userObj , locationObj, setPostList}) => {
+const Header = ({ onSubmit, setSearch, search, userObj, locationObj, setPostList }) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    
+
     const onChange = (event) => {
         const { target: { value } } = event;
         setSearch(value);
@@ -26,25 +26,25 @@ const Header = ({ onSubmit, setSearch, search, userObj , locationObj, setPostLis
     }
 
     const onClickLogo = () => {
-        search!=undefined && setSearch("");
+        search != undefined && setSearch("");
         history.push("/");
-        if(locationObj!=undefined){
+        if (locationObj != undefined) {
             axios.post("http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/post/list", {
-                data: {locationX: parseFloat(locationObj.locationX), locationY: parseFloat(locationObj.locationY)}}).then(res => {
-                setPostList(res.data.posts)
-    
+                data: { locationX: parseFloat(locationObj.locationX), locationY: parseFloat(locationObj.locationY) }
+            }).then(res => {
+                setPostList(res.data.posts);
             });
         }
     }
 
     const onClickLogout = () => {
         dispatch(setLoggedInfo(null, false));
-        axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&logout_redirect_uri=https://tave7-dobdob.github.io/DobDob-Web/logout`).then(() => {
-            window.localStorage.clear();
-            history.push("/");
-            window.location.replace("/")
-        }
-        )
+        axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&logout_redirect_uri=https://tave7-dobdob.github.io/DobDob-Web/logout`)
+            .then(() => {
+                window.localStorage.clear();
+                history.push("/");
+                window.location.replace("/")
+            });
     }
     const [isOpenMoal, setIsOpenModal] = useState(false);
     const onModalClick = () => {
@@ -54,7 +54,7 @@ const Header = ({ onSubmit, setSearch, search, userObj , locationObj, setPostLis
 
     return (
         <header><img src="logo2.png" width="60px" onClick={onClickLogo} />
-            {search!=undefined && <form className="row-container" onSubmit={onSubmit}>
+            {search != undefined && <form className="row-container" onSubmit={onSubmit}>
                 <input type="text" onChange={onChange} placeholder="제목 및 태그를 검색해보세요 !" value={search} />
                 <input type="submit" value="검색" id="search-btn" style={{ display: "none" }} />
                 <span id="tag-char-btn" onClick={onClickshap}>#</span>

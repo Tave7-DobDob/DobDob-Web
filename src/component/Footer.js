@@ -1,7 +1,6 @@
-import REACT from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import '../styleSheets/footer.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../styleSheets/footer.css';
 const Footer=()=>{
     return(    
     <footer>

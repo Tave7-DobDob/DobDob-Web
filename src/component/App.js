@@ -15,9 +15,11 @@ function App() {
     isSetting: state.user.isSetting
   }))
   const accessToken = JSON.parse(window.localStorage.getItem("token"));
+
   if(accessToken){
     axios.defaults.headers.common["Authorization"] = `${accessToken.access_token}`;
   }
+
   const query = queryString.parse(window.location.search);
 
   useEffect(() => {
@@ -33,7 +35,6 @@ function App() {
         sendJwtTokenToServer();
       }
     }
-
   }, []);
 
   const getKakaoTokenHandler = async (query) => {
@@ -105,7 +106,7 @@ function App() {
       })
   }
   return (<>
-    <AppRouter isLoggedin={isLoggedin} isSetting={isSetting} userObj={userObj} />
+    <AppRouter isLoggedin={isLoggedin} isSetting={isSetting} />
     <Footer/>
 </>
   );

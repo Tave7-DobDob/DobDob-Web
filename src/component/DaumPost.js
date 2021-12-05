@@ -1,9 +1,8 @@
-import REACT, { useState } from 'react';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
 import DaumPostCode from 'react-daum-postcode';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
 const DaumPost = ({ setLocationObj , setIsOpenModal}) => {
 
     const onPostClick = () => {
