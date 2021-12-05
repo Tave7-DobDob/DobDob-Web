@@ -29,17 +29,17 @@ const Grid = ({ imgArr }) => {
               else return <div><img height="100%" src={it.url} /></div>
             })}
           </div>}
-        {imgArr.length==5&&
-        <div className="grid-container">
-          {imgArr.map((it, index) => {
-            if (index == 3) return <div>
-              <span>+ 1</span>
-              <img className="plus-img" height="100%" src={it.url} />
-            </div>
-            else if (index == 4) return
-            else return <div><img height="100%" src={it.url} /></div>
-          })}
-        </div>}
+        {imgArr.length == 5 &&
+          <div className="grid-container">
+            {imgArr.map((it, index) => {
+              if (index == 3) return <div>
+                <span>+ 1</span>
+                <img className="plus-img" height="100%" src={it.url} />
+              </div>
+              else if (index == 4) return
+              else return <div><img height="100%" src={it.url} /></div>
+            })}
+          </div>}
 
       </div>
       {isOpen &&
