@@ -15,7 +15,7 @@ const ProfileBox = ({ profileObj, location, date }) => {
 
   const onProfileClick = () => {
     axiosInstance.get(`/user/${profileObj.id}`).then((res) => {
-      dispatch(setProfileInfo(res.data.user, profileObj.id == userObj.id));
+      dispatch(setProfileInfo(res.data.user, profileObj.id === userObj.id));
       history.push("/profile");
     });
   };

@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import TextareaAutosize from "react-textarea-autosize";
 import { setPostInfo } from "../../modules/postInfo";
 import Grid from "../Grid";
 import { axiosInstance } from "../apis/instance";
-import { useInputObj } from "../useInput";
-const EditContent = ({ locationObj, tagArr, setIsEdit }) => {
+const EditContent = ({
+  postObj,
+  originLocatoin,
+  newLocation,
+  tagArr,
+  setIsEdit,
+}) => {
   const dispatch = useDispatch();
 
-  const [textObj, setTextObj] = useInputObj({
+  const [textObj, setTextObj] = useState({
     title: postObj.title,
     content: postObj.content,
   });
   const onSubmit = (event) => {
     event.preventDefault();
     try {
-      JSON.stringify(location) !== JSON.stringify(locationObj)
+      JSON.stringify(originLocatoin) !== JSON.stringify(newLocation)
         ? axiosInstance
             .patch(`/post/${postObj.id}`, {
               ...textObj,
-              tags: JSON.stringify(tagArr),
-              location: JSON.stringify(locationObj),
+              tags: tagArr,
+              locatoin: newLocation,
             })
             .then(() => {
               dispatch(
@@ -29,7 +34,7 @@ const EditContent = ({ locationObj, tagArr, setIsEdit }) => {
                     ...postObj,
                     ...textObj,
                     Tags: tagArr,
-                    Location: locationObj,
+                    Location: newLocation,
                   },
                   true
                 )
@@ -39,7 +44,7 @@ const EditContent = ({ locationObj, tagArr, setIsEdit }) => {
         : axiosInstance
             .patch(`/post/${postObj.id}`, {
               ...textObj,
-              tags: JSON.stringify(tagArr),
+              tags: tagArr,
             })
             .then(() => {
               dispatch(
@@ -48,7 +53,7 @@ const EditContent = ({ locationObj, tagArr, setIsEdit }) => {
                     ...postObj,
                     ...textObj,
                     Tags: tagArr,
-                    Location: locationObj,
+                    Location: newLocation,
                   },
                   true
                 )

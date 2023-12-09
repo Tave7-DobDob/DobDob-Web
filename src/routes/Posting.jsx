@@ -1,18 +1,21 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faImages } from "@fortawesome/free-regular-svg-icons";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import { useBeforeunload } from "react-beforeunload";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
 import DaumPost from "../component/DaumPost";
-import axios from "axios";
-import "../styleSheets/posting.css";
-import { useSelector } from "react-redux";
-import { useFileInput, useInputObj, useTagInput } from "../component/useInput";
-import { useBeforeunload } from "react-beforeunload";
-import Modal from "../component/Modal";
 import Header from "../component/Header";
+import Modal from "../component/Modal";
 import { axiosInstance } from "../component/apis/instance";
+import {
+  useFileInput,
+  useInputObj,
+  useTagInput,
+} from "../component/hooks/useInput";
+import "../styleSheets/posting.css";
 const Posting = () => {
   const history = useHistory();
   useBeforeunload((event) => event.preventDefault());
@@ -41,7 +44,7 @@ const Posting = () => {
       formData.append("tags", JSON.stringify(tagArr));
 
       axiosInstance.post("/post/upload", formData).then((res) => {
-        if (res.status == 201) history.push("/");
+        if (res.status === 201) history.push("/");
         else {
           throw new Error("Posting 에러");
         }
@@ -111,12 +114,12 @@ const Posting = () => {
                   onChange={setTextObj}
                 />
                 <hr />
-                {attachments != null && (
+                {attachments !== null && (
                   <>
                     <span id="img-count">{attachments.length}/5</span>
                     <div className="attachment-wrapper">
                       {attachments.map((img) => (
-                        <img src={img} width="100px" />
+                        <img src={img} width="100px" alt="attached" />
                       ))}
                     </div>
                     <hr />

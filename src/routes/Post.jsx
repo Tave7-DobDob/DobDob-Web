@@ -62,7 +62,7 @@ const Post = () => {
   };
 
   const onDeleteClick = () => {
-    if (window.confirm("글을 삭제하시겠습니까?") == true) {
+    if (window.confirm("글을 삭제하시겠습니까?") === true) {
       axiosInstance.delete(`/post/${postObj.id}`).then(history.goBack(1));
     }
   };
@@ -158,7 +158,7 @@ const Post = () => {
                 </form>
 
                 <div className="comment-scroll-wrapper">
-                  {commentArr.length == 0 ? (
+                  {commentArr.length === 0 ? (
                     <div className="centerContainer nothing-wrapper">
                       <h5>
                         아직 댓글이 없습니다 <FontAwesomeIcon icon={faSearch} />
@@ -168,7 +168,7 @@ const Post = () => {
                     commentArr.map((comment) => (
                       <Comment
                         commentObj={comment}
-                        isOwner={comment.User.id == userObj.id}
+                        isOwner={comment.User.id === userObj.id}
                       />
                     ))
                   )}

@@ -31,7 +31,7 @@ const PostingForm = ({ fileArr, attachments }) => {
       formData.append("tags", JSON.stringify(tagArr));
 
       axiosInstance.post("/post/upload", formData).then((res) => {
-        if (res.status == 201) history.push("/");
+        if (res.status === 201) history.push("/");
         else {
           throw new Error("Posting 에러");
         }
@@ -53,12 +53,12 @@ const PostingForm = ({ fileArr, attachments }) => {
           onChange={setTextObj}
         />
         <hr />
-        {attachments != null && (
+        {attachments !== null && (
           <>
             <span id="img-count">{attachments.length}/5</span>
             <div className="attachment-wrapper">
               {attachments.map((img) => (
-                <img src={img} width="100px" />
+                <img src={img} width="100px" alt="attached" />
               ))}
             </div>
             <hr />

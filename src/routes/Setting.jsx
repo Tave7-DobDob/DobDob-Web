@@ -18,7 +18,7 @@ const Setting = ({ userObj }) => {
   const [isOpenDaum, setIsOpenDaum] = useState(false);
   const [locationObj, setLocationObj] = useState(null);
   useEffect(() => {
-    locationObj != null && setErrorMess("");
+    locationObj !== null && setErrorMess("");
   }, [locationObj]);
 
   const onSubmit = (event) => {
@@ -79,7 +79,7 @@ const Setting = ({ userObj }) => {
     <>
       <div className="Container setting">
         <header>
-          <img src="logo2.png" width="80px" />
+          <img src="logo2.png" width="80px" alt="logo" />
         </header>
         <div className="setting-wrapper">
           <div className="text-wrapper">
@@ -88,7 +88,7 @@ const Setting = ({ userObj }) => {
               지금 바로 이웃들을 만나보세요 !
             </h1>
             <p>닉네임과 내 동네는 추후에도 변경이 가능합니다.</p>
-            <img src="setting.png" width="100%" />
+            <img src="setting.png" width="100%" alt="setting" />
           </div>
           <div className="centerContainer form-wrapper-wrapper">
             <div className="centerContainer form-wrapper">

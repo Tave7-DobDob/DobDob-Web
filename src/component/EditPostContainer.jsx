@@ -6,7 +6,7 @@ import DaumPost from "./DaumPost";
 import { useDispatch } from "react-redux";
 import { setPostInfo } from "../modules/postInfo";
 import Grid from "./Grid";
-import { useInputObj, useTagInput } from "./useInput";
+import { useInputObj, useTagInput } from "./hooks/useInput";
 import { useBeforeunload } from "react-beforeunload";
 import PropTypes from "prop-types";
 import Modal from "./Modal";

@@ -9,7 +9,7 @@ import { axiosInstance } from "./apis/instance";
 const LikeComment = ({ postObj, userObj, onDetailClick }) => {
   const [likeCount, setLikeCount] = useState(postObj.likeCount);
   const [isLike, setIsLike] = useState(
-    postObj.Likes.findIndex((i) => i.User.id == userObj.id) != -1
+    postObj.Likes.findIndex((i) => i.User.id === userObj.id) !== -1
   );
   const [likeModal, setLikeModal] = useState(false);
 
@@ -19,11 +19,8 @@ const LikeComment = ({ postObj, userObj, onDetailClick }) => {
           setLikeCount((p) => p - 1);
           setIsLike(false);
         })
-      : axios
-          .post(
-            "http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/like",
-            { userId: userObj.id, postId: postObj.id }
-          )
+      : axiosInstance
+          .post("/like", { userId: userObj.id, postId: postObj.id })
           .then(() => {
             setLikeCount((p) => p + 1);
             setIsLike(true);
@@ -35,7 +32,7 @@ const LikeComment = ({ postObj, userObj, onDetailClick }) => {
 
   return (
     <>
-      {onDetailClick == undefined ? (
+      {onDetailClick === undefined ? (
         <div className="heart-comment-wrapper">
           <FontAwesomeIcon
             id="icon"

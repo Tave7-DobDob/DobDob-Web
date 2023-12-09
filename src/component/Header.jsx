@@ -41,9 +41,9 @@ const Header = ({
   };
 
   const onClickLogo = () => {
-    search != undefined && setSearch("");
+    search !== undefined && setSearch("");
     history.push("/");
-    if (locationObj != undefined) {
+    if (locationObj !== undefined) {
       axiosInstance
         .post("/post/list", {
           data: {
@@ -76,8 +76,8 @@ const Header = ({
 
   return (
     <header>
-      <img src="logo2.png" width="60px" onClick={onClickLogo} />
-      {search != undefined && (
+      <img src="logo2.png" width="60px" onClick={onClickLogo} alt="logo" />
+      {search !== undefined && (
         <form className="row-container" onSubmit={onSubmit}>
           <input
             type="text"
@@ -107,7 +107,10 @@ const Header = ({
             data-toggle="tooltip"
             title="마이 페이지"
           >
-            <img src={userObj.profileUrl ? userObj.profileUrl : "img_p.png"} />
+            <img
+              src={userObj.profileUrl ? userObj.profileUrl : "img_p.png"}
+              alt="profile"
+            />
           </div>
           <span>{userObj.nickName}</span>
           <Modal

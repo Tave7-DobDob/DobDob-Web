@@ -32,7 +32,7 @@ const Main = () => {
   const [search, setSearch] = useState("");
   const onSubmit = (event) => {
     event.preventDefault();
-    search[0] == "#"
+    search[0] === "#"
       ? axiosInstance
           .post(`/post/list/tag`, {
             keyword: search.substring(1),
@@ -97,7 +97,7 @@ const Main = () => {
         </div>
 
         <div className="centerContainer post-wrapper">
-          {!postList || postList.length == 0 ? (
+          {!postList || postList.length === 0 ? (
             <>
               <div className="centerContainer nothing-post-wrapper">
                 <p>
@@ -105,7 +105,7 @@ const Main = () => {
                   <br />
                   먼저 글을 작성해보세요 !
                 </p>
-                <img src="nothingPost.png" width="60%" />
+                <img src="nothingPost.png" width="60%" alt="nothing" />
               </div>
             </>
           ) : (

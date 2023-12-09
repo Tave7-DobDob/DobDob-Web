@@ -1,16 +1,15 @@
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { axiosInstance } from "../apis/instance";
 import Modal from "../component/Modal";
 import ProfileBox from "../component/ProfileBox";
 import "../styleSheets/post.css";
-import { axiosInstance } from "../apis/instance";
 const Head = ({ postObj, isOwner, setIsEdit }) => {
   const history = useHistory();
   const onDeleteClick = () => {
-    if (window.confirm("글을 삭제하시겠습니까?") == true) {
+    if (window.confirm("글을 삭제하시겠습니까?") === true) {
       axiosInstance.delete(`/post/${postObj.id}`).then(history.goBack(1));
     }
   };

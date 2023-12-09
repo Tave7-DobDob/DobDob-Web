@@ -7,7 +7,7 @@ import Header from "../component/Header";
 import Modal from "../component/Modal";
 import PostContainer from "../component/PostContainer";
 import { axiosInstance } from "../component/apis/instance";
-import { useFileInput } from "../component/useInput";
+import { useFileInput } from "../component/hooks/useInput";
 import { setProfileInfo } from "../modules/profileInfo";
 import { setUserInfo } from "../modules/user";
 import "../styleSheets/profile.css";
@@ -39,7 +39,7 @@ const Profile = () => {
       setNickError(
         "- 2자 이상 20자 이하의 영문 소문자/한글(숫자혼합 가능)\n- 공백 및 특수문자 불가"
       );
-    } else if (user.nickName == editUser.nickName) {
+    } else if (user.nickName === editUser.nickName) {
       setCheckNick(true);
       setNickError("사용가능한 닉네임입니다.");
     } else {
@@ -83,7 +83,7 @@ const Profile = () => {
       if (JSON.stringify(user) === JSON.stringify(editUser)) {
         setIsEdit(false);
       } else {
-        if (user.nickName != editUser.nickName && !checkNick)
+        if (user.nickName !== editUser.nickName && !checkNick)
           throw new Error("중복확인을 해주세요.");
 
         const userprofile = {
@@ -96,7 +96,7 @@ const Profile = () => {
           axiosInstance
             .patch(`/user/profile/${user.id}`, formData)
             .then((res) => {
-              res.status == 200 &&
+              res.status === 200 &&
                 axiosInstance.patch(`/user/${user.id}`, userprofile);
             });
         } else {

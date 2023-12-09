@@ -13,7 +13,7 @@ const PostContainer = ({ userObj, postObj }) => {
 
   const onDetailClick = () => {
     axiosInstance.get(`/post/${postObj.id}`).then((res) => {
-      dispatch(setPostInfo(res.data.post, userObj.id == postObj.User.id));
+      dispatch(setPostInfo(res.data.post, userObj.id === postObj.User.id));
       history.push("/post");
     });
   };

@@ -27,7 +27,7 @@ function App() {
     if (query.code) {
       getKakaoTokenHandler(query);
     } else {
-      if (userObj == null || !accessToken.access_token) {
+      if (userObj === null || !accessToken.access_token) {
         dispatch(setLoggedInfo(null, false));
         window.localStorage.removeItem("token");
       } else {
@@ -67,56 +67,47 @@ function App() {
   };
   //일반 로그인
   const sendKakaoTokenToServer = (token) => {
-    axiosInstance
-      .post(
-        "http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/auth/kakao",
-        { ...token }
-      )
-      .then((res) => {
-        if (res.status == 201 || res.status == 200) {
-          window.localStorage.setItem(
-            "token",
-            JSON.stringify({
-              access_token: res.data.jwt,
-            })
-          );
-          axiosInstance.defaults.headers.common[
-            "Authorization"
-          ] = `${res.data.jwt}`;
+    axiosInstance.post("/auth/kakao", { ...token }).then((res) => {
+      if (res.status === 201 || res.status === 200) {
+        window.localStorage.setItem(
+          "token",
+          JSON.stringify({
+            access_token: res.data.jwt,
+          })
+        );
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `${res.data.jwt}`;
 
-          const user = res.data.user;
-          dispatch(setLoggedInfo(user, true));
-          if (user.nickName != "") {
-            dispatch(setSetting(true));
-          } else {
-            dispatch(setSetting(false));
-          }
+        const user = res.data.user;
+        dispatch(setLoggedInfo(user, true));
+        if (user.nickName !== "") {
+          dispatch(setSetting(true));
         } else {
-          window.alert("로그인에 실패하였습니다.");
+          dispatch(setSetting(false));
         }
-      });
+      } else {
+        window.alert("로그인에 실패하였습니다.");
+      }
+    });
   };
   //자동로그인
   const sendJwtTokenToServer = () => {
-    axiosInstance
-      .post(
-        "http://ec2-3-34-137-99.ap-northeast-2.compute.amazonaws.com/auth/kakao"
-      )
-      .then((res) => {
-        if (res.status == 200) {
-          const user = res.data.user;
-          dispatch(setLoggedInfo(user, true));
-          if (user.nickName != "") {
-            dispatch(setSetting(true));
-          } else {
-            dispatch(setSetting(false));
-          }
+    axiosInstance.post("/auth/kakao").then((res) => {
+      if (res.status === 200) {
+        const user = res.data.user;
+        dispatch(setLoggedInfo(user, true));
+        if (user.nickName !== "") {
+          dispatch(setSetting(true));
         } else {
-          window.alert("로그인에 실패하였습니다.");
-          dispatch(setLoggedInfo(null, false));
-          window.localStorage.removeItem("token");
+          dispatch(setSetting(false));
         }
-      });
+      } else {
+        window.alert("로그인에 실패하였습니다.");
+        dispatch(setLoggedInfo(null, false));
+        window.localStorage.removeItem("token");
+      }
+    });
   };
   return (
     <>
