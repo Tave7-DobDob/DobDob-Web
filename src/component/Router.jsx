@@ -1,11 +1,11 @@
 import REACT from 'react';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import Login from '../routes/Login';
-import Main from '../routes/Main';
-import Post from '../routes/Post';
-import Posting from '../routes/Posting';
+import Login from '../routes/Login.js';
+import Main from '../routes/Main.js';
+import Post from '../routes/Post.js';
+import Posting from '../routes/Posting.js';
 import Setting from '../routes/Setting.js';
-import Profile from '../routes/Profile';
+import Profile from '../routes/Profile.js';
 
 const AppRouter = ({ isLoggedin, isSetting }) => {
     return (<Router>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faUserCircle, faSignOutAlt, faSearch } from "@fortawesome/free-solid-svg-icons";
-import Modal from '../component/Modal';
+import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import { setProfileInfo } from '../modules/profileInfo';
 import { setLoggedInfo } from '../modules/user';
