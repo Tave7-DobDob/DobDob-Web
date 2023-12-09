@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import DaumPost from "../component/DaumPost";
-import Modal from "../component/Modal";
-import { axiosInstance } from "../component/apis/instance";
+import DaumPost from "../components/DaumPost";
+import Modal from "../components/Modal";
+import { axiosInstance } from "../components/apis/instance";
 import { setSetting, setUserInfo } from "../modules/user";
 import "../styleSheets/setting.css";
 const Setting = ({ userObj }) => {

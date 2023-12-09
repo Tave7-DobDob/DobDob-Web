@@ -7,12 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import DaumPost from "../component/DaumPost";
-import Header from "../component/Header";
-import Modal from "../component/Modal";
-import PostContainer from "../component/PostContainer";
+import DaumPost from "../components/DaumPost";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
+import PostContainer from "../components/PostContainer";
 import "../styleSheets/main.css";
-import { axiosInstance } from "../component/apis/instance";
+import { axiosInstance } from "../components/apis/instance";
 const Main = () => {
   const history = useHistory();
   const userObj = useSelector((state) => state.user.userObj);

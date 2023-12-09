@@ -6,7 +6,7 @@ import { createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import App from "./component/App";
+import App from "./components/App";
 import persistedReducer from "./modules";
 import "./style.css";
 

@@ -6,15 +6,15 @@ import { useBeforeunload } from "react-beforeunload";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
-import DaumPost from "../component/DaumPost";
-import Header from "../component/Header";
-import Modal from "../component/Modal";
-import { axiosInstance } from "../component/apis/instance";
+import DaumPost from "../components/DaumPost";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
+import { axiosInstance } from "../components/apis/instance";
 import {
   useFileInput,
   useInputObj,
   useTagInput,
-} from "../component/hooks/useInput";
+} from "../components/hooks/useInput";
 import "../styleSheets/posting.css";
 const Posting = () => {
   const history = useHistory();
